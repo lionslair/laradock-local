@@ -1030,5 +1030,5 @@ WORKDIR /var/www
 #--------------------------------------------------------------------------
 #
 
-RUN apt-get install -y --no-install-recommends jpegoptim optipng pngquant gifsicle ffmpeg imagemagick ghostscript php-imagick coreutils libjpeg-dev libpng-dev libtiff-dev libgif-dev graphviz
+RUN apt-get install -y --no-install-recommends jpegoptim optipng pngquant gifsicle ffmpeg imagemagick ghostscript php-imagick coreutils libjpeg-dev libpng-dev libtiff-dev libgif-dev
 RUN npm install -g svgo
