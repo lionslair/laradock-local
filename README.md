@@ -57,3 +57,11 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 `alias laradock-stop='cd ~/Code/laradock; docker-compose stop'`
 
 `alias laradock-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
+
+## OTHER
+
+on your local machine also run this  as root for elasticsearch
+
+`echo 'vm.max_map_count=262144' >> /etc/sysctl.conf`
+
+`sysctl -p`
