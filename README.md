@@ -52,11 +52,11 @@ copy `laravel-horizon/supervisord.d/laravel-horizon.conf.example to a new file`
 
 I have created some aliases for my system to make starting, stopping and ssh a little easier.
 
-`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana grafana php-worker laravel-horizon workspace'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon workspace'`
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana grafana php-worker laravel-horizon workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon workspace'`
 
 `alias lara-stop='cd ~/Code/laradock; docker-compose stop'`
 
