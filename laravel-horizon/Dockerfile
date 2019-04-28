@@ -20,10 +20,22 @@ RUN apk --update add wget \
   autoconf \
   cyrus-sasl-dev \
   libgsasl-dev \
-  supervisor
+  supervisor \
+  libzip-dev
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 && docker-php-ext-enable memcached
+
+# Install ZipArchive: - Force install
+# ARG INSTALL_ZIP_ARCHIVE=false
+# RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+#     docker-php-ext-configure zip --with-libzip && \
+#     # Install the zip extension
+#     docker-php-ext-install zip \
+# ;fi
+RUN docker-php-ext-configure zip --with-libzip && \
+    # Install the zip extension
+    docker-php-ext-install zip
 
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
