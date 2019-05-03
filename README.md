@@ -27,7 +27,7 @@ cd into the cloned directory. Due to some bug you need to run the first command 
 
 then run the rest of the build
 
-`docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon workspace`
+`docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace`
 
 
 ## Sites
@@ -47,16 +47,31 @@ Add new databases to `mysql/docker-entrypoint-initdb.d/createdb.sql`
 
 copy `laravel-horizon/supervisord.d/laravel-horizon.conf.example to a new file`
 
+## Dusk
+
+In order to run dusk tests you need to ensure the following exists at the end of the *selenium* config in docker-compose.yml
+
+```
+depends_on:
+  - nginx
+links:
+  - nginx:q.test
+  - nginx:screensavers.test
+  - nginx:greeta.test
+  - nginx:taskey.test
+```
+
+Take note each time you add a new site you will need to add it to the links reference [https://github.com/laradock/laradock/issues/907](https://github.com/laradock/laradock/issues/907)
 
 ## aliases
 
 I have created some aliases for my system to make starting, stopping and ssh a little easier.
 
-`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon workspace'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
 
 `alias lara-stop='cd ~/Code/laradock; docker-compose stop'`
 

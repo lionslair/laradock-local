@@ -706,6 +706,13 @@ services:
         - /dev/shm:/dev/shm
       networks:
         - frontend
+      depends_on:
+        - nginx
+      links:
+        - nginx:q.test
+        - nginx:screensavers.test
+        - nginx:greeta.test
+        - nginx:taskey.test
 
 ### Varnish ##########################################
     proxy:
