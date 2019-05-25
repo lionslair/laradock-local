@@ -1,2 +1,5 @@
 *.conf
 !default.conf
+!q.conf
+!taskey.conf
+!screensavers.conf
