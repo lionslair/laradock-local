@@ -38,10 +38,27 @@ copy `laravel.conf.example` to `yoursite.conf`
 
 edit as needed.
 
+## Hosts file
+
+Ensure to add the website hosts to your /etc/hosts file
+
+127.0.0.1 site1.test
+127.0.0.1 site2.test
+
+Also add these for convenience
+
+127.0.0.1       mysql
+127.0.0.1       elasticsearch
+127.0.0.1       redis
+127.0.0.1       kibana
 
 ## Databases
 
 Add new databases to `mysql/docker-entrypoint-initdb.d/createdb.sql`
+
+To execute this file do `docker-compose exec mysql bash`
+
+and then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql`
 
 ## Horizon
 
