@@ -101,3 +101,8 @@ on your local machine also run this as root
 `echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf`
 
 `sysctl -p`
+
+## Local UI
+
+Kibana http://localhost:5601
+Adminer http://localhost:8080/
