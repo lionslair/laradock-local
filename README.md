@@ -94,8 +94,10 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 
 ## OTHER
 
-on your local machine also run this  as root for elasticsearch
+on your local machine also run this as root
 
 `echo 'vm.max_map_count=262144' >> /etc/sysctl.conf`
+
+`echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf`
 
 `sysctl -p`
