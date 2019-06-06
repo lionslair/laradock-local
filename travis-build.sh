@@ -3,9 +3,6 @@
 #### halt script on error
 set -xe
 
-echo '##### Print docker version'
-docker --version
-
 echo '##### Print environment'
 env | sort
 
@@ -30,6 +27,9 @@ if [ -n "${PHP_VERSION}" ]; then
         # memcached extension does not yet support PHP 7.3.
         sed -i -- 's/PHP_FPM_INSTALL_MEMCACHED=true/PHP_FPM_INSTALL_MEMCACHED=false/g' .env
     fi
+
+    sed -i -- 's/CHANGE_SOURCE=true/CHANGE_SOURCE=false/g' .env
+
     cat .env
     docker-compose build ${BUILD_SERVICE}
     docker images
