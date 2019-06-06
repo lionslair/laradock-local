@@ -92,6 +92,10 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 
 `alias lara-stop='cd ~/Code/laradock; docker-compose stop'`
 
+`alias lara-redis='cd ~/Code/laradock; docker-compose exec redis bash'`
+
+`alias lara-mysql='cd ~/Code/laradock; docker-compose exec mysql bash'`
+
 ## OTHER
 
 on your local machine also run this as root
