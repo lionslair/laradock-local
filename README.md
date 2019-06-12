@@ -21,7 +21,7 @@ Clone this repository to the same directory as you have your laravel sites. eg `
 
 `git clone git@github.com:lionslair/laradock.git`
 
-cd into the cloned directory. Due to some bug you need to run the first command as root
+cd into the cloned directory. Due to some bug you need to run the first command as root. You may find that there are three files in nginx/ssl owned as root. Chown these to your user and you will not need to do the step below. Just add nginx to the full up command below.
 
 `sudo docker-compose build --no-cache nginx`
 
