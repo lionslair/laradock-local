@@ -27,7 +27,7 @@ cd into the cloned directory. Due to some bug you need to run the first command 
 
 then run the rest of the build
 
-`docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace`
+`docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx`
 
 
 ## Sites
