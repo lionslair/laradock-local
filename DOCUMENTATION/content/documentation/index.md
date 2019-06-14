@@ -394,6 +394,37 @@ Always download the latest version of [Loaders for ionCube ](http://www.ioncube.
 
 
 
+<br>
+<a name="Install-SonarQube"></a>
+
+## Install SonarQube (automatic code review tool)
+SonarQube® is an automatic code review tool to detect bugs, vulnerabilities and code smells in your code. It can integrate with your existing workflow to enable continuous code inspection across your project branches and pull requests.  
+<br>
+1 - Open the `.env` file  
+<br>
+2 - Search for the `SONARQUBE_HOSTNAME=sonar.example.com` argument  
+<br>
+3 - Set it to your-domain `sonar.example.com`  
+<br>
+4 - `docker-compose up -d sonarqube`  
+<br>
+5 - Open your browser: http://localhost:9000/
+
+Troubleshooting:  
+
+if you encounter a database error:
+```
+docker-compose exec --user=root postgres 
+source docker-entrypoint-initdb.d/init_sonarqube_db.sh
+```
+
+If you encounter logs error:
+```
+docker-compose run --user=root --rm sonarqube chown sonarqube:sonarqube /opt/sonarqube/logs 
+```
+[**SonarQube Documentation Here**](https://docs.sonarqube.org/latest/)
+
+
 
 
 
@@ -856,6 +887,67 @@ docker-compose up -d gitlab
 2 - Open your browser and visit the localhost on port **8989**:  `http://localhost:8989`
 <br>
 *Note: You may change GITLAB_DOMAIN_NAME to your own domain name like `http://gitlab.example.com` default is `http://localhost`*
+
+
+
+
+
+
+<br>
+<a name="Use-Gitlab-Runner"></a>
+## Use Gitlab Runner
+
+1 - Retrieve the registration token in your gitlab project (Settings > CI / CD > Runners > Set up a specific Runner manually)
+
+2 - Open the `.env` file and set the following changes:
+```
+# so that gitlab container will pass the correct domain to gitlab-runner container
+GITLAB_DOMAIN_NAME=http://gitlab
+
+GITLAB_RUNNER_REGISTRATION_TOKEN=<value-in-step-1>
+
+# so that gitlab-runner container will send POST request for registration to correct domain
+GITLAB_CI_SERVER_URL=http://gitlab
+```
+
+3 - Open the `docker-compose.yml` file and add the following changes:
+```yml
+    gitlab-runner:
+      environment: # these values will be used during `gitlab-runner register`
+        - RUNNER_EXECUTOR=docker # change from shell (default)
+        - DOCKER_IMAGE=alpine
+        - DOCKER_NETWORK_MODE=laradock_backend
+      networks:
+        - backend # connect to network where gitlab service is connected
+```
+
+4 - Run the Gitlab-Runner Container (`gitlab-runner`) with the `docker-compose up` command. Example:
+
+```bash
+docker-compose up -d gitlab-runner
+```
+
+5 - Register the gitlab-runner to the gitlab container
+
+```bash
+docker-compose exec gitlab-runner bash
+gitlab-runner register
+```
+
+6 - Create a `.gitlab-ci.yml` file for your pipeline
+
+```yml
+before_script:
+  - echo Hello!
+
+job1:
+  scripts:
+    - echo job1
+```
+
+7 - Push changes to gitlab
+
+8 - Verify that pipeline is run successful
 
 
 
@@ -1725,6 +1817,31 @@ To install FFMPEG in the Workspace container
 1 - Open the `.env` file
 
 2 - Search for the `WORKSPACE_INSTALL_FFMPEG` argument under the Workspace Container and set it to `true`
+
+3 - Re-build the container `docker-compose build workspace`
+
+4 - If you use the `php-worker` container too, please follow the same steps above especially if you have conversions that have been queued.
+
+**PS** Don't forget to install the binary in the `php-fpm` container too by applying the same steps above to its container, otherwise the you'll get an error when running the `php-ffmpeg` binary.
+
+
+
+
+
+
+<br>
+<a name="Install-GNU-Parallel"></a>
+## Install GNU Parallel
+
+GNU Parallel is a command line tool to run multiple processes in parallel.
+
+(see https://www.gnu.org/software/parallel/parallel_tutorial.html)
+
+To install GNU Parallel in the Workspace container
+
+1 - Open the `.env` file
+
+2 - Search for the `WORKSPACE_INSTALL_GNU_PARALLEL` argument under the Workspace Container and set it to `true`
 
 3 - Re-build the container `docker-compose build workspace`
 
