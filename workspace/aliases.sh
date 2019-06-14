@@ -150,6 +150,6 @@ function fs() {
 	fi;
 }
 
-# Custom Aliass
+# Custom Aliases
 alias lang='artisan vue-i18n:generate'
 alias wipelogs='truncate -s 0 storage/logs/*.log'
