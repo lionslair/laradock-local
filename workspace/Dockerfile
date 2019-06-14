@@ -345,7 +345,7 @@ ARG BLACKFIRE_CLIENT_TOKEN
 ENV BLACKFIRE_CLIENT_TOKEN ${BLACKFIRE_CLIENT_TOKEN}
 
 RUN if [ ${INSTALL_XDEBUG} = false -a ${INSTALL_BLACKFIRE} = true ]; then \
-    curl -L https://packagecloud.io/gpg.key | apt-key add - && \
+    curl -L https://packages.blackfire.io/gpg.key | apt-key add - && \
     echo "deb http://packages.blackfire.io/debian any main" | tee /etc/apt/sources.list.d/blackfire.list && \
     apt-get update -yqq && \
     apt-get install blackfire-agent \
@@ -433,6 +433,22 @@ RUN if [ ${INSTALL_SWOOLE} = true ]; then \
     echo "extension=swoole.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/swoole.ini && \
     ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/swoole.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-swoole.ini \
     && php -m | grep -q 'swoole' \
+;fi
+
+###########################################################################
+# Taint EXTENSION
+###########################################################################
+
+ARG INSTALL_TAINT=false
+
+RUN if [ "${INSTALL_TAINT}" = true ]; then \
+    # Install Php TAINT Extension
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+      pecl install taint && \
+      echo "extension=taint.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/taint.ini && \
+      ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/taint.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/20-taint.ini && \
+      php -m | grep -q 'taint'; \
+    fi \
 ;fi
 
 ###########################################################################
@@ -991,6 +1007,32 @@ RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
 ;fi
 
 ###########################################################################
+# ping:
+###########################################################################
+
+USER root
+
+ARG INSTALL_PING=false
+
+RUN if [ ${INSTALL_PING} = true ]; then \
+    apt-get update -yqq && \
+    apt-get -y install inetutils-ping \
+;fi
+
+###########################################################################
+# sshpass:
+###########################################################################
+
+USER root
+
+ARG INSTALL_SSHPASS=false
+
+RUN if [ ${INSTALL_SSHPASS} = true ]; then \
+    apt-get update -yqq && \
+    apt-get -y install sshpass \
+;fi
+
+###########################################################################
 # FFMpeg:
 ###########################################################################
 
@@ -1001,6 +1043,19 @@ ARG INSTALL_FFMPEG=false
 RUN if [ ${INSTALL_FFMPEG} = true ]; then \
   apt-get -y install ffmpeg \
 ;fi
+
+###########################################################################
+# GNU Parallel:
+###########################################################################
+
+USER root
+
+ARG INSTALL_GNU_PARALLEL=false
+
+RUN if [ ${INSTALL_GNU_PARALLEL} = true ]; then \
+  apt-get -y install parallel \
+;fi
+
 
 ###########################################################################
 # Check PHP version:
