@@ -2,7 +2,7 @@
 
 This repository is a customised fork of [https://github.com/laradock/laradock](https://github.com/laradock/laradock)
 
-Most of the notes here have been worked out from the lardocs documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
+Most of the notes here have been worked out from the laradocs documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
 
 ## Install / Setup
 
@@ -19,15 +19,15 @@ Make sure you have docker and docker-compose installed. See information here [ht
 
 Clone this repository to the same directory as you have your laravel sites. eg `/home/user/Code`
 
-`git clone git@github.com:lionslair/laradock.git`
+`git clone git@bitbucket.org/lionslair/laradock.git`
 
 cd into the cloned directory. Due to some bug you need to run the first command as root. You may find that there are three files in nginx/ssl owned as root. Chown these to your user and you will not need to do the step below. Just add nginx to the full up command below.
 
-`sudo docker-compose build --no-cache nginx`
-
-then run the rest of the build
-
 `docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx`
+
+If you find there are issues building the nginx container use 
+
+`sudo docker-compose build --no-cache nginx`
 
 
 ## Sites
