@@ -749,6 +749,7 @@ services:
         - nginx:screensavers.test
         - nginx:greeta.test
         - nginx:taskey.test
+        - nginx:surprise.test
 
 ### Varnish ##########################################
     proxy:
