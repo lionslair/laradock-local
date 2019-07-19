@@ -43,13 +43,17 @@ edit as needed.
 Ensure to add the website hosts to your /etc/hosts file
 
 127.0.0.1 site1.test
+
 127.0.0.1 site2.test
 
 Also add these for convenience
 
 127.0.0.1       mysql
+
 127.0.0.1       elasticsearch
+
 127.0.0.1       redis
+
 127.0.0.1       kibana
 
 ## Databases
