@@ -17,6 +17,9 @@
 #
 
 CREATE DATABASE IF NOT EXISTS `q` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `homestead`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `q` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `q`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `screensavers` COLLATE 'utf8_general_ci' ;
