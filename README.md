@@ -25,7 +25,7 @@ cd into the cloned directory. Due to some bug you need to run the first command 
 
 `docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx`
 
-If you find there are issues building the nginx container use 
+If you find there are issues building the nginx container use
 
 `sudo docker-compose build --no-cache nginx`
 
@@ -76,6 +76,7 @@ links:
   - nginx:screensavers.test
   - nginx:greeta.test
   - nginx:taskey.test
+  - nginx:surprise.test
 ```
 
 Take note each time you add a new site you will need to add it to the links reference [https://github.com/laradock/laradock/issues/907](https://github.com/laradock/laradock/issues/907)
