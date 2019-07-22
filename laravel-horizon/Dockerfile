@@ -39,14 +39,20 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
-  ;fi
+;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
 RUN if [ ${INSTALL_PGSQL} = true ]; then \
   apk --update add postgresql-dev \
   && docker-php-ext-install pdo_pgsql \
-  ;fi
+;fi
+
+# Install FFMPEG:
+ARG INSTALL_FFMPEG=false
+RUN if [ ${INSTALL_FFMPEG} = true ]; then \
+    apk --update add ffmpeg \
+;fi
 
 ###########################################################################
 # PHP Memcached:
