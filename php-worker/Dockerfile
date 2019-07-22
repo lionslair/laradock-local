@@ -84,15 +84,19 @@ USER root
 ARG INSTALL_IMAGE_OPTIMIZERS=false
 
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    apk --update add jpegoptim optipng pngquant gifsicle libpng-dev && \
     if [ ${INSTALL_NODE} = true ]; then \
         exec bash && . ~/.bashrc && npm install -g svgo \
-    ;fi\
+    ;fi && \
+    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+      docker-php-ext-configure gd \
+        --with-gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-png-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
+      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+      docker-php-ext-install -j${NPROC} gd \
 ;fi
-
-# USER laradock
-
-RUN docker-php-ext-install gd
 
 # Install AMQP:
 ARG INSTALL_AMQP=false
