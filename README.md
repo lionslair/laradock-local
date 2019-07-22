@@ -115,3 +115,17 @@ on your local machine also run this as root
 
 Kibana http://localhost:5601
 Adminer http://localhost:8080/
+
+## Docker commands
+
+Remove all docker containers in order to rebuild by running
+
+`docker-compose down`
+
+Then run lara again and all will be rebuilt.
+
+In order to rebuild a container run
+
+`docker-compose build --no-cache larvel-horizon`
+
+It is best to then restart that container or sometimes do `lara-stop` then `lara` again
