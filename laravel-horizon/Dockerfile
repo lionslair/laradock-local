@@ -55,6 +55,25 @@ RUN if [ ${INSTALL_FFMPEG} = true ]; then \
 ;fi
 
 ###########################################################################
+# Image optimizers:
+###########################################################################
+
+USER root
+
+ARG INSTALL_IMAGE_OPTIMIZERS=false
+
+RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+    apk --update add jpegoptim optipng pngquant gifsicle libpng-dev && \
+    if [ ${INSTALL_NODE} = true ]; then \
+        exec bash && . ~/.bashrc && npm install -g svgo \
+    ;fi\
+;fi
+
+# USER laradock
+
+RUN docker-php-ext-install gd
+
+###########################################################################
 # PHP Memcached:
 ###########################################################################
 
