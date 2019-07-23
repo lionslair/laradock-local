@@ -124,6 +124,10 @@ COPY ./auth.json /home/laradock/.composer/auth.json
 # Make sure that ~/.composer belongs to laradock
 RUN chown -R laradock:laradock /home/laradock/.composer
 
+# Export composer vendor path
+RUN echo "" >> ~/.bashrc && \
+    echo 'export PATH="$HOME/.composer/vendor/bin:$PATH"' >> ~/.bashrc
+
 USER laradock
 
 # Check if global install need to be ran
