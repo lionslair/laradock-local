@@ -67,8 +67,6 @@ RUN if [ ${INSTALL_FFMPEG} = true ]; then \
 # Image optimizers:
 ###########################################################################
 
-USER root
-
 ARG INSTALL_IMAGE_OPTIMIZERS=false
 
 RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
