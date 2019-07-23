@@ -126,6 +126,6 @@ Then run lara again and all will be rebuilt.
 
 In order to rebuild a container run
 
-`docker-compose build --no-cache larvel-horizon`
+`docker-compose build --no-cache laravel-horizon`
 
 It is best to then restart that container or sometimes do `lara-stop` then `lara` again
