@@ -1,9 +1,0 @@
-[program:laravel-greeta-websockets-worker]
-process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/greeta-laravel/artisan websockets:serve --port 6002
-autostart=true
-autorestart=true
-numprocs=1
-user=laradock
-redirect_stderr=true
-stdout_logfile=/var/www/greeta-laravel/storage/logs/websockets.log
