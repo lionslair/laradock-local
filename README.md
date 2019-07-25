@@ -111,6 +111,12 @@ on your local machine also run this as root
 
 `sysctl -p`
 
+When you start laradock it may create the horizon and websockets log files as root owner and group. Change the permission on the storage folder.
+
+`sudo chown -R youruser:yourgroup storage/`
+
+Laradock will not change the permissions on restart.
+
 ## Local UI
 
 Kibana http://localhost:5601
