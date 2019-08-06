@@ -43,8 +43,10 @@ GRANT ALL ON `taskey_dusk`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `surprise` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `surprise`.* TO 'homestead'@'%' ;
 
-
 CREATE DATABASE IF NOT EXISTS `surprise_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `surprise_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `laravel_websockets` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `laravel_websockets`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;
