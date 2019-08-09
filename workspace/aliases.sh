@@ -70,6 +70,7 @@ alias refresh="php artisan migrate:refresh"
 alias rollback="php artisan migrate:rollback"
 alias seed="php artisan db:seed"
 alias serve="php artisan serve --quiet &"
+alias websockets="cd /var/www/laravel-websockets/; php artisan websockets:serve"
 
 alias phpunit="./vendor/bin/phpunit"
 alias pu="phpunit"
