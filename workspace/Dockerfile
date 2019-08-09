@@ -1091,5 +1091,3 @@ WORKDIR /var/www
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends jpegoptim optipng pngquant gifsicle ffmpeg imagemagick ghostscript php-imagick coreutils libjpeg-dev libpng-dev libtiff-dev libgif-dev graphviz
 RUN npm install -g svgo
-
-EXPOSE 6001
