@@ -410,12 +410,14 @@ services:
           - http_proxy
           - https_proxy
           - no_proxy
+          - MARIADB_VERSION=${MARIADB_VERSION}
       volumes:
         - ${DATA_PATH_HOST}/mariadb:/var/lib/mysql
         - ${MARIADB_ENTRYPOINT_INITDB}:/docker-entrypoint-initdb.d
       ports:
         - "${MARIADB_PORT}:3306"
       environment:
+        - TZ=${WORKSPACE_TIMEZONE}
         - MYSQL_DATABASE=${MARIADB_DATABASE}
         - MYSQL_USER=${MARIADB_USER}
         - MYSQL_PASSWORD=${MARIADB_PASSWORD}

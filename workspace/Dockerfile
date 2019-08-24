@@ -14,8 +14,7 @@
 
 ARG LARADOCK_PHP_VERSION
 
-# FROM laradock/workspace:2.2-${LARADOCK_PHP_VERSION}
-FROM letsdockerize/laradock-workspace:2.4-${LARADOCK_PHP_VERSION}
+FROM laradock/workspace:2.5-${LARADOCK_PHP_VERSION}
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -413,6 +412,7 @@ RUN if [ ${INSTALL_AMQP} = true ]; then \
 ARG INSTALL_PHPREDIS=false
 
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
+    apt-get update -yqq && \
     apt-get install -yqq php-redis \
 ;fi
 
@@ -717,6 +717,15 @@ RUN if [ ${INSTALL_LARAVEL_ENVOY} = true ]; then \
 ###########################################################################
 
 USER laradock
+
+ARG INSTALL_LARAVEL_INSTALLER=false
+
+RUN if [ ${INSTALL_LARAVEL_INSTALLER} = true ]; then \
+    # Install the Laravel Installer
+	composer global require "laravel/installer" \
+;fi
+
+USER root
 
 ARG COMPOSER_REPO_PACKAGIST
 ENV COMPOSER_REPO_PACKAGIST ${COMPOSER_REPO_PACKAGIST}
@@ -1068,7 +1077,7 @@ RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
 
 #
 #--------------------------------------------------------------------------
-# Final Touch`
+# Final Touch
 #--------------------------------------------------------------------------
 #
 
