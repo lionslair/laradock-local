@@ -101,6 +101,8 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 
 `alias lara-mysql='cd ~/Code/laradock; docker-compose exec mysql bash'`
 
+`alias lara-workerts-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel=horizon'`
+
 ## OTHER
 
 on your local machine also run this as root
