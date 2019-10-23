@@ -26,26 +26,134 @@
     #}
 }
 
-laradock1.demo:80 {
-    root /var/www/public
-    # Create a Webhook in git.
-    #git {
-	#repo https://github.com/xxx/xxx
-    #    path /home/xxx
-    #    #interval 60
-    #    hook  webhook laradock
-    #    hook_type   generic
-    #}
-
+# Cine Q
+q.test:80 {
+    root /var/www/q/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
 }
 
-laradock2.demo:80 {
-    # Create a Proxy and cors.
-    #proxy domain.com
-	#cors
+q.test:443 {
+    root /var/www/q/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
 }
 
-laradock3.demo:80 {
-    import authlist.conf
-    root /var/www/public
+# Greeta
+greeta.test:80 {
+    root /var/www/greeta-laravel/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+greeta.test:443 {
+    root /var/www/greeta-laravel/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+# Screensavers
+screensavers.test:80 {
+    root /var/www/screensavers/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+screensavers.test:443 {
+    root /var/www/screensavers/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+#surprise
+surprise.test:80 {
+    root /var/www/surprise-and-delight/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+surprise.test:443 {
+    root /var/www/surprise-and-delight/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+#taskey
+taskey.test:80 {
+    root /var/www/taskey-laravel/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+taskey.test:443 {
+    root /var/www/taskey-laravel/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+# Websockets
+ websockets.test:80 {
+    root /var/www/laravel-websockets/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+websockets.test:443 {
+    root /var/www/laravel-websockets/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
 }

@@ -4,10 +4,15 @@ This repository is a customised fork of [https://github.com/laradock/laradock](h
 
 Most of the notes here have been worked out from the laradocs documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
 
+## Track changes
+
+In I will keep this up to date with the main laradock branch. However you should track your own changes on a fork of this repo.
+
+
+
 ## Install / Setup
 
 Follow these steps to get this up and running. This is configured to run multiple sites from one laradock not a single project.
-
 
 ### Requirements
 
@@ -32,9 +37,15 @@ If you find there are issues building the nginx container use
 
 ## Sites
 
+### NGNIX
+
 Configure sites in `./laradock/nginx/sites/`
 
 copy `laravel.conf.example` to `yoursite.conf`
+
+### Caddy
+
+Configure sites in `./caddy/caddy/Caddyfile`
 
 edit as needed.
 
@@ -89,6 +100,10 @@ Take note each time you add a new site you will need to add it to the links refe
 
 I have created some aliases for my system to make starting, stopping and ssh a little easier.
 
+with ngnix
+`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+
+with caddy
 `alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
