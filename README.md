@@ -108,7 +108,11 @@ with caddy
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
+with ngnix
 `alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+
+with caddy
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
 
 `alias lara-stop='cd ~/Code/laradock; docker-compose stop'`
 
