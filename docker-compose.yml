@@ -760,14 +760,8 @@ services:
       networks:
         - frontend
       depends_on:
-#        - nginx
         - caddy
       links:
-#        - nginx:q.test
-#        - nginx:screensavers.test
-#        - nginx:greeta.test
-#        - nginx:taskey.test
-#        - nginx:surprise.test
         - caddy:q.test
         - caddy:screensavers.test
         - caddy:greeta.test
