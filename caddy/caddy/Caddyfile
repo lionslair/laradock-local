@@ -35,6 +35,7 @@ q.test:80 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+    redir https://q.test{uri}
 }
 
 q.test:443 {
@@ -57,6 +58,7 @@ greeta.test:80 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+    redir https://greeta.test{uri}
 }
 
 greeta.test:443 {
@@ -79,6 +81,7 @@ screensavers.test:80 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+    redir https://screensavers.test{uri}
 }
 
 screensavers.test:443 {
@@ -101,6 +104,7 @@ surprise.test:80 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+    redir https://surprise.test{uri}
 }
 
 surprise.test:443 {
@@ -123,6 +127,7 @@ taskey.test:80 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+    redir https://taskey.test{uri}
 }
 
 taskey.test:443 {
@@ -145,6 +150,7 @@ taskey.test:443 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
+    redir https://websockets.test{uri}
 }
 
 websockets.test:443 {
