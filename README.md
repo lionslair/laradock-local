@@ -14,6 +14,64 @@ get steps to track remote repo here.
 
 Follow these steps to get this up and running. This is configured to run multiple sites from one laradock not a single project.
 
+### Ubuntu
+
+Install docker [https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04](https://phoenixnap.com/kb/how-to-install-docker-on-ubuntu-18-04)
+
+##### Step 1 Update Local Database
+
+Update the local database with the command:
+
+`sudo apt-get update`
+
+##### Step 2 Download Dependencies
+
+You’ll need to run these commands to allow your operating system to access the Docker repositories over HTTPS.
+
+In the terminal window, type:
+
+`sudo apt-get install apt-transport-https ca-certificates curl software-properties-common`
+
+##### Step 3 Add Docker’s GPG Key
+
+The GPG key is a security feature.
+
+To ensure that the software you’re installing is authentic enter:
+
+`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –`
+
+##### Step 4 Install docker repo
+
+To install the Docker repository, enter the command:
+
+`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"`
+ 
+The command *$(lsb_release –cs)* scans and returns the codename of your Ubuntu installation – in this case, Bionic. Also, the final word of the command – stable– is the type of Docker release.
+
+example installation of the docker repository in terminal 
+A stable release is tested and confirmed to work, but updates are released less frequently. You may substitute edge if you’d like more frequent updates, at the cost of potential instability. There are other repositories, but they are riskier – more info can be found on the [https://docs.docker.com/v17.09/engine/installation/linux/docker-ce/ubuntu/#set-up-the-repository](Docker web page).
+
+##### Step 5: Update Repositories
+Update the repositories you just added:
+
+`sudo apt-get update`
+
+##### Step 6: Install Latest Version of Docker
+To install the latest version of docker:
+
+`sudo apt-get install docker-ce`
+
+make sure its the 18.x version. I needed to do 
+
+`sudo apt-get install docker-ce=18.06.3~ce~3-0~ubuntu`
+
+##### Step 7 start at boot
+
+The Docker service needs to be setup to run at startup. To do so, type in each command followed by enter:
+
+`sudo systemctl start docker`
+`sudo systemctl enable docker`
+
 ### Requirements
 
 * Git [https://git-scm.com/downloads](https://git-scm.com/downloads)
