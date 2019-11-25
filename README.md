@@ -55,7 +55,7 @@ Update the repositories you just added:
 ##### Step 6: Install Latest Version of Docker
 To install the latest version of docker:
 
-`sudo apt-get install docker-ce docker-ce-cli containerd.io`
+`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose`
 
 make sure its the 18.x version. I needed to do 
 
