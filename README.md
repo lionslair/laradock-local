@@ -8,7 +8,19 @@ Most of the notes here have been worked out from the laradocs documentation. [ht
 
 In I will keep this up to date with the main laradock branch. However you should track your own changes on a fork of this repo.
 
-get steps to track remote repo here.
+[https://dev.to/jeremy/how-to-sync-your-fork-with-the-parent-repository-3ok1](https://dev.to/jeremy/how-to-sync-your-fork-with-the-parent-repository-3ok1)
+
+Add this repo or laradock as an upstream
+
+`git remote add upstream https://github.com/laradock/laradock.git`
+
+or mine
+
+`git remote add upstream https://lionslair@bitbucket.org/lionslair/laradock.git`
+
+get the upstream code.
+
+`git fetch upstream`
 
 ## Install / Setup
 
