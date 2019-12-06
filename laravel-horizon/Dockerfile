@@ -58,6 +58,15 @@ RUN if [ ${INSTALL_PGSQL} = true ]; then \
   && docker-php-ext-install pdo_pgsql \
 ;fi
 
+# Install PhpRedis package:
+ARG INSTALL_PHPREDIS=false
+RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
+    # Install Php Redis Extension
+    printf "\n" | pecl install -o -f redis \
+    &&  rm -rf /tmp/pear \
+    &&  docker-php-ext-enable redis \
+;fi
+
 # Install ImageMagick
 ARG INSTALL_IMAGEMAGICK=false
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
@@ -105,7 +114,7 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
   curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/2.2.0.tar.gz"; \
   else \
-  curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/php7.tar.gz"; \
+  curl -L -o /tmp/memcached.tar.gz "https://github.com/php-memcached-dev/php-memcached/archive/v3.1.3.tar.gz"; \
   fi \
   && mkdir -p memcached \
   && tar -C memcached -zxvf /tmp/memcached.tar.gz --strip 1 \
