@@ -33,7 +33,7 @@ RUN apk --update add wget \
   libzip-dev \
   procps
 
-RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
+RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
 
 # Add a non-root user:
@@ -58,6 +58,12 @@ ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
 ;fi
+
+#Install Sockets package:
+ARG INSTALL_SOCKETS=false
+RUN if [ ${INSTALL_SOCKETS} = true ]; then \
+  docker-php-ext-install sockets \
+ ;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
