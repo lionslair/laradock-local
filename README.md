@@ -246,6 +246,10 @@ Remove all docker containers in order to rebuild by running
 
 `docker-compose down`
 
+then to clean up images
+
+`docker image prune -a`
+
 Then run lara again and all will be rebuilt.
 
 In order to rebuild a container run

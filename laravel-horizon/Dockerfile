@@ -31,6 +31,7 @@ RUN apk --update add wget \
   libgsasl-dev \
   supervisor \
   libzip-dev \
+  zip \
   procps
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif
@@ -48,7 +49,9 @@ RUN addgroup -g ${PGID} laradock && \
 #Install ZipArchive: - Force install
 ARG INSTALL_ZIP_ARCHIVE=false
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+    apk --update add libzip-dev zip && \
     docker-php-ext-configure zip --with-libzip && \
+    # docker-php-ext-configure zip && \
     # Install the zip extension
     docker-php-ext-install zip \
 ;fi
