@@ -9,6 +9,14 @@ FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
+# If you're in China, or you need to change sources, will be set CHANGE_SOURCE to true in .env.
+
+ARG CHANGE_SOURCE=false
+RUN if [ ${CHANGE_SOURCE} = true ]; then \
+    # Change application source from dl-cdn.alpinelinux.org to aliyun source
+    sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/' /etc/apk/repositories \
+;fi
+
 RUN apk --update add wget \
   curl \
   git \
@@ -23,10 +31,11 @@ RUN apk --update add wget \
   libgsasl-dev \
   supervisor \
   libzip-dev \
+  zip \
   procps
 
-RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
-RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 && docker-php-ext-enable memcached
+RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif
+RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
 
 # Add a non-root user:
 ARG PUID=1000
@@ -40,7 +49,9 @@ RUN addgroup -g ${PGID} laradock && \
 #Install ZipArchive: - Force install
 ARG INSTALL_ZIP_ARCHIVE=false
 RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+    apk --update add libzip-dev zip && \
     docker-php-ext-configure zip --with-libzip && \
+    # docker-php-ext-configure zip && \
     # Install the zip extension
     docker-php-ext-install zip \
 ;fi
@@ -50,6 +61,12 @@ ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
 ;fi
+
+#Install Sockets package:
+ARG INSTALL_SOCKETS=false
+RUN if [ ${INSTALL_SOCKETS} = true ]; then \
+  docker-php-ext-install sockets \
+ ;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
@@ -80,6 +97,13 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 ARG INSTALL_FFMPEG=false
 RUN if [ ${INSTALL_FFMPEG} = true ]; then \
     apk --update add ffmpeg \
+;fi
+
+# Install MongoDB drivers:
+ARG INSTALL_MONGO=false
+RUN if [ ${INSTALL_MONGO} = true ]; then \
+  pecl install mongodb \
+  && docker-php-ext-enable mongodb \
 ;fi
 
 ###########################################################################

@@ -98,7 +98,7 @@ Clone this repository to the same directory as you have your laravel sites. eg `
 
 cd into the cloned directory. Due to some bug you need to run the first command as root. You may find that there are three files in nginx/ssl owned as root. Chown these to your user and you will not need to do the step below. Just add nginx to the full up command below.
 
-`docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx`
+`docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx sqs`
 
 
 *If you find there are issues building the nginx container use*
@@ -188,20 +188,20 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 
 #### Start
 with ngnix
-`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 with caddy
-`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
 #### Restart
 
 with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 #### Stop
 
@@ -217,7 +217,7 @@ with caddy
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel-horizon'`
+`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel-horizon'; docker-compose exec sqs sh -c "supervisorctl restart elasticmq"`
 
 ## OTHER
 
@@ -239,12 +239,17 @@ Laradock will not change the permissions on restart.
 
 Kibana http://localhost:5601
 Adminer http://localhost:8080/
+SQS http://localhost:9325/
 
 ## Docker commands
 
 Remove all docker containers in order to rebuild by running
 
 `docker-compose down`
+
+then to clean up images
+
+`docker image prune -a`
 
 Then run lara again and all will be rebuilt.
 
@@ -253,3 +258,8 @@ In order to rebuild a container run
 `docker-compose build --no-cache laravel-horizon`
 
 It is best to then restart that container or sometimes do `lara-stop` then `lara` again
+
+
+## Extra
+
+We are running a local SQS tyope service. Repo is here https://hub.docker.com/r/roribio16/alpine-sqs Used for Q
