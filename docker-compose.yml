@@ -57,6 +57,8 @@ services:
       build:
         context: ./workspace
         args:
+          - CHANGE_SOURCE=${CHANGE_SOURCE}
+          - UBUNTU_SOURCE=${UBUNTU_SOURCE}
           - LARADOCK_PHP_VERSION=${PHP_VERSION}
           - LARADOCK_PHALCON_VERSION=${PHALCON_VERSION}
           - INSTALL_SUBVERSION=${WORKSPACE_INSTALL_SUBVERSION}
@@ -112,6 +114,7 @@ services:
           - INSTALL_MYSQL_CLIENT=${WORKSPACE_INSTALL_MYSQL_CLIENT}
           - INSTALL_PING=${WORKSPACE_INSTALL_PING}
           - INSTALL_SSHPASS=${WORKSPACE_INSTALL_SSHPASS}
+          - INSTALL_AST=${WORKSPACE_INSTALL_AST}
           - INSTALL_YAML=${WORKSPACE_INSTALL_YAML}
           - INSTALL_MAILPARSE=${WORKSPACE_INSTALL_MAILPARSE}
           - PUID=${WORKSPACE_PUID}
@@ -120,6 +123,7 @@ services:
           - NODE_VERSION=${WORKSPACE_NODE_VERSION}
           - YARN_VERSION=${WORKSPACE_YARN_VERSION}
           - DRUSH_VERSION=${WORKSPACE_DRUSH_VERSION}
+          - AST_VERSION=${WORKSPACE_AST_VERSION}
           - TZ=${WORKSPACE_TIMEZONE}
           - BLACKFIRE_CLIENT_ID=${BLACKFIRE_CLIENT_ID}
           - BLACKFIRE_CLIENT_TOKEN=${BLACKFIRE_CLIENT_TOKEN}
@@ -130,8 +134,6 @@ services:
           - http_proxy
           - https_proxy
           - no_proxy
-          - CHANGE_SOURCE=${CHANGE_SOURCE}
-          - UBUNTU_SOURCE=${UBUNTU_SOURCE}
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
         - ./php-worker/supervisord.d:/etc/supervisord.d
@@ -299,9 +301,9 @@ services:
       build:
         context: ./nginx
         args:
+          - CHANGE_SOURCE=${CHANGE_SOURCE}
           - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
           - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
-          - CHANGE_SOURCE=${CHANGE_SOURCE}
           - http_proxy
           - https_proxy
           - no_proxy
@@ -1569,3 +1571,15 @@ services:
       networks:
         - backend
         - frontend
+
+### AWS SQS FAKER ############################################
+    sqs:
+      image: roribio16/alpine-sqs:latest
+      ports:
+        - "9324:9324"
+        - "9325:9325"
+      volumes:
+        - "./sqs-config:/opt/custom"
+      networks:
+        - frontend
+        - backend

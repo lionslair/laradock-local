@@ -188,20 +188,20 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 
 #### Start
 with ngnix
-`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 with caddy
-`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
 #### Restart
 
 with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
 
 #### Stop
 
@@ -239,12 +239,17 @@ Laradock will not change the permissions on restart.
 
 Kibana http://localhost:5601
 Adminer http://localhost:8080/
+SQS http://localhost:9325/
 
 ## Docker commands
 
 Remove all docker containers in order to rebuild by running
 
 `docker-compose down`
+
+then to clean up images
+
+`docker image prune -a`
 
 Then run lara again and all will be rebuilt.
 
