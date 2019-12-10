@@ -1571,3 +1571,15 @@ services:
       networks:
         - backend
         - frontend
+
+### AWS SQS FAKER ############################################
+    sqs:
+      image: roribio16/alpine-sqs:latest
+      ports:
+        - "9324:9324"
+        - "9325:9325"
+      volumes:
+        - "./sqs-config:/opt/custom"
+      networks:
+        - frontend
+        - backend
