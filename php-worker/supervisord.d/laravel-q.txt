@@ -1,0 +1,8 @@
+[program:laravel-worker-q]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/q/artisan queue:work --queue=q,q-broadcast,q-scout,q-ffmpeg,q-import,q-event-sourcing,q-campaign-schedule,q-permanent-generator,q-billing,q-export --tries=0
+autostart=true
+autorestart=true
+redirect_stderr=true
+user=laradock
+stdout_logfile=/var/www/q/storage/logs/php-worker.log
