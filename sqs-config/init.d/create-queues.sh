@@ -1,13 +1,13 @@
 #!/bin/sh
 echo "Init SQS default queues"
 
-awslocal sqs create-queue --queue-name cineq-local-default
-awslocal sqs create-queue --queue-name cineq-local-broadcast
-awslocal sqs create-queue --queue-name cineq-local-scout
-awslocal sqs create-queue --queue-name cineq-local-ffmpeg
-awslocal sqs create-queue --queue-name cineq-local-import
-awslocal sqs create-queue --queue-name cineq-local-event-sourcing
-awslocal sqs create-queue --queue-name cineq-local-campaign-schedule
-awslocal sqs create-queue --queue-name cineq-local-permanent-generator
-awslocal sqs create-queue --queue-name cineq-local-billing
-awslocal sqs create-queue --queue-name cineq-local-export
+awslocal sqs create-queue --queue-name cineq-local-default --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-broadcast --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-scout --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-ffmpeg --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-import --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-event-sourcing --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-campaign-schedule --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-permanent-generator --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-billing --attributes VisibilityTimeout=3600
+awslocal sqs create-queue --queue-name cineq-local-export --attributes VisibilityTimeout=3600
