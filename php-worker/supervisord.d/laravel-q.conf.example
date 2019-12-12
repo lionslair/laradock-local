@@ -1,0 +1,9 @@
+[program:laravel-worker-q]
+process_name=%(program_name)s_%(process_num)02d
+command=php /var/www/q/artisan queue:work --queue=cineq-local-default,cineq-local-broadcast,cineq-local-scout,cineq-local-ffmpeg,cineq-local-import,cineq-local-event-sourcing,cineq-local-campaign-schedule,cineq-local-permanent-generator,cineq-local-billing,cineq-local-export --timeout=3600 --memory=512
+autostart=true
+autorestart=true
+redirect_stderr=true
+user=laradock
+stdout_logfile=/var/www/q/storage/logs/php-worker.log
+numprocs=4
