@@ -239,7 +239,7 @@ Laradock will not change the permissions on restart.
 
 Kibana http://localhost:5601
 Adminer http://localhost:8080/
-SQS http://localhost:9325/
+SQS http://localhost:9325/ (requires a running sqs-ui container)
 
 ## Docker commands
 
@@ -262,4 +262,5 @@ It is best to then restart that container or sometimes do `lara-stop` then `lara
 
 ## Extra
 
-We are running a local SQS tyope service. Repo is here https://hub.docker.com/r/roribio16/alpine-sqs Used for Q
+We are running a local SQS type service. Repo is here https://hub.docker.com/r/roribio16/alpine-sqs (used for the UI) and https://hub.docker.com/r/localstack/localstack (used for the actual SQS mock)
+- Used for Q
