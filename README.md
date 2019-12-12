@@ -217,7 +217,7 @@ with caddy
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel-horizon'; docker-compose exec sqs sh -c "supervisorctl restart elasticmq"`
+`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel-horizon'`
 
 ## OTHER
 
