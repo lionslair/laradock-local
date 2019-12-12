@@ -1574,9 +1574,24 @@ services:
 
 ### AWS SQS FAKER ############################################
     sqs:
+      image: localstack/localstack
+      ports:
+        - "4576:4576"
+      environment:
+        - SERVICES=sqs
+        - HOSTNAME_EXTERNAL=sqs
+        - DOCKER_HOST=unix:///var/run/docker.sock
+      volumes:
+      # this is in the docs, but doesnt work for me on macOS
+      #   - "${TMPDIR:-/tmp/localstack}:/tmp/localstack"
+        - "./sqs-config/init.d:/docker-entrypoint-initaws.d"
+      networks:
+        - frontend
+        - backend
+    sqs-ui:
       image: roribio16/alpine-sqs:latest
       ports:
-        - "9324:9324"
+        # - "9324:9324"
         - "9325:9325"
       volumes:
         - "./sqs-config:/opt/custom"       
