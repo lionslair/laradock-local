@@ -188,20 +188,20 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 
 #### Start
 with ngnix
-`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqsv sqs-ui'`
 
 with caddy
-`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
 #### Restart
 
 with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
 
 with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
 
 #### Stop
 
