@@ -49,6 +49,10 @@ volumes:
     driver: ${VOLUMES_DRIVER}
   dind:
     driver: ${VOLUMES_DRIVER}
+  # sqs:
+  #   driver: ${VOLUMES_DRIVER}
+  # sqs-ui:
+  #   driver: ${VOLUMES_DRIVER}
 
 services:
 
