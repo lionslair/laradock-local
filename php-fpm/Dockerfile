@@ -812,6 +812,7 @@ RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
 
 COPY ./laravel.ini /usr/local/etc/php/conf.d
 COPY ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
+#COPY ./mitmproxy-ca-cert.pem /usr/local/etc/php/
 
 USER root
 

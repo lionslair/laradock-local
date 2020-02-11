@@ -149,6 +149,8 @@ services:
       environment:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
         - DOCKER_HOST=tcp://docker-in-docker:2375
+#        - http_proxy=http://192.168.1.26:8181
+#        - https_proxy=http://192.168.1.26:8181
       networks:
         - frontend
         - backend
@@ -226,6 +228,8 @@ services:
         - PHP_IDE_CONFIG=${PHP_IDE_CONFIG}
         - DOCKER_HOST=tcp://docker-in-docker:2375
         - FAKETIME=${PHP_FPM_FAKETIME}
+#        - http_proxy=http://192.168.1.26:8181
+#        - https_proxy=http://192.168.1.26:8181
       depends_on:
         - workspace
       networks:
