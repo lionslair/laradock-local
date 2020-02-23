@@ -4,10 +4,12 @@
 #--------------------------------------------------------------------------
 #
 
-ARG PHP_VERSION=${PHP_VERSION}
-FROM php:${PHP_VERSION}-alpine
+ARG LARADOCK_PHP_VERSION
+FROM php:${LARADOCK_PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+
+ARG LARADOCK_PHP_VERSION
 
 # If you're in China, or you need to change sources, will be set CHANGE_SOURCE to true in .env.
 
@@ -32,12 +34,13 @@ RUN apk --update add wget \
   supervisor \
   libzip-dev \
   zip \
+  oniguruma-dev \
   procps
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif
+RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif mbstring
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
 
-# Add a non-root user:
+# Add a non-root user to help install ffmpeg:
 ARG PUID=1000
 ENV PUID ${PUID}
 ARG PGID=1000
@@ -56,24 +59,38 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     docker-php-ext-install zip \
 ;fi
 
+#Install BZ2:
+ARG INSTALL_BZ2=false
+RUN if [ ${INSTALL_BZ2} = true ]; then \
+  apk --update add bzip2-dev; \
+  docker-php-ext-install bz2 \
+;fi
+
+#Install GMP package:
+ARG INSTALL_GMP=false
+RUN if [ ${INSTALL_GMP} = true ]; then \
+   apk add --update --no-cache gmp gmp-dev; \
+   docker-php-ext-install gmp \
+;fi
+
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
-;fi
+  ;fi
 
 #Install Sockets package:
 ARG INSTALL_SOCKETS=false
 RUN if [ ${INSTALL_SOCKETS} = true ]; then \
   docker-php-ext-install sockets \
- ;fi
+  ;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
 RUN if [ ${INSTALL_PGSQL} = true ]; then \
   apk --update add postgresql-dev \
   && docker-php-ext-install pdo_pgsql \
-;fi
+  ;fi
 
 # Install PhpRedis package:
 ARG INSTALL_PHPREDIS=false
@@ -104,6 +121,24 @@ ARG INSTALL_MONGO=false
 RUN if [ ${INSTALL_MONGO} = true ]; then \
   pecl install mongodb \
   && docker-php-ext-enable mongodb \
+  ;fi
+
+###########################################################################
+# YAML: extension
+###########################################################################
+
+ARG INSTALL_YAML=false
+
+RUN if [ ${INSTALL_YAML} = true ]; then \
+     apk --update add -U --no-cache --virtual temp yaml-dev \
+     && apk add --no-cache yaml \
+     && docker-php-source extract \
+     && pecl channel-update pecl.php.net \
+     && pecl install yaml \
+     && docker-php-ext-enable yaml \
+     && pecl clear-cache \
+     && docker-php-source delete \
+     && apk del temp \
 ;fi
 
 ###########################################################################
