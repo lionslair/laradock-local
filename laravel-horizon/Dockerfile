@@ -32,8 +32,6 @@ RUN apk --update add wget \
   cyrus-sasl-dev \
   libgsasl-dev \
   supervisor \
-  libzip-dev \
-  zip \
   oniguruma-dev \
   procps
 
