@@ -1,4 +1,4 @@
-FROM adminer:latest
+FROM adminer:4
 
 LABEL maintainer="Patrick Artounian <partounian@gmail.com>"
 
