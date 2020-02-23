@@ -6,6 +6,7 @@
 
 ARG LARADOCK_PHP_VERSION
 FROM php:${LARADOCK_PHP_VERSION}-alpine
+#FROM laradock/php-fpm:2.7-${LARADOCK_PHP_VERSION}
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -32,6 +33,8 @@ RUN apk --update add wget \
   cyrus-sasl-dev \
   libgsasl-dev \
   supervisor \
+  libzip-dev \
+  zip \
   oniguruma-dev \
   procps
 
@@ -47,15 +50,20 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
-#Install ZipArchive: - Force install
-ARG INSTALL_ZIP_ARCHIVE=false
-RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
-    apk --update add libzip-dev zip && \
-    docker-php-ext-configure zip --with-libzip && \
-    # docker-php-ext-configure zip && \
+# Install ZipArchive: Force Install
+ARG PHP_WORKER_INSTALL_ZIP_ARCHIVE=false
+RUN set -eux; \
+  if [ ${PHP_WORKER_INSTALL_ZIP_ARCHIVE} = true ]; then \
+    apk --update add libzip-dev && \
+    if [ ${LARADOCK_PHP_VERSION} = "7.3" ] || [ ${LARADOCK_PHP_VERSION} = "7.4" ]; then \
+      docker-php-ext-configure zip; \
+    else \
+      docker-php-ext-configure zip --with-libzip; \
+    fi && \
     # Install the zip extension
     docker-php-ext-install zip \
 ;fi
+
 
 #Install BZ2:
 ARG INSTALL_BZ2=false
@@ -143,22 +151,22 @@ RUN if [ ${INSTALL_YAML} = true ]; then \
 # Image optimizers:
 ###########################################################################
 
-ARG INSTALL_IMAGE_OPTIMIZERS=false
-
-RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    if [ ${INSTALL_NODE} = true ]; then \
-        exec bash && . ~/.bashrc && npm install -g svgo \
-    ;fi && \
-    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
-    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-      docker-php-ext-configure gd \
-        --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
-      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-      docker-php-ext-install -j${NPROC} gd \
-;fi
+#ARG INSTALL_IMAGE_OPTIMIZERS=false
+#
+#RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+#    if [ ${INSTALL_NODE} = true ]; then \
+#        exec bash && . ~/.bashrc && npm install -g svgo \
+#    ;fi && \
+#    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+#    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+#      docker-php-ext-configure gd \
+#        --with-gd \
+#        --with-freetype-dir=/usr/include/ \
+#        --with-png-dir=/usr/include/ \
+#        --with-jpeg-dir=/usr/include/ && \
+#      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+#      docker-php-ext-install -j${NPROC} gd \
+#;fi
 
 ###########################################################################
 # PHP Memcached:
