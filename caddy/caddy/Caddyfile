@@ -35,7 +35,7 @@ q.test:80 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
-    redir https://q.test{uri}
+    #redir https://q.test{uri}
 }
 
 q.test:443 {
