@@ -255,7 +255,7 @@ then to clean up volumes
 
 `docker volume prune`
 
-Then run lara again and all will be rebuilt.
+Then run `lara` again and all will be rebuilt.
 
 In order to rebuild a container run
 
