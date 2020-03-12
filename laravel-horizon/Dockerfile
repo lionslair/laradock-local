@@ -4,10 +4,13 @@
 #--------------------------------------------------------------------------
 #
 
-ARG PHP_VERSION=${PHP_VERSION}
-FROM php:${PHP_VERSION}-alpine
+ARG LARADOCK_PHP_VERSION
+FROM php:${LARADOCK_PHP_VERSION}-alpine
+#FROM laradock/php-fpm:2.7-${LARADOCK_PHP_VERSION}
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+
+ARG LARADOCK_PHP_VERSION
 
 # If you're in China, or you need to change sources, will be set CHANGE_SOURCE to true in .env.
 
@@ -32,12 +35,13 @@ RUN apk --update add wget \
   supervisor \
   libzip-dev \
   zip \
+  oniguruma-dev \
   procps
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif
+RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif mbstring
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
 
-# Add a non-root user:
+# Add a non-root user to help install ffmpeg:
 ARG PUID=1000
 ENV PUID ${PUID}
 ARG PGID=1000
@@ -46,33 +50,58 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
-#Install ZipArchive: - Force install
-ARG INSTALL_ZIP_ARCHIVE=false
-RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
-    apk --update add libzip-dev zip && \
-    docker-php-ext-configure zip --with-libzip && \
-    # docker-php-ext-configure zip && \
-    # Install the zip extension
-    docker-php-ext-install zip \
+#Install BZ2:
+ARG INSTALL_BZ2=false
+RUN if [ ${INSTALL_BZ2} = true ]; then \
+  apk --update add bzip2-dev; \
+  docker-php-ext-install bz2 \
+;fi
+
+#Install GD package:
+ARG INSTALL_GD=false
+RUN if [ ${INSTALL_GD} = true ]; then \
+   apk add --update --no-cache libpng-dev; \
+   docker-php-ext-install gd \
+;fi
+
+#Install GMP package:
+ARG INSTALL_GMP=false
+RUN if [ ${INSTALL_GMP} = true ]; then \
+   apk add --update --no-cache gmp gmp-dev; \
+   docker-php-ext-install gmp \
 ;fi
 
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
-;fi
+  ;fi
 
 #Install Sockets package:
 ARG INSTALL_SOCKETS=false
 RUN if [ ${INSTALL_SOCKETS} = true ]; then \
   docker-php-ext-install sockets \
- ;fi
+  ;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
 RUN if [ ${INSTALL_PGSQL} = true ]; then \
   apk --update add postgresql-dev \
   && docker-php-ext-install pdo_pgsql \
+  ;fi
+
+# Install ZipArchive:
+ARG INSTALL_ZIP_ARCHIVE=false
+RUN set -eux; \
+  if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+    apk --update add libzip-dev && \
+    if [ ${LARADOCK_PHP_VERSION} = "7.3" ] || [ ${LARADOCK_PHP_VERSION} = "7.4" ]; then \
+      docker-php-ext-configure zip; \
+    else \
+      docker-php-ext-configure zip --with-libzip; \
+    fi && \
+    # Install the zip extension
+    docker-php-ext-install zip \
 ;fi
 
 # Install PhpRedis package:
@@ -104,28 +133,46 @@ ARG INSTALL_MONGO=false
 RUN if [ ${INSTALL_MONGO} = true ]; then \
   pecl install mongodb \
   && docker-php-ext-enable mongodb \
+  ;fi
+
+###########################################################################
+# YAML: extension
+###########################################################################
+
+ARG INSTALL_YAML=false
+
+RUN if [ ${INSTALL_YAML} = true ]; then \
+     apk --update add -U --no-cache --virtual temp yaml-dev \
+     && apk add --no-cache yaml \
+     && docker-php-source extract \
+     && pecl channel-update pecl.php.net \
+     && pecl install yaml \
+     && docker-php-ext-enable yaml \
+     && pecl clear-cache \
+     && docker-php-source delete \
+     && apk del temp \
 ;fi
 
 ###########################################################################
 # Image optimizers:
 ###########################################################################
 
-ARG INSTALL_IMAGE_OPTIMIZERS=false
-
-RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    if [ ${INSTALL_NODE} = true ]; then \
-        exec bash && . ~/.bashrc && npm install -g svgo \
-    ;fi && \
-    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
-    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-      docker-php-ext-configure gd \
-        --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
-      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-      docker-php-ext-install -j${NPROC} gd \
-;fi
+#ARG INSTALL_IMAGE_OPTIMIZERS=false
+#
+#RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+#    if [ ${INSTALL_NODE} = true ]; then \
+#        exec bash && . ~/.bashrc && npm install -g svgo \
+#    ;fi && \
+#    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+#    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+#      docker-php-ext-configure gd \
+#        --with-gd \
+#        --with-freetype-dir=/usr/include/ \
+#        --with-png-dir=/usr/include/ \
+#        --with-jpeg-dir=/usr/include/ && \
+#      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+#      docker-php-ext-install -j${NPROC} gd \
+#;fi
 
 ###########################################################################
 # PHP Memcached:
