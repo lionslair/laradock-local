@@ -560,8 +560,14 @@ composer update
 ```bash
 phpunit
 ```
-
-
+```
+vue serve
+```
+(browse the results at `http://localhost:[WORKSPACE_VUE_CLI_SERVE_HOST_PORT]`)
+```
+vue ui
+```
+(browse the results at `http://localhost:[WORKSPACE_VUE_CLI_UI_HOST_PORT]`)
 
 
 

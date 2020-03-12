@@ -55,6 +55,13 @@ RUN if [ ${INSTALL_BZ2} = true ]; then \
   docker-php-ext-install bz2; \
 fi
 
+#Install GD package:
+ARG INSTALL_GD=false
+RUN if [ ${INSTALL_GD} = true ]; then \
+   apk add --update --no-cache libpng-dev; \
+   docker-php-ext-install gd \
+;fi
+
 #Install GMP package:
 ARG INSTALL_GMP=false
 RUN if [ ${INSTALL_GMP} = true ]; then \
@@ -98,11 +105,7 @@ RUN set -eux; \
 # Install MySQL Client:
 ARG INSTALL_MYSQL_CLIENT=false
 RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
-    if [ ${LARADOCK_PHP_VERSION} = "7.3" ]; then \
-      apk --update add default-mysql-client \
-    ;else \
       apk --update add mysql-client \
-    ;fi \
 ;fi
 
 # Install ImageMagick
