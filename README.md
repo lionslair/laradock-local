@@ -238,7 +238,7 @@ Laradock will not change the permissions on restart.
 ## Local UI
 
 Kibana http://localhost:5601
-Adminer http://localhost:8080/
+Adminer http://localhost:8090/
 SQS http://localhost:9325/ (requires a running sqs-ui container)
 
 ## Docker commands
