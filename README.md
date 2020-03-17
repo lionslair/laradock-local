@@ -198,10 +198,10 @@ with caddy
 #### Restart
 
 with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace'`
 
 with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace'`
 
 #### Stop
 
@@ -217,7 +217,12 @@ with caddy
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel-horizon'`
+`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon'`
+
+#### Extra containers
+You can add any of the extra containers you may want or need to run
+
+`php-worker sqs sqs-ui`
 
 ## OTHER
 
@@ -238,7 +243,7 @@ Laradock will not change the permissions on restart.
 ## Local UI
 
 Kibana http://localhost:5601
-Adminer http://localhost:8090/
+Adminer http://localhost:8090/ (requires adminer container)
 SQS http://localhost:9325/ (requires a running sqs-ui container)
 
 ## Docker commands
