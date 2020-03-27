@@ -74,7 +74,7 @@ greeta.test:443 {
 
 # Greeta Wordpress
 greeta-wordpress.test:80 {
-    root /var/www/greeta-wordpress
+    root /var/www/greeta-wordpress/public
     fastcgi / php-fpm:9000 php {
         index index.php
     }
@@ -85,7 +85,7 @@ greeta-wordpress.test:80 {
 }
 
 greeta-wordpress.test:443 {
-    root /var/www/greeta-wordpress
+    root /var/www/greeta-wordpress/public
     tls self_signed
     fastcgi / php-fpm:9000 php {
         index index.php
