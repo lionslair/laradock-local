@@ -72,6 +72,29 @@ greeta.test:443 {
     }
 }
 
+# Greeta Wordpress
+greeta-wordpress.test:80 {
+    root /var/www/greeta-wordpress
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+    #redir https://greeta-wordpress.test{uri}
+}
+
+greeta-wordpress.test:443 {
+    root /var/www/greeta-wordpress
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
 # Screensavers
 screensavers.test:80 {
     root /var/www/screensavers/public
