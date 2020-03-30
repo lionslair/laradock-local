@@ -96,29 +96,34 @@ Clone this repository to the same directory as you have your laravel sites. eg `
 
 `git clone git@bitbucket.org/lionslair/laradock.git`
 
-cd into the cloned directory. Due to some bug you need to run the first command as root. You may find that there are three files in nginx/ssl owned as root. Chown these to your user and you will not need to do the step below. Just add nginx to the full up command below.
+cd into the cloned directory and run the command below.
 
-`docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx sqs sqs-ui`
-
-
-*If you find there are issues building the nginx container use*
-
-`sudo docker-compose build --no-cache nginx`
+`docker-compose up -d caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace`
 
 
 ## Sites
 
-### NGNIX
-
-Configure sites in `./laradock/nginx/sites/`
-
-copy `laravel.conf.example` to `yoursite.conf`
-
 ### Caddy
+
+*Only edit this if using caddy. You can not use Caddy and Nginx together. Caddy is the default in this setup*
 
 Configure sites in `./caddy/caddy/Caddyfile`
 
 edit as needed.
+
+### NGNIX
+
+*If you are going to use nginx you can not use SSL hosts.  There used to be a bug about building the nginx container and needing root. This seems be be solved if not try the below*
+
+`sudo docker-compose build --no-cache nginx`
+
+*If using nginx then your start command will be *
+
+`docker-compose up -d nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace`
+
+Configure sites in `./laradock/nginx/sites/`
+
+copy `laravel.conf.example` to `yoursite.conf`
 
 ## Hosts file
 
