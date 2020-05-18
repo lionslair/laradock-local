@@ -262,6 +262,11 @@ Kibana http://localhost:5601
 Adminer http://localhost:8090/ (requires adminer container)
 SQS http://localhost:9325/ (requires a running sqs-ui container)
 
+## Dev Tools
+Xdebug is installed by default.
+
+follow the phpstorm instructions here [https://medium.com/@chenpohsun_12588/set-debugger-using-xdebug-with-phpstorm-laradock-454e8c2ad0d9](https://medium.com/@chenpohsun_12588/set-debugger-using-xdebug-with-phpstorm-laradock-454e8c2ad0d9)
+
 ## Docker commands
 
 Remove all docker containers in order to rebuild by running
