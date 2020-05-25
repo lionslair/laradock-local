@@ -142,6 +142,29 @@ surprise.test:443 {
 }
 
 #taskey
+babyrzepecki.test:80 {
+    root /var/www/babyrzepecki
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+    #redir https://babyrzepecki.test{uri}
+}
+
+babyrzepecki.test:443 {
+    root /var/www/babyrzepecki
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+#taskey
 taskey.test:80 {
     root /var/www/taskey-laravel/public
     fastcgi / php-fpm:9000 php {
