@@ -209,3 +209,51 @@ websockets.test:443 {
         to {path} {path}/ /index.php?{query}
     }
 }
+
+
+# hctech_cars
+ hctech-cars.test:80 {
+    root /var/www/hctech_cars
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+    #redir https://websockets.test{uri}
+}
+
+hctech-cars.test:443 {
+    root /var/www/hctech_cars
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
+
+
+# cartrack
+ cartrack.test:80 {
+    root /var/www/cartrack/public
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+    #redir https://cartrack.test{uri}
+}
+
+cartrack.test:443 {
+    root /var/www/cartrack/public
+    tls self_signed
+    fastcgi / php-fpm:9000 php {
+        index index.php
+    }
+    rewrite {
+        to {path} {path}/ /index.php?{query}
+    }
+}
