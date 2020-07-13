@@ -258,11 +258,6 @@ RUN if [ $INSTALL_GHOSTSCRIPT = true ]; then \
     apk --update add ghostscript \
 ;fi
 
-###########################################################################
-# PHP REDIS EXTENSION
-###########################################################################
-ARG INSTALL_REDIS=false
-
 # Install Redis package:
 ARG INSTALL_REDIS=false
 RUN if [ ${INSTALL_REDIS} = true ]; then \
