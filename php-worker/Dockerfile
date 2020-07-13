@@ -34,7 +34,9 @@ RUN apk --update add wget \
   oniguruma-dev \
   supervisor \
   libzip-dev \
-  procps
+  procps \
+  openssl \
+  openssl-dev
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
@@ -62,6 +64,16 @@ RUN if [ ${INSTALL_GD} = true ]; then \
    docker-php-ext-install gd \
 ;fi
 
+# Install ImageMagick
+ARG INSTALL_IMAGEMAGICK=false
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && apk del autoconf g++ libtool make pcre-dev \
+;fi
+
+
 #Install GMP package:
 ARG INSTALL_GMP=false
 RUN if [ ${INSTALL_GMP} = true ]; then \
@@ -79,6 +91,47 @@ RUN if [ ${INSTALL_SOAP} = true ]; then \
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
     docker-php-ext-install bcmath \
+;fi
+
+###########################################################################
+# PHP OCI8:
+###########################################################################
+
+ARG INSTALL_OCI8=false
+
+ENV LD_LIBRARY_PATH="/usr/local/instantclient"
+ENV ORACLE_HOME="/usr/local/instantclient"
+
+RUN if [ ${INSTALL_OCI8} = true ] && [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+    apk add make php7-pear php7-dev gcc musl-dev libnsl libaio poppler-utils libzip-dev zip unzip libaio-dev freetds-dev && \
+    ## Download and unarchive Instant Client v11
+      curl -o /tmp/basic.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-basic-linux.x64-11.2.0.4.0.zip && \
+      curl -o /tmp/sdk.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-sdk-linux.x64-11.2.0.4.0.zip && \
+      curl -o /tmp/sqlplus.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-sqlplus-linux.x64-11.2.0.4.0.zip && \
+      unzip -d /usr/local/ /tmp/basic.zip && \
+      unzip -d /usr/local/ /tmp/sdk.zip && \
+      unzip -d /usr/local/ /tmp/sqlplus.zip \
+    ## Links are required for older SDKs
+      && ln -s /usr/local/instantclient_11_2 ${ORACLE_HOME} && \
+      ln -s ${ORACLE_HOME}/libclntsh.so.* ${ORACLE_HOME}/libclntsh.so && \
+      ln -s ${ORACLE_HOME}/libocci.so.* ${ORACLE_HOME}/libocci.so && \
+      ln -s ${ORACLE_HOME}/lib* /usr/lib && \
+      ln -s ${ORACLE_HOME}/sqlplus /usr/bin/sqlplus &&\
+      ln -s /usr/lib/libnsl.so.2.0.0  /usr/lib/libnsl.so.1 && \
+    ## Build OCI8 with PECL
+      echo "instantclient,${ORACLE_HOME}" | pecl install oci8 && \
+      echo 'extension=oci8.so' > /etc/php7/conf.d/30-oci8.ini \
+    #  Clean up
+    apk del php7-pear php7-dev gcc musl-dev && \
+    rm -rf /tmp/*.zip /tmp/pear/ && \
+    docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,/usr/local/instantclient \
+        && docker-php-ext-configure pdo_dblib --with-libdir=/lib \
+        && docker-php-ext-install pdo_oci \
+        && docker-php-ext-enable oci8 \
+        && docker-php-ext-install zip && \
+          # Install the zip extension
+          docker-php-ext-configure zip && \
+          php -m | grep -q 'zip' \
 ;fi
 
 # Install PostgreSQL drivers:
@@ -106,15 +159,6 @@ RUN set -eux; \
 ARG INSTALL_MYSQL_CLIENT=false
 RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
       apk --update add mysql-client \
-;fi
-
-# Install ImageMagick
-ARG INSTALL_IMAGEMAGICK=false
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make pcre-dev \
 ;fi
 
 # Install FFMPEG:
@@ -168,6 +212,17 @@ RUN if [ ${INSTALL_GEARMAN} = true ]; then \
     sh -c 'echo "extension=/usr/lib/php7/modules/gearman.so" > /usr/local/etc/php/conf.d/gearman.ini' \
 ;fi
 
+###########################################################################
+# PHP REDIS EXTENSION
+###########################################################################
+
+ARG INSTALL_PHPREDIS=false
+
+RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
+    apt-get update -yqq && \
+    apt-get install -yqq php-redis \
+;fi
+
 # Install Cassandra drivers:
 ARG INSTALL_CASSANDRA=false
 RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
@@ -195,6 +250,13 @@ ENV PHALCON_VERSION ${PHALCON_VERSION}
 
 RUN if [ $INSTALL_PHALCON = true ]; then \
     apk --update add unzip gcc make re2c bash\
+    && git clone https://github.com/jbboehr/php-psr.git \
+    && cd php-psr \
+    && phpize \
+    && ./configure \
+    && make \
+    && make test \
+    && make install \
     && curl -L -o /tmp/cphalcon.zip https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.zip \
     && unzip -d /tmp/ /tmp/cphalcon.zip \
     && cd /tmp/cphalcon-${PHALCON_VERSION}/build \
@@ -248,6 +310,28 @@ RUN if [ ${INSTALL_TAINT} = true ]; then \
       pecl install taint; \
     fi && \
     docker-php-ext-enable taint \
+;fi
+
+###########################################################################
+# Imap EXTENSION
+###########################################################################
+
+ARG INSTALL_IMAP=false
+
+RUN if [ ${INSTALL_IMAP} = true ]; then \
+    apk add --update imap-dev openssl-dev && \
+    docker-php-ext-configure imap --with-imap --with-imap-ssl && \
+    docker-php-ext-install imap \
+;fi
+
+###########################################################################
+# XMLRPC:
+###########################################################################
+
+ARG INSTALL_XMLRPC=false
+
+RUN if [ ${INSTALL_XMLRPC} = true ]; then \
+    docker-php-ext-install xmlrpc \
 ;fi
 
 #
