@@ -219,8 +219,7 @@ RUN if [ ${INSTALL_GEARMAN} = true ]; then \
 ARG INSTALL_PHPREDIS=false
 
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
-    apt-get update -yqq && \
-    apt-get install -yqq php-redis \
+    apk --update add php-redis \
 ;fi
 
 # Install Cassandra drivers:
