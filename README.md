@@ -214,10 +214,10 @@ with caddy
 #### Restart
 
 with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace php-worker'`
 
 with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace php-worker'`
 
 #### Stop
 
@@ -233,7 +233,7 @@ with caddy
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon'`
+`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon php-worker'`
 
 #### Extra containers
 You can add any of the extra containers you may want or need to run
