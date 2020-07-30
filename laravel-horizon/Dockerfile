@@ -6,7 +6,6 @@
 
 ARG LARADOCK_PHP_VERSION
 FROM php:${LARADOCK_PHP_VERSION}-alpine
-#FROM laradock/php-fpm:2.7-${LARADOCK_PHP_VERSION}
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -71,6 +70,16 @@ RUN if [ ${INSTALL_GMP} = true ]; then \
    docker-php-ext-install gmp \
 ;fi
 
+#Install ImageMagick package:
+ARG INSTALL_IMAGEMAGICK=false
+RUN set -eux; \
+  if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apk add --update --no-cache imagemagick-dev; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick; \
+    php -m | grep -q 'imagick'; \
+  fi
+
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
@@ -111,15 +120,6 @@ RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     printf "\n" | pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis \
-;fi
-
-# Install ImageMagick
-ARG INSTALL_IMAGEMAGICK=false
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make pcre-dev \
 ;fi
 
 # Install FFMPEG:
