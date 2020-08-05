@@ -26,18 +26,15 @@ RUN apk --update add wget \
   libmemcached-dev \
   libmcrypt-dev \
   libxml2-dev \
-  pcre-dev \
   zlib-dev \
   autoconf \
   cyrus-sasl-dev \
   libgsasl-dev \
   supervisor \
-  libzip-dev \
-  zip \
   oniguruma-dev \
   procps
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif mbstring
+RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
 
 # Add a non-root user to help install ffmpeg:
@@ -79,6 +76,15 @@ RUN set -eux; \
     docker-php-ext-enable imagick; \
     php -m | grep -q 'imagick'; \
   fi
+
+## Install ImageMagick
+#ARG INSTALL_IMAGEMAGICK=false
+#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+#    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
+#    && pecl install imagick \
+#    && docker-php-ext-enable imagick \
+#    && apk del autoconf g++ libtool make pcre-dev \
+#;fi
 
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
@@ -122,10 +128,30 @@ RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     &&  docker-php-ext-enable redis \
 ;fi
 
-# Install FFMPEG:
 ARG INSTALL_FFMPEG=false
 RUN if [ ${INSTALL_FFMPEG} = true ]; then \
-    apk --update add ffmpeg \
+   # Add ffmpeg to horizon
+    apk add ffmpeg \
+;fi
+
+# Install Cassandra drivers:
+ARG INSTALL_CASSANDRA=false
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+  apk --update add cassandra-cpp-driver \
+  ;fi
+
+WORKDIR /usr/src
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+  git clone https://github.com/datastax/php-driver.git \
+  && cd php-driver/ext \
+  && phpize \
+  && mkdir -p /usr/src/php-driver/build \
+  && cd /usr/src/php-driver/build \
+  && ../ext/configure > /dev/null \
+  && make clean >/dev/null \
+  && make >/dev/null 2>&1 \
+  && make install \
+  && docker-php-ext-enable cassandra \
 ;fi
 
 # Install MongoDB drivers:
@@ -151,30 +177,6 @@ RUN if [ ${INSTALL_YAML} = true ]; then \
      && pecl clear-cache \
      && docker-php-source delete \
      && apk del temp \
-;fi
-
-###########################################################################
-# Image optimizers:
-###########################################################################
-
-ARG INSTALL_IMAGE_OPTIMIZERS=false
-
-RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    if [ ${INSTALL_NODE} = true ]; then \
-        exec bash && . ~/.bashrc && npm install -g svgo \
-    ;fi && \
-    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
-    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-      docker-php-ext-configure gd \
-#        --with-gd \
-        --with-freetype \
-#        --with-freetype-dir=/usr/include/ \
-#        --with-png \
-#        --with-png-dir=/usr/include/ \
-        --with-jpeg && \
-#        --with-jpeg-dir=/usr/include/ && \
-      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-      docker-php-ext-install -j${NPROC} gd \
 ;fi
 
 ###########################################################################
@@ -228,6 +230,27 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 # If you need to modify this image, feel free to do it right here.
 #
 # -- Your awesome modifications go here -- #
+
+
+###########################################################################
+# Image optimizers:
+# # https://github.com/docker-library/php/issues/912#issuecomment-559918036
+###########################################################################
+
+ARG INSTALL_IMAGE_OPTIMIZERS=false
+
+RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+    if [ ${INSTALL_NODE} = true ]; then \
+        exec bash && . ~/.bashrc && npm install -g svgo \
+    ;fi && \
+    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+     docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg && \
+      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+      docker-php-ext-install -j${NPROC} gd \
+;fi
 
 #
 #--------------------------------------------------------------------------

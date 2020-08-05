@@ -70,7 +70,6 @@ alias refresh="php artisan migrate:refresh"
 alias rollback="php artisan migrate:rollback"
 alias seed="php artisan db:seed"
 alias serve="php artisan serve --quiet &"
-alias websockets="cd /var/www/laravel-websockets/; php artisan websockets:serve"
 
 alias phpunit="./vendor/bin/phpunit"
 alias pu="phpunit"
@@ -153,4 +152,5 @@ function fs() {
 
 # Custom Aliases
 alias lang='artisan vue-i18n:generate'
-alias wipelogs='truncate -s 0 storage/logs/*.*'
+alias wipelogs='truncate -s 0 storage/logs/*.log'
+alias websockets="cd /var/www/laravel-websockets/; php artisan websockets:serve"

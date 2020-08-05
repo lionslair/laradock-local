@@ -259,7 +259,7 @@ Laradock will not change the permissions on restart.
 ## Local UI
 
 Kibana http://localhost:5601
-Adminer http://localhost:8090/ (requires adminer container)
+Adminer http://localhost:8081/ (requires adminer container)
 SQS http://localhost:9325/ (requires a running sqs-ui container)
 
 ## Dev Tools
@@ -272,6 +272,10 @@ follow the phpstorm instructions here [https://medium.com/@chenpohsun_12588/set-
 Remove all docker containers in order to rebuild by running
 
 `docker-compose down`
+
+then to clean up containers
+
+`docker container prune`
 
 then to clean up images
 

@@ -32,14 +32,16 @@ RUN apk --update add wget \
   cyrus-sasl-dev \
   libgsasl-dev \
   oniguruma-dev \
-  supervisor \
-  libzip-dev \
-  procps \
   openssl \
-  openssl-dev
+  openssl-dev \
+  supervisor
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
-RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
+RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+  pecl channel-update pecl.php.net && pecl install memcached-2.2.0 mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb \
+;else \
+  pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb \
+;fi
 
 # Add a non-root user:
 ARG PUID=1000
@@ -64,15 +66,13 @@ RUN if [ ${INSTALL_GD} = true ]; then \
    docker-php-ext-install gd \
 ;fi
 
-# Install ImageMagick
+#Install ImageMagick:
 ARG INSTALL_IMAGEMAGICK=false
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make pcre-dev \
+  apk add --update imagemagick-dev imagemagick; \
+  pecl install imagick; \
+  docker-php-ext-enable imagick \
 ;fi
-
 
 #Install GMP package:
 ARG INSTALL_GMP=false
@@ -167,30 +167,6 @@ RUN if [ ${INSTALL_FFMPEG} = true ]; then \
     apk --update add ffmpeg \
 ;fi
 
-###########################################################################
-# Image optimizers:
-###########################################################################
-
-ARG INSTALL_IMAGE_OPTIMIZERS=false
-
-RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    if [ ${INSTALL_NODE} = true ]; then \
-        exec bash && . ~/.bashrc && npm install -g svgo \
-    ;fi && \
-    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
-    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-      docker-php-ext-configure gd \
-#        --with-gd \
-        --with-freetype \
-#        --with-freetype-dir=/usr/include/ \
-#        --with-png \
-#        --with-png-dir=/usr/include/ \
-        --with-jpeg && \
-#        --with-jpeg-dir=/usr/include/ && \
-      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-      docker-php-ext-install -j${NPROC} gd \
-;fi
-
 # Install AMQP:
 ARG INSTALL_AMQP=false
 
@@ -261,9 +237,8 @@ RUN if [ $INSTALL_GHOSTSCRIPT = true ]; then \
 # Install Redis package:
 ARG INSTALL_REDIS=false
 RUN if [ ${INSTALL_REDIS} = true ]; then \
-    apk add --update --no-cache autoconf \
     # Install Redis Extension
-    && printf "\n" | pecl install -o -f redis \
+    printf "\n" | pecl install -o -f redis \
     &&  rm -rf /tmp/pear \
     &&  docker-php-ext-enable redis \
 ;fi
@@ -344,7 +319,36 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #
 # If you need to modify this image, feel free to do it right here.
 #
-    # -- Your awesome modifications go here -- #
+
+# Install ImageMagick
+#ARG INSTALL_IMAGEMAGICK=false
+#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+#    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
+#    && pecl install imagick \
+#    && docker-php-ext-enable imagick \
+#    && apk del autoconf g++ libtool make pcre-dev \
+#;fi
+
+###########################################################################
+# Image optimizers:
+# https://github.com/docker-library/php/issues/912#issuecomment-559918036
+###########################################################################
+
+ARG INSTALL_IMAGE_OPTIMIZERS=false
+
+RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+    if [ ${INSTALL_NODE} = true ]; then \
+        exec bash && . ~/.bashrc && npm install -g svgo \
+    ;fi && \
+    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+       docker-php-ext-configure gd \
+          --with-freetype \
+          --with-jpeg && \
+      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+      docker-php-ext-install -j${NPROC} gd \
+;fi
+
 
 #
 #--------------------------------------------------------------------------
@@ -365,5 +369,3 @@ RUN rm /var/cache/apk/* \
     && mkdir -p /var/www
 
 WORKDIR /etc/supervisor/conf.d/
-
-EXPOSE 6001
