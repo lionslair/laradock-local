@@ -4,10 +4,12 @@
 #--------------------------------------------------------------------------
 #
 
-ARG PHP_VERSION=${PHP_VERSION}
-FROM php:${PHP_VERSION}-alpine
+ARG LARADOCK_PHP_VERSION
+FROM php:${LARADOCK_PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+
+ARG LARADOCK_PHP_VERSION
 
 # If you're in China, or you need to change sources, will be set CHANGE_SOURCE to true in .env.
 
@@ -29,12 +31,19 @@ RUN apk --update add wget \
   autoconf \
   cyrus-sasl-dev \
   libgsasl-dev \
+  oniguruma-dev \
+  openssl \
+  openssl-dev \
   supervisor \
   libzip-dev \
   procps
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
-RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
+RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+  pecl channel-update pecl.php.net && pecl install memcached-2.2.0 mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb \
+;else \
+  pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb \
+;fi
 
 # Add a non-root user:
 ARG PUID=1000
@@ -44,6 +53,35 @@ ENV PGID ${PGID}
 
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
+
+#Install BZ2:
+ARG INSTALL_BZ2=false
+RUN if [ ${INSTALL_BZ2} = true ]; then \
+  apk --update add bzip2-dev; \
+  docker-php-ext-install bz2; \
+fi
+
+#Install GD package:
+ARG INSTALL_GD=false
+RUN if [ ${INSTALL_GD} = true ]; then \
+   apk add --update --no-cache libpng-dev; \
+   docker-php-ext-install gd \
+;fi
+
+#Install ImageMagick:
+ARG INSTALL_IMAGEMAGICK=false
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+  apk add --update imagemagick-dev imagemagick; \
+  pecl install imagick; \
+  docker-php-ext-enable imagick \
+;fi
+
+#Install GMP package:
+ARG INSTALL_GMP=false
+RUN if [ ${INSTALL_GMP} = true ]; then \
+   apk add --update --no-cache gmp gmp-dev \
+   && docker-php-ext-install gmp \
+;fi
 
 #Install SOAP package:
 ARG INSTALL_SOAP=false
@@ -57,6 +95,47 @@ RUN if [ ${INSTALL_BCMATH} = true ]; then \
     docker-php-ext-install bcmath \
 ;fi
 
+###########################################################################
+# PHP OCI8:
+###########################################################################
+
+ARG INSTALL_OCI8=false
+
+ENV LD_LIBRARY_PATH="/usr/local/instantclient"
+ENV ORACLE_HOME="/usr/local/instantclient"
+
+RUN if [ ${INSTALL_OCI8} = true ] && [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+    apk add make php7-pear php7-dev gcc musl-dev libnsl libaio poppler-utils libzip-dev zip unzip libaio-dev freetds-dev && \
+    ## Download and unarchive Instant Client v11
+      curl -o /tmp/basic.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-basic-linux.x64-11.2.0.4.0.zip && \
+      curl -o /tmp/sdk.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-sdk-linux.x64-11.2.0.4.0.zip && \
+      curl -o /tmp/sqlplus.zip https://raw.githubusercontent.com/bumpx/oracle-instantclient/master/instantclient-sqlplus-linux.x64-11.2.0.4.0.zip && \
+      unzip -d /usr/local/ /tmp/basic.zip && \
+      unzip -d /usr/local/ /tmp/sdk.zip && \
+      unzip -d /usr/local/ /tmp/sqlplus.zip \
+    ## Links are required for older SDKs
+      && ln -s /usr/local/instantclient_11_2 ${ORACLE_HOME} && \
+      ln -s ${ORACLE_HOME}/libclntsh.so.* ${ORACLE_HOME}/libclntsh.so && \
+      ln -s ${ORACLE_HOME}/libocci.so.* ${ORACLE_HOME}/libocci.so && \
+      ln -s ${ORACLE_HOME}/lib* /usr/lib && \
+      ln -s ${ORACLE_HOME}/sqlplus /usr/bin/sqlplus &&\
+      ln -s /usr/lib/libnsl.so.2.0.0  /usr/lib/libnsl.so.1 && \
+    ## Build OCI8 with PECL
+      echo "instantclient,${ORACLE_HOME}" | pecl install oci8 && \
+      echo 'extension=oci8.so' > /etc/php7/conf.d/30-oci8.ini \
+    #  Clean up
+    apk del php7-pear php7-dev gcc musl-dev && \
+    rm -rf /tmp/*.zip /tmp/pear/ && \
+    docker-php-ext-configure pdo_oci --with-pdo-oci=instantclient,/usr/local/instantclient \
+        && docker-php-ext-configure pdo_dblib --with-libdir=/lib \
+        && docker-php-ext-install pdo_oci \
+        && docker-php-ext-enable oci8 \
+        && docker-php-ext-install zip && \
+          # Install the zip extension
+          docker-php-ext-configure zip && \
+          php -m | grep -q 'zip' \
+;fi
+
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
 RUN if [ ${INSTALL_PGSQL} = true ]; then \
@@ -66,9 +145,14 @@ RUN if [ ${INSTALL_PGSQL} = true ]; then \
 
 # Install ZipArchive:
 ARG INSTALL_ZIP_ARCHIVE=false
-RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+RUN set -eux; \
+  if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
     apk --update add libzip-dev && \
-    docker-php-ext-configure zip --with-libzip && \
+    if [ ${LARADOCK_PHP_VERSION} = "7.3" ] || [ ${LARADOCK_PHP_VERSION} = "7.4" ]; then \
+      docker-php-ext-configure zip; \
+    else \
+      docker-php-ext-configure zip --with-libzip; \
+    fi && \
     # Install the zip extension
     docker-php-ext-install zip \
 ;fi
@@ -76,47 +160,13 @@ RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
 # Install MySQL Client:
 ARG INSTALL_MYSQL_CLIENT=false
 RUN if [ ${INSTALL_MYSQL_CLIENT} = true ]; then \
-    if [ ${PHP_VERSION} = "7.3" ]; then \
-      apk --update add default-mysql-client \
-    ;else \
       apk --update add mysql-client \
-    ;fi \
-;fi
-
-# Install ImageMagick
-ARG INSTALL_IMAGEMAGICK=false
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make pcre-dev \
 ;fi
 
 # Install FFMPEG:
 ARG INSTALL_FFMPEG=false
 RUN if [ ${INSTALL_FFMPEG} = true ]; then \
     apk --update add ffmpeg \
-;fi
-
-###########################################################################
-# Image optimizers:
-###########################################################################
-
-ARG INSTALL_IMAGE_OPTIMIZERS=false
-
-RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-    if [ ${INSTALL_NODE} = true ]; then \
-        exec bash && . ~/.bashrc && npm install -g svgo \
-    ;fi && \
-    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
-    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-      docker-php-ext-configure gd \
-        --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
-      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-      docker-php-ext-install -j${NPROC} gd \
 ;fi
 
 # Install AMQP:
@@ -133,7 +183,31 @@ RUN if [ ${INSTALL_AMQP} = true ]; then \
 ARG INSTALL_GEARMAN=false
 
 RUN if [ ${INSTALL_GEARMAN} = true ]; then \
-    docker-php-ext-install gearman \
+    sed -i "\$ahttp://dl-cdn.alpinelinux.org/alpine/edge/main" /etc/apk/repositories && \
+    sed -i "\$ahttp://dl-cdn.alpinelinux.org/alpine/edge/community" /etc/apk/repositories && \
+    sed -i "\$ahttp://dl-cdn.alpinelinux.org/alpine/edge/testing" /etc/apk/repositories && \
+    apk --update add php7-gearman && \
+    sh -c 'echo "extension=/usr/lib/php7/modules/gearman.so" > /usr/local/etc/php/conf.d/gearman.ini' \
+;fi
+
+# Install Cassandra drivers:
+ARG INSTALL_CASSANDRA=false
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+  apk --update add cassandra-cpp-driver \
+  ;fi
+
+WORKDIR /usr/src
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+  git clone https://github.com/datastax/php-driver.git \
+  && cd php-driver/ext \
+  && phpize \
+  && mkdir -p /usr/src/php-driver/build \
+  && cd /usr/src/php-driver/build \
+  && ../ext/configure --with-php-config=/usr/bin/php-config7.1 > /dev/null \
+  && make clean >/dev/null \
+  && make >/dev/null 2>&1 \
+  && make install \
+  && docker-php-ext-enable cassandra \
 ;fi
 
 # Install Phalcon ext
@@ -143,6 +217,13 @@ ENV PHALCON_VERSION ${PHALCON_VERSION}
 
 RUN if [ $INSTALL_PHALCON = true ]; then \
     apk --update add unzip gcc make re2c bash\
+    && git clone https://github.com/jbboehr/php-psr.git \
+    && cd php-psr \
+    && phpize \
+    && ./configure \
+    && make \
+    && make test \
+    && make install \
     && curl -L -o /tmp/cphalcon.zip https://github.com/phalcon/cphalcon/archive/v${PHALCON_VERSION}.zip \
     && unzip -d /tmp/ /tmp/cphalcon.zip \
     && cd /tmp/cphalcon-${PHALCON_VERSION}/build \
@@ -150,16 +231,9 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
     && rm -rf /tmp/cphalcon* \
 ;fi
 
-ARG INSTALL_GHOSTSCRIPT
+ARG INSTALL_GHOSTSCRIPT=false
 RUN if [ $INSTALL_GHOSTSCRIPT = true ]; then \
     apk --update add ghostscript \
-;fi
-
-#Install GMP package:
-ARG INSTALL_GMP=false
-RUN if [ ${INSTALL_GMP} = true ]; then \
-   apk add --update --no-cache gmp gmp-dev \
-   && docker-php-ext-install gmp \
 ;fi
 
 # Install Redis package:
@@ -205,6 +279,28 @@ RUN if [ ${INSTALL_TAINT} = true ]; then \
     docker-php-ext-enable taint \
 ;fi
 
+###########################################################################
+# Imap EXTENSION
+###########################################################################
+
+ARG INSTALL_IMAP=false
+
+RUN if [ ${INSTALL_IMAP} = true ]; then \
+    apk add --update imap-dev openssl-dev && \
+    docker-php-ext-configure imap --with-imap --with-imap-ssl && \
+    docker-php-ext-install imap \
+;fi
+
+###########################################################################
+# XMLRPC:
+###########################################################################
+
+ARG INSTALL_XMLRPC=false
+
+RUN if [ ${INSTALL_XMLRPC} = true ]; then \
+    docker-php-ext-install xmlrpc \
+;fi
+
 #
 #--------------------------------------------------------------------------
 # Optional Supervisord Configuration
@@ -225,7 +321,37 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #
 # If you need to modify this image, feel free to do it right here.
 #
-    # -- Your awesome modifications go here -- #
+
+# Install ImageMagick
+ARG INSTALL_IMAGEMAGICK=false
+RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
+    && pecl install imagick \
+    && docker-php-ext-enable imagick \
+    && apk del autoconf g++ libtool make pcre-dev \
+;fi
+
+###########################################################################
+# Image optimizers:
+###########################################################################
+
+ARG INSTALL_IMAGE_OPTIMIZERS=false
+
+RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+    if [ ${INSTALL_NODE} = true ]; then \
+        exec bash && . ~/.bashrc && npm install -g svgo \
+    ;fi && \
+    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+      docker-php-ext-configure gd \
+        --with-gd \
+        --with-freetype-dir=/usr/include/ \
+        --with-png-dir=/usr/include/ \
+        --with-jpeg-dir=/usr/include/ && \
+      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+      docker-php-ext-install -j${NPROC} gd \
+;fi
+
 
 #
 #--------------------------------------------------------------------------
@@ -246,5 +372,3 @@ RUN rm /var/cache/apk/* \
     && mkdir -p /var/www
 
 WORKDIR /etc/supervisor/conf.d/
-
-EXPOSE 6001
