@@ -34,9 +34,7 @@ RUN apk --update add wget \
   oniguruma-dev \
   openssl \
   openssl-dev \
-  supervisor \
-  libzip-dev \
-  procps
+  supervisor
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
 RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
@@ -323,13 +321,13 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #
 
 # Install ImageMagick
-ARG INSTALL_IMAGEMAGICK=false
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make pcre-dev \
-;fi
+#ARG INSTALL_IMAGEMAGICK=false
+#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+#    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
+#    && pecl install imagick \
+#    && docker-php-ext-enable imagick \
+#    && apk del autoconf g++ libtool make pcre-dev \
+#;fi
 
 ###########################################################################
 # Image optimizers:
