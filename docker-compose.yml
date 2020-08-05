@@ -1749,7 +1749,7 @@ services:
         - backend
         - frontend
 
-  ### CONFLUENCE ################################################
+### CONFLUENCE ################################################
     confluence:
       container_name: Confluence
       image: atlassian/confluence-server:${CONFLUENCE_VERSION}
