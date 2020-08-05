@@ -4,10 +4,12 @@
 #--------------------------------------------------------------------------
 #
 
-ARG PHP_VERSION=${PHP_VERSION}
-FROM php:${PHP_VERSION}-alpine
+ARG LARADOCK_PHP_VERSION
+FROM php:${LARADOCK_PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
+
+ARG LARADOCK_PHP_VERSION
 
 # If you're in China, or you need to change sources, will be set CHANGE_SOURCE to true in .env.
 
@@ -32,12 +34,13 @@ RUN apk --update add wget \
   supervisor \
   libzip-dev \
   zip \
+  oniguruma-de \
   procps
 
-RUN docker-php-ext-install mysqli pdo pdo_mysql tokenizer xml pcntl exif
+RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
 
-# Add a non-root user:
+# Add a non-root user to help install ffmpeg:
 ARG PUID=1000
 ENV PUID ${PUID}
 ARG PGID=1000
@@ -46,33 +49,77 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
-#Install ZipArchive: - Force install
-ARG INSTALL_ZIP_ARCHIVE=false
-RUN if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
-    apk --update add libzip-dev zip && \
-    docker-php-ext-configure zip --with-libzip && \
-    # docker-php-ext-configure zip && \
-    # Install the zip extension
-    docker-php-ext-install zip \
+#Install BZ2:
+ARG INSTALL_BZ2=false
+RUN if [ ${INSTALL_BZ2} = true ]; then \
+  apk --update add bzip2-dev; \
+  docker-php-ext-install bz2 \
 ;fi
+
+#Install GD package:
+ARG INSTALL_GD=false
+RUN if [ ${INSTALL_GD} = true ]; then \
+   apk add --update --no-cache libpng-dev; \
+   docker-php-ext-install gd \
+;fi
+
+#Install GMP package:
+ARG INSTALL_GMP=false
+RUN if [ ${INSTALL_GMP} = true ]; then \
+   apk add --update --no-cache gmp gmp-dev; \
+   docker-php-ext-install gmp \
+;fi
+
+#Install ImageMagick package:
+ARG INSTALL_IMAGEMAGICK=false
+RUN set -eux; \
+  if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+    apk add --update --no-cache imagemagick-dev; \
+    pecl install imagick; \
+    docker-php-ext-enable imagick; \
+    php -m | grep -q 'imagick'; \
+  fi
+
+## Install ImageMagick
+#ARG INSTALL_IMAGEMAGICK=false
+#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
+#    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
+#    && pecl install imagick \
+#    && docker-php-ext-enable imagick \
+#    && apk del autoconf g++ libtool make pcre-dev \
+#;fi
 
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
-;fi
+  ;fi
 
 #Install Sockets package:
 ARG INSTALL_SOCKETS=false
 RUN if [ ${INSTALL_SOCKETS} = true ]; then \
   docker-php-ext-install sockets \
- ;fi
+  ;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
 RUN if [ ${INSTALL_PGSQL} = true ]; then \
   apk --update add postgresql-dev \
   && docker-php-ext-install pdo_pgsql \
+  ;fi
+
+# Install ZipArchive:
+ARG INSTALL_ZIP_ARCHIVE=false
+RUN set -eux; \
+  if [ ${INSTALL_ZIP_ARCHIVE} = true ]; then \
+    apk --update add libzip-dev && \
+    if [ ${LARADOCK_PHP_VERSION} = "7.3" ] || [ ${LARADOCK_PHP_VERSION} = "7.4" ]; then \
+      docker-php-ext-configure zip; \
+    else \
+      docker-php-ext-configure zip --with-libzip; \
+    fi && \
+    # Install the zip extension
+    docker-php-ext-install zip \
 ;fi
 
 # Install PhpRedis package:
@@ -84,19 +131,30 @@ RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     &&  docker-php-ext-enable redis \
 ;fi
 
-# Install ImageMagick
-ARG INSTALL_IMAGEMAGICK=false
-RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-    && pecl install imagick \
-    && docker-php-ext-enable imagick \
-    && apk del autoconf g++ libtool make pcre-dev \
-;fi
-
-# Install FFMPEG:
 ARG INSTALL_FFMPEG=false
 RUN if [ ${INSTALL_FFMPEG} = true ]; then \
-    apk --update add ffmpeg \
+   # Add ffmpeg to horizon
+    apk add ffmpeg \
+;fi
+
+# Install Cassandra drivers:
+ARG INSTALL_CASSANDRA=false
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+  apk --update add cassandra-cpp-driver \
+  ;fi
+
+WORKDIR /usr/src
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+  git clone https://github.com/datastax/php-driver.git \
+  && cd php-driver/ext \
+  && phpize \
+  && mkdir -p /usr/src/php-driver/build \
+  && cd /usr/src/php-driver/build \
+  && ../ext/configure > /dev/null \
+  && make clean >/dev/null \
+  && make >/dev/null 2>&1 \
+  && make install \
+  && docker-php-ext-enable cassandra \
 ;fi
 
 # Install MongoDB drivers:
@@ -104,6 +162,24 @@ ARG INSTALL_MONGO=false
 RUN if [ ${INSTALL_MONGO} = true ]; then \
   pecl install mongodb \
   && docker-php-ext-enable mongodb \
+  ;fi
+
+###########################################################################
+# YAML: extension
+###########################################################################
+
+ARG INSTALL_YAML=false
+
+RUN if [ ${INSTALL_YAML} = true ]; then \
+     apk --update add -U --no-cache --virtual temp yaml-dev \
+     && apk add --no-cache yaml \
+     && docker-php-source extract \
+     && pecl channel-update pecl.php.net \
+     && pecl install yaml \
+     && docker-php-ext-enable yaml \
+     && pecl clear-cache \
+     && docker-php-source delete \
+     && apk del temp \
 ;fi
 
 ###########################################################################
