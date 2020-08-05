@@ -77,7 +77,19 @@ release notes
 
 [https://docs.docker.com/engine/release-notes/#version-1903](https://docs.docker.com/engine/release-notes/#version-1903)
 
-##### Step 7 start at boot
+##### Step 7 add user to group
+
+Make sure the docker group exists
+
+`sudo groupadd docker`
+*Should already exist*
+
+Add your user to the docker group
+
+`sudo usermod -a -G docker <your_user_here>`
+*<your_user_here> would be nathanr in my case*
+
+##### Step 8 start at boot
 
 The Docker service needs to be setup to run at startup. To do so, type in each command followed by enter:
 
@@ -91,34 +103,38 @@ The Docker service needs to be setup to run at startup. To do so, type in each c
 
 Make sure you have docker and docker-compose installed. See information here [https://www.docker.com/products/docker/])
 
-
 Clone this repository to the same directory as you have your laravel sites. eg `/home/user/Code`
 
 `git clone git@bitbucket.org/lionslair/laradock.git`
 
-cd into the cloned directory. Due to some bug you need to run the first command as root. You may find that there are three files in nginx/ssl owned as root. Chown these to your user and you will not need to do the step below. Just add nginx to the full up command below.
+cd into the cloned directory and run the command below.
 
-`docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace nginx sqs sqs-ui`
-
-
-*If you find there are issues building the nginx container use*
-
-`sudo docker-compose build --no-cache nginx`
+`docker-compose up -d caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace`
 
 
 ## Sites
 
-### NGNIX
-
-Configure sites in `./laradock/nginx/sites/`
-
-copy `laravel.conf.example` to `yoursite.conf`
-
 ### Caddy
+
+*Only edit this if using caddy. You can not use Caddy and Nginx together. Caddy is the default in this setup*
 
 Configure sites in `./caddy/caddy/Caddyfile`
 
 edit as needed.
+
+### NGNIX
+
+*If you are going to use nginx you can not use SSL hosts.  There used to be a bug about building the nginx container and needing root. This seems be be solved if not try the below*
+
+`sudo docker-compose build --no-cache nginx`
+
+*If using nginx then your start command will be *
+
+`docker-compose up -d nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace`
+
+Configure sites in `./laradock/nginx/sites/`
+
+copy `laravel.conf.example` to `yoursite.conf`
 
 ## Hosts file
 
@@ -198,10 +214,10 @@ with caddy
 #### Restart
 
 with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace php-worker'`
 
 with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace php-worker'`
 
 #### Stop
 
@@ -217,7 +233,12 @@ with caddy
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart php-worker laravel-horizon'`
+`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon php-worker'`
+
+#### Extra containers
+You can add any of the extra containers you may want or need to run
+
+`php-worker sqs sqs-ui`
 
 ## OTHER
 
@@ -238,8 +259,13 @@ Laradock will not change the permissions on restart.
 ## Local UI
 
 Kibana http://localhost:5601
-Adminer http://localhost:8080/
+Adminer http://localhost:8090/ (requires adminer container)
 SQS http://localhost:9325/ (requires a running sqs-ui container)
+
+## Dev Tools
+Xdebug is installed by default.
+
+follow the phpstorm instructions here [https://medium.com/@chenpohsun_12588/set-debugger-using-xdebug-with-phpstorm-laradock-454e8c2ad0d9](https://medium.com/@chenpohsun_12588/set-debugger-using-xdebug-with-phpstorm-laradock-454e8c2ad0d9)
 
 ## Docker commands
 
@@ -255,7 +281,7 @@ then to clean up volumes
 
 `docker volume prune`
 
-Then run lara again and all will be rebuilt.
+Then run `lara` again and all will be rebuilt.
 
 In order to rebuild a container run
 

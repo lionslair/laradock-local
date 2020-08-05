@@ -1,5 +1,5 @@
 * * * * * laradock /usr/bin/php /var/www/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/screensavers/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/q/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php /var/www/laravel-websockets/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/cartrack/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/greeta-laravel/artisan schedule:run >> /dev/null 2>&1

@@ -31,6 +31,9 @@ GRANT ALL ON `greeta`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `greeta_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `greeta_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `greeta_wordpress` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `greeta_wordpress`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `taskey` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `taskey`.* TO 'homestead'@'%' ;
 
