@@ -345,11 +345,6 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
        docker-php-ext-configure gd \
           --with-freetype \
           --with-jpeg && \
-#      docker-php-ext-configure gd \
-#        --with-gd \
-#        --with-freetype-dir=/usr/include/ \
-#        --with-png-dir=/usr/include/ \
-#        --with-jpeg-dir=/usr/include/ && \
       NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
       docker-php-ext-install -j${NPROC} gd \
 ;fi
