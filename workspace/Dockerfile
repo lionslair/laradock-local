@@ -13,8 +13,8 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-
-FROM laradock/workspace:2.6.1-${LARADOCK_PHP_VERSION}
+ARG BASE_IMAGE_TAG_PREFIX=latest
+FROM laradock/workspace:${BASE_IMAGE_TAG_PREFIX}-${LARADOCK_PHP_VERSION}
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -51,6 +51,7 @@ ARG UBUNTU_SOURCE
 COPY ./sources.sh /tmp/sources.sh
 
 RUN if [ ${CHANGE_SOURCE} = true ]; then \
+    chmod +x /tmp/sources.sh && \
     /bin/sh -c /tmp/sources.sh && \
     rm -rf /tmp/sources.sh \
 ;fi
@@ -74,7 +75,7 @@ RUN set -xe; \
       # to add more Software's or remove existing one, you need to edit the
       # base image (https://github.com/Laradock/workspace).
       #
-      # next lines are here becase there is no auto build on dockerhub see https://github.com/laradock/laradock/pull/1903#issuecomment-463142846
+      # next lines are here because there is no auto build on dockerhub see https://github.com/laradock/laradock/pull/1903#issuecomment-463142846
       libzip-dev zip unzip \
       # Install the zip extension
       php${LARADOCK_PHP_VERSION}-zip \
@@ -234,20 +235,16 @@ RUN if [ ${INSTALL_WP_CLI} = true ]; then \
 ;fi
 
 ###########################################################################
-# SSH2:
+# BZ2:
 ###########################################################################
 
-USER root
-
-ARG INSTALL_SSH2=false
-
-RUN if [ ${INSTALL_SSH2} = true ]; then \
-  # Install the PHP SSH2 extension
-  apt-get -y install libssh2-1-dev php${LARADOCK_PHP_VERSION}-ssh2 \
+ARG INSTALL_BZ2=false
+RUN if [ ${INSTALL_BZ2} = true ]; then \
+  apt-get -y install php${LARADOCK_PHP_VERSION}-bz2 \
 ;fi
 
 ###########################################################################
-# GMP:
+# GMP (GNU Multiple Precision):
 ###########################################################################
 
 USER root
@@ -258,6 +255,19 @@ ARG PHP_VERSION=${LARADOCK_PHP_VERSION}
 RUN if [ ${INSTALL_GMP} = true ]; then \
   # Install the PHP GMP extension
   apt-get -y install php${LARADOCK_PHP_VERSION}-gmp \
+;fi
+
+###########################################################################
+# SSH2:
+###########################################################################
+
+USER root
+
+ARG INSTALL_SSH2=false
+
+RUN if [ ${INSTALL_SSH2} = true ]; then \
+  # Install the PHP SSH2 extension
+  apt-get -y install libssh2-1-dev php${LARADOCK_PHP_VERSION}-ssh2 \
 ;fi
 
 ###########################################################################
@@ -296,6 +306,16 @@ ARG INSTALL_LDAP=false
 RUN if [ ${INSTALL_LDAP} = true ]; then \
     apt-get install -y libldap2-dev && \
     apt-get install -y php${LARADOCK_PHP_VERSION}-ldap \
+;fi
+
+###########################################################################
+# SMB:
+###########################################################################
+
+ARG INSTALL_SMB=false
+
+RUN if [ ${INSTALL_SMB} = true ]; then \
+    apt-get install -y smbclient php-smbclient coreutils \
 ;fi
 
 ###########################################################################
@@ -341,6 +361,25 @@ COPY ./xdebug.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini
 RUN sed -i "s/xdebug.remote_autostart=0/xdebug.remote_autostart=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
     sed -i "s/xdebug.remote_enable=0/xdebug.remote_enable=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini && \
     sed -i "s/xdebug.cli_color=0/xdebug.cli_color=1/" /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/xdebug.ini
+
+###########################################################################
+# pcov:
+###########################################################################
+
+USER root
+
+ARG INSTALL_PCOV=false
+
+RUN if [ ${INSTALL_PCOV} = true ]; then \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+    if [ $(php -r "echo PHP_MINOR_VERSION;") != "0" ]; then \
+      pecl install pcov && \
+      echo "extension=pcov.so" >> /etc/php/${LARADOCK_PHP_VERSION}/cli/php.ini && \
+      echo "pcov.enabled" >> /etc/php/${LARADOCK_PHP_VERSION}/cli/php.ini \
+    ;fi \
+  ;fi \
+;fi
+
 
 ###########################################################################
 # Phpdbg:
@@ -425,6 +464,49 @@ RUN if [ ${INSTALL_AMQP} = true ]; then \
 ;fi
 
 ###########################################################################
+# CASSANDRA:
+###########################################################################
+
+ARG INSTALL_CASSANDRA=false
+
+RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
+    apt-get install libgmp-dev -y && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.28.0/libuv1-dev_1.28.0-1_amd64.deb -o libuv1-dev.deb && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/dependencies/libuv/v1.28.0/libuv1_1.28.0-1_amd64.deb -o libuv1.deb && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.12.0/cassandra-cpp-driver-dev_2.12.0-1_amd64.deb -o cassandra-cpp-driver-dev.deb && \
+    curl https://downloads.datastax.com/cpp-driver/ubuntu/18.04/cassandra/v2.12.0/cassandra-cpp-driver_2.12.0-1_amd64.deb -o cassandra-cpp-driver.deb && \
+    dpkg -i libuv1.deb && \
+    dpkg -i libuv1-dev.deb && \
+    dpkg -i cassandra-cpp-driver.deb && \
+    dpkg -i cassandra-cpp-driver-dev.deb && \
+    rm libuv1.deb libuv1-dev.deb cassandra-cpp-driver-dev.deb cassandra-cpp-driver.deb && \
+    cd /usr/src && \
+    git clone https://github.com/datastax/php-driver.git && \
+    cd /usr/src/php-driver/ext && \
+    phpize && \
+    mkdir /usr/src/php-driver/build && \
+    cd /usr/src/php-driver/build && \
+    ../ext/configure > /dev/null && \
+    make clean >/dev/null && \
+    make >/dev/null 2>&1 && \
+    make install && \
+    echo "extension=cassandra.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/cassandra.ini && \
+    ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/cassandra.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-cassandra.ini \
+;fi
+
+###########################################################################
+# Gearman:
+###########################################################################
+
+ARG INSTALL_GEARMAN=false
+
+RUN if [ ${INSTALL_GEARMAN} = true ]; then \
+    add-apt-repository -y ppa:ondrej/pkg-gearman && \
+    apt-get update && \
+    apt-get install php-gearman -y  \
+;fi
+
+###########################################################################
 # PHP REDIS EXTENSION
 ###########################################################################
 
@@ -505,10 +587,13 @@ ARG AST_VERSION=1.0.3
 ENV AST_VERSION ${AST_VERSION}
 
 RUN if [ ${INSTALL_AST} = true ]; then \
-    # Install AST extension
-    printf "\n" | pecl -q install ast-${AST_VERSION} && \
-    echo "extension=ast.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/ast.ini && \
-    phpenmod -v ${LARADOCK_PHP_VERSION} -s cli ast \
+    # AST extension requires PHP 7.0.0 or newer
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") != "5" ]; then \
+        # Install AST extension
+        printf "\n" | pecl -q install ast-${AST_VERSION} && \
+        echo "extension=ast.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/ast.ini && \
+        phpenmod -v ${LARADOCK_PHP_VERSION} -s cli ast \
+    ;fi \
 ;fi
 
 ###########################################################################
@@ -525,6 +610,17 @@ RUN if [ ${INSTALL_FSWATCH} = true ]; then \
 ;fi
 
 ###########################################################################
+
+# GraphViz extension
+###########################################################################
+
+ARG INSTALL_GRAPHVIZ=false
+
+RUN if [ ${INSTALL_GRAPHVIZ} = true ]; then \
+    apt-get update && \
+    apt-get install -y graphviz \
+;fi
+
 # IonCube Loader
 ###########################################################################
 
@@ -638,6 +734,20 @@ RUN if [ ${NPM_REGISTRY} ]; then \
     . ~/.bashrc && npm config set registry ${NPM_REGISTRY} \
 ;fi
 
+
+###########################################################################
+# PNPM:
+###########################################################################
+
+USER laradock
+
+ARG INSTALL_PNPM=false
+
+RUN if [ ${INSTALL_PNPM} = true ]; then \
+    npx pnpm add -g pnpm \
+;fi
+
+
 ###########################################################################
 # YARN:
 ###########################################################################
@@ -714,6 +824,47 @@ RUN set -xe; \
   ;fi
 
 ###########################################################################
+# PHP OCI8:
+###########################################################################
+
+USER root
+ARG INSTALL_OCI8=false
+
+ENV LD_LIBRARY_PATH="/opt/oracle/instantclient_12_1"
+ENV OCI_HOME="/opt/oracle/instantclient_12_1"
+ENV OCI_LIB_DIR="/opt/oracle/instantclient_12_1"
+ENV OCI_INCLUDE_DIR="/opt/oracle/instantclient_12_1/sdk/include"
+ENV OCI_VERSION=12
+
+RUN if [ ${INSTALL_OCI8} = true ]; then \
+  # Install wget
+  apt-get update && apt-get install --no-install-recommends -y wget \
+  # Install Oracle Instantclient
+  && mkdir /opt/oracle \
+      && cd /opt/oracle \
+      && wget https://github.com/diogomascarenha/oracle-instantclient/raw/master/instantclient-basic-linux.x64-12.1.0.2.0.zip \
+      && wget https://github.com/diogomascarenha/oracle-instantclient/raw/master/instantclient-sdk-linux.x64-12.1.0.2.0.zip \
+      && unzip /opt/oracle/instantclient-basic-linux.x64-12.1.0.2.0.zip -d /opt/oracle \
+      && unzip /opt/oracle/instantclient-sdk-linux.x64-12.1.0.2.0.zip -d /opt/oracle \
+      && ln -s /opt/oracle/instantclient_12_1/libclntsh.so.12.1 /opt/oracle/instantclient_12_1/libclntsh.so \
+      && ln -s /opt/oracle/instantclient_12_1/libclntshcore.so.12.1 /opt/oracle/instantclient_12_1/libclntshcore.so \
+      && ln -s /opt/oracle/instantclient_12_1/libocci.so.12.1 /opt/oracle/instantclient_12_1/libocci.so \
+      && rm -rf /opt/oracle/*.zip \
+  # Install PHP extensions deps
+  && apt-get update \
+      && apt-get install --no-install-recommends -y \
+          libaio-dev && \
+  # Install PHP extensions
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+    echo 'instantclient,/opt/oracle/instantclient_12_1/' | pecl install oci8-2.0.10; \
+  else \
+    echo 'instantclient,/opt/oracle/instantclient_12_1/' | pecl install oci8; \
+  fi \
+  && echo "extension=oci8.so" >> /etc/php/${LARADOCK_PHP_VERSION}/cli/php.ini \
+  && php -m | grep -q 'oci8' \
+;fi
+
+###########################################################################
 # PHP V8JS:
 ###########################################################################
 
@@ -745,7 +896,7 @@ ARG INSTALL_LARAVEL_ENVOY=false
 
 RUN if [ ${INSTALL_LARAVEL_ENVOY} = true ]; then \
     # Install the Laravel Envoy
-    composer global require "laravel/envoy=~1.0" \
+    composer global require "laravel/envoy=~2.0" \
 ;fi
 
 ###########################################################################
@@ -1038,11 +1189,19 @@ ARG LARADOCK_PHALCON_VERSION
 ENV LARADOCK_PHALCON_VERSION ${LARADOCK_PHALCON_VERSION}
 
 RUN if [ $INSTALL_PHALCON = true ]; then \
-    apt-get update && apt-get install -y unzip libpcre3-dev gcc make re2c \
+    apt-get update && apt-get install -y unzip libpcre3-dev gcc make re2c git automake autoconf\
+    && git clone https://github.com/jbboehr/php-psr.git \
+    && cd php-psr \
+    && phpize \
+    && ./configure \
+    && make \
+    && make test \
+    && make install \
     && curl -L -o /tmp/cphalcon.zip https://github.com/phalcon/cphalcon/archive/v${LARADOCK_PHALCON_VERSION}.zip \
     && unzip -d /tmp/ /tmp/cphalcon.zip \
     && cd /tmp/cphalcon-${LARADOCK_PHALCON_VERSION}/build \
     && ./install \
+    && echo "extension=psr.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/phalcon.ini \
     && echo "extension=phalcon.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/phalcon.ini \
     && ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/phalcon.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/30-phalcon.ini \
     && rm -rf /tmp/cphalcon* \
@@ -1118,6 +1277,26 @@ RUN if [ ${INSTALL_FFMPEG} = true ]; then \
   apt-get -y install ffmpeg \
 ;fi
 
+#####################################
+# wkhtmltopdf:
+#####################################
+
+USER root
+
+ARG INSTALL_WKHTMLTOPDF=false
+
+RUN if [ ${INSTALL_WKHTMLTOPDF} = true ]; then \
+   apt-get install -y \
+   libxrender1 \
+   libfontconfig1 \
+   libx11-dev \
+   libjpeg62 \
+   libxtst6 \
+   wget \
+   && wget https://github.com/h4cc/wkhtmltopdf-amd64/blob/master/bin/wkhtmltopdf-amd64?raw=true -O /usr/local/bin/wkhtmltopdf \
+   && chmod +x /usr/local/bin/wkhtmltopdf \
+;fi
+
 ###########################################################################
 # Mailparse extension:
 ###########################################################################
@@ -1140,12 +1319,66 @@ RUN if [ ${INSTALL_GNU_PARALLEL} = true ]; then \
   apt-get -y install parallel \
 ;fi
 
+###########################################################################
+# Bash Git Prompt
+###########################################################################
+
+ARG INSTALL_GIT_PROMPT=false
+
+COPY git-prompt.sh /tmp/git-prompt
+
+RUN if [ ${INSTALL_GIT_PROMPT} = true ]; then \
+    git clone https://github.com/magicmonty/bash-git-prompt.git /root/.bash-git-prompt --depth=1 && \
+    cat /tmp/git-prompt >> /root/.bashrc && \
+    rm /tmp/git-prompt \
+;fi
+
+###########################################################################
+# XMLRPC:
+###########################################################################
+
+ARG INSTALL_XMLRPC=false
+
+RUN if [ ${INSTALL_XMLRPC} = true ]; then \
+    docker-php-ext-install xmlrpc \
+;fi
 
 ###########################################################################
 # Check PHP version:
 ###########################################################################
 
 RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
+
+###########################################################################
+# Oh My ZSH!
+###########################################################################
+
+USER root
+
+ARG SHELL_OH_MY_ZSH=false
+RUN if [ ${SHELL_OH_MY_ZSH} = true ]; then \
+    apt install -y zsh \
+;fi
+
+USER laradock
+RUN if [ ${SHELL_OH_MY_ZSH} = true ]; then \
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --keep-zshrc" && \
+    sed -i -r 's/^plugins=\(.*?\)$/plugins=(laravel5)/' /home/laradock/.zshrc && \
+    echo '\n\
+bindkey "^[OB" down-line-or-search\n\
+bindkey "^[OC" forward-char\n\
+bindkey "^[OD" backward-char\n\
+bindkey "^[OF" end-of-line\n\
+bindkey "^[OH" beginning-of-line\n\
+bindkey "^[[1~" beginning-of-line\n\
+bindkey "^[[3~" delete-char\n\
+bindkey "^[[4~" end-of-line\n\
+bindkey "^[[5~" up-line-or-history\n\
+bindkey "^[[6~" down-line-or-history\n\
+bindkey "^?" backward-delete-char\n' >> /home/laradock/.zshrc \
+;fi
+
+USER root
 
 #
 #--------------------------------------------------------------------------
