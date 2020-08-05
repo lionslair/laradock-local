@@ -234,6 +234,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 
 ###########################################################################
 # Image optimizers:
+# # https://github.com/docker-library/php/issues/912#issuecomment-559918036
 ###########################################################################
 
 ARG INSTALL_IMAGE_OPTIMIZERS=false
@@ -244,11 +245,9 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
     ;fi && \
     apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
     freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-      docker-php-ext-configure gd \
-        --with-gd \
-        --with-freetype-dir=/usr/include/ \
-        --with-png-dir=/usr/include/ \
-        --with-jpeg-dir=/usr/include/ && \
+     docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg && \
       NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
       docker-php-ext-install -j${NPROC} gd \
 ;fi
