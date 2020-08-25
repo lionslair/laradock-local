@@ -49,6 +49,18 @@ q.test:443 {
     }
 }
 
+socket.test:80 {
+    redir https://socket.test{uri}
+}
+
+socket.test:443 {
+    tls self_signed
+    proxy / php-worker:6001 {
+        transparent
+        websocket
+    }
+}
+
 # Greeta
 greeta.test:80 {
     root /var/www/greeta-laravel/public
@@ -187,30 +199,6 @@ taskey.test:443 {
     }
 }
 
-# Websockets
- websockets.test:80 {
-    root /var/www/laravel-websockets/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://websockets.test{uri}
-}
-
-websockets.test:443 {
-    root /var/www/laravel-websockets/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
-
-
 # hctech_cars
  hctech-cars.test:80 {
     root /var/www/hctech_cars
@@ -220,7 +208,6 @@ websockets.test:443 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
-    #redir https://websockets.test{uri}
 }
 
 hctech-cars.test:443 {

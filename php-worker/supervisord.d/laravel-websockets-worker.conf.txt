@@ -1,9 +1,0 @@
-[program:laravel-q-websockets-worker]
-process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/laravel-websockets/artisan websockets:serve
-autostart=true
-autorestart=true
-numprocs=1
-user=laradock
-redirect_stderr=true
-stdout_logfile=/var/www/laravel-websockets/storage/logs/websockets.log
