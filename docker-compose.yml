@@ -311,6 +311,8 @@ services:
         - ./php-worker/supervisord.d:/etc/supervisord.d
       depends_on:
         - workspace
+      ports:
+        - "6001:6001"
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
