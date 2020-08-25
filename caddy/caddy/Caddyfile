@@ -220,7 +220,6 @@ websockets.test:443 {
     rewrite {
         to {path} {path}/ /index.php?{query}
     }
-    #redir https://websockets.test{uri}
 }
 
 hctech-cars.test:443 {
