@@ -369,5 +369,3 @@ RUN rm /var/cache/apk/* \
     && mkdir -p /var/www
 
 WORKDIR /etc/supervisor/conf.d/
-
-EXPOSE 6001
