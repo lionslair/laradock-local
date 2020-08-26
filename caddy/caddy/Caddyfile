@@ -41,25 +41,20 @@ q.test:80 {
 q.test:443 {
     root /var/www/q/public
     tls self_signed
+    proxy /socket php-worker:6001 {
+        without /socket
+        transparent
+        websocket
+    }
     fastcgi / php-fpm:9000 php {
         index index.php
     }
     rewrite {
+        if {path} not_starts_with /socket
         to {path} {path}/ /index.php?{query}
     }
 }
 
-socket.test:80 {
-    redir https://socket.test{uri}
-}
-
-socket.test:443 {
-    tls self_signed
-    proxy / php-worker:6001 {
-        transparent
-        websocket
-    }
-}
 
 # Greeta
 greeta.test:80 {
