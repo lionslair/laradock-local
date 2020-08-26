@@ -114,27 +114,11 @@ cd into the cloned directory and run the command below.
 
 ## Sites
 
-### Caddy
-
-*Only edit this if using caddy. You can not use Caddy and Nginx together. Caddy is the default in this setup*
+### Caddy (Webserver)
 
 Configure sites in `./caddy/caddy/Caddyfile`
 
 edit as needed.
-
-### NGNIX
-
-*If you are going to use nginx you can not use SSL hosts.  There used to be a bug about building the nginx container and needing root. This seems be be solved if not try the below*
-
-`sudo docker-compose build --no-cache nginx`
-
-*If using nginx then your start command will be *
-
-`docker-compose up -d nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace`
-
-Configure sites in `./laradock/nginx/sites/`
-
-copy `laravel.conf.example` to `yoursite.conf`
 
 ## Hosts file
 
@@ -154,13 +138,16 @@ Also add these for convenience
 
 127.0.0.1       kibana
 
+127.0.0.1       php-worker
+
+
 ## Databases
 
 Add new databases to `mysql/docker-entrypoint-initdb.d/createdb.sql`
 
 To execute this file do `docker-compose exec mysql bash`
 
-and then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql`
+then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql`
 
 ## Horizon
 
@@ -169,21 +156,6 @@ copy `laravel-horizon/supervisord.d/laravel-horizon.conf.example to a new file`
 ## Dusk
 
 In order to run dusk tests you need to ensure the following exists at the end of the *selenium* config in docker-compose.yml
-
-With ngnix
-
-```
-depends_on:
-  - nginx
-links:
-  - nginx:q.test
-  - nginx:screensavers.test
-  - nginx:greeta.test
-  - nginx:taskey.test
-  - nginx:surprise.test
-```
-
-with caddy
 
 ```
 depends_on:
@@ -203,21 +175,16 @@ Take note each time you add a new site you will need to add it to the links refe
 I have created some aliases for my system to make starting, stopping and ssh a little easier.
 
 #### Start
-with ngnix
-`alias lara='cd ~/Code/laradock; docker-compose up -d nginx mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqsv sqs-ui'`
-
 with caddy
-`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace sqs sqs-ui'`
+`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+
+#### Access via SSH
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
 
 #### Restart
 
-with ngnix
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart nginx mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace php-worker'`
-
-with caddy
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace php-worker'`
+`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
 
 #### Stop
 
@@ -236,11 +203,13 @@ with caddy
 `alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon php-worker'`
 
 #### Extra containers
-You can add any of the extra containers you may want or need to run
+You can add any of the extra containers you may want or need to run. eg to use the sqs_extended drivers like on AWS add the below. These two should only be used when testing something specific. 
 
-`php-worker sqs sqs-ui`
+`sqs sqs-ui`
 
 ## OTHER
+
+*IMPORTANT*
 
 on your local machine also run this as root
 
@@ -268,6 +237,8 @@ Xdebug is installed by default.
 follow the phpstorm instructions here [https://medium.com/@chenpohsun_12588/set-debugger-using-xdebug-with-phpstorm-laradock-454e8c2ad0d9](https://medium.com/@chenpohsun_12588/set-debugger-using-xdebug-with-phpstorm-laradock-454e8c2ad0d9)
 
 ## Docker commands
+
+*Mostly used for cleanup or regenerating all containers*
 
 Remove all docker containers in order to rebuild by running
 
