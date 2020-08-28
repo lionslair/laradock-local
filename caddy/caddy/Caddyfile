@@ -29,10 +29,16 @@
 # Cine Q
 q.test:80 {
     root /var/www/q/public
+    proxy /socket php-worker:6001 {
+        without /socket
+        transparent
+        websocket
+    }
     fastcgi / php-fpm:9000 php {
         index index.php
     }
     rewrite {
+        if {path} not_starts_with /socket
         to {path} {path}/ /index.php?{query}
     }
     #redir https://q.test{uri}
