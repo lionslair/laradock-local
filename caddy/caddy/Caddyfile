@@ -1,259 +1,252 @@
 # Docs: https://caddyserver.com/docs/caddyfile
-0.0.0.0:80 {
-    root /var/www/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
+# 0.0.0.0:80 {
+#     root /var/www/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
 
-    # To handle .html extensions with laravel change ext to
-    # ext / .html
+#     # To handle .html extensions with laravel change ext to
+#     # ext / .html
 
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    gzip
-    browse
-    log /var/log/caddy/access.log
-    errors /var/log/caddy/error.log
-    # Uncomment to enable TLS (HTTPS)
-    # Change the first list to listen on port 443 when enabling TLS
-    #tls self_signed
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     gzip
+#     browse
+#     log /var/log/caddy/access.log
+#     errors /var/log/caddy/error.log
+#     # Uncomment to enable TLS (HTTPS)
+#     # Change the first list to listen on port 443 when enabling TLS
+#     #tls self_signed
 
-    # To use Lets encrpt tls with a DNS provider uncomment these
-    # lines and change the provider as required
-    #tls {
-    #  dns cloudflare
-    #}
+#     # To use Lets encrpt tls with a DNS provider uncomment these
+#     # lines and change the provider as required
+#     #tls {
+#     #  dns cloudflare
+#     #}
 }
 
 # Cine Q
-q.test:80 {
-    root /var/www/q/public
-    proxy /websocket-proxy php-worker:6001 {
-        without /websocket-proxy
-        transparent
-        websocket
-    }
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite / {
-        if {>Connection} has Upgrade
-        if {>Upgrade} is websocket
-        to /websocket-proxy/{path}?{query}
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://q.test{uri}
-}
+# q.test:80 {
+#     root /var/www/q/public
+#     proxy /websocket-proxy php-worker:6001 {
+#         without /websocket-proxy
+#         transparent
+#         websocket
+#     }
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite / {
+#         if {>Connection} has Upgrade
+#         if {>Upgrade} is websocket
+#         to /websocket-proxy/{path}?{query}
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://q.test{uri}
+# }
 
-q.test:443 {
+q.test {
 
-    rewrite / {
-        if {>Connection} has Upgrade
-        if {>Upgrade} is websocket
-        to /websocket-proxy/{path}?{query}
+    @ws {
+        header Connection *Upgrade*
+        header Upgrade    websocket
     }
+    reverse_proxy @ws php-worker:6001
 
-    proxy /websocket-proxy php-worker:6001 {
-        without /websocket-proxy
-        transparent
-        websocket
-    }
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
+    root * /var/www/q/public
+    encode gzip
+    php_fastcgi php-fpm:9000
 
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
+    rewrite * /index.php?{query}
 
-    root /var/www/q/public
+
     tls self_signed
 }
 
 
 # Greeta
-greeta.test:80 {
-    root /var/www/greeta-laravel/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://greeta.test{uri}
-}
+# greeta.test:80 {
+#     root /var/www/greeta-laravel/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://greeta.test{uri}
+# }
 
-greeta.test:443 {
-    root /var/www/greeta-laravel/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# greeta.test:443 {
+#     root /var/www/greeta-laravel/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 # Greeta Wordpress
-greeta-wordpress.test:80 {
-    root /var/www/greeta-wordpress/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://greeta-wordpress.test{uri}
-}
+# greeta-wordpress.test:80 {
+#     root /var/www/greeta-wordpress/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://greeta-wordpress.test{uri}
+# }
 
-greeta-wordpress.test:443 {
-    root /var/www/greeta-wordpress/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# greeta-wordpress.test:443 {
+#     root /var/www/greeta-wordpress/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 # Screensavers
-screensavers.test:80 {
-    root /var/www/screensavers/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://screensavers.test{uri}
-}
+# screensavers.test:80 {
+#     root /var/www/screensavers/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://screensavers.test{uri}
+# }
 
-screensavers.test:443 {
-    root /var/www/screensavers/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# screensavers.test:443 {
+#     root /var/www/screensavers/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 #surprise
-surprise.test:80 {
-    root /var/www/surprise-and-delight/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://surprise.test{uri}
-}
+# surprise.test:80 {
+#     root /var/www/surprise-and-delight/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://surprise.test{uri}
+# }
 
-surprise.test:443 {
-    root /var/www/surprise-and-delight/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# surprise.test:443 {
+#     root /var/www/surprise-and-delight/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 # babyrzepecki
-babyrzepecki.test:80 {
-    root /var/www/babyrzepecki/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://babyrzepecki.test{uri}
-}
+# babyrzepecki.test:80 {
+#     root /var/www/babyrzepecki/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://babyrzepecki.test{uri}
+# }
 
-babyrzepecki.test:443 {
-    root /var/www/babyrzepecki/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# babyrzepecki.test:443 {
+#     root /var/www/babyrzepecki/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 #taskey
-taskey.test:80 {
-    root /var/www/taskey-laravel/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://taskey.test{uri}
-}
+# taskey.test:80 {
+#     root /var/www/taskey-laravel/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://taskey.test{uri}
+# }
 
-taskey.test:443 {
-    root /var/www/taskey-laravel/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# taskey.test:443 {
+#     root /var/www/taskey-laravel/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 # hctech_cars
- hctech-cars.test:80 {
-    root /var/www/hctech_cars
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+#  hctech-cars.test:80 {
+#     root /var/www/hctech_cars
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
-hctech-cars.test:443 {
-    root /var/www/hctech_cars
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# hctech-cars.test:443 {
+#     root /var/www/hctech_cars
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }
 
 
 # cartrack
- cartrack.test:80 {
-    root /var/www/cartrack/public
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-    #redir https://cartrack.test{uri}
-}
+#  cartrack.test:80 {
+#     root /var/www/cartrack/public
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+#     #redir https://cartrack.test{uri}
+# }
 
-cartrack.test:443 {
-    root /var/www/cartrack/public
-    tls self_signed
-    fastcgi / php-fpm:9000 php {
-        index index.php
-    }
-    rewrite {
-        to {path} {path}/ /index.php?{query}
-    }
-}
+# cartrack.test:443 {
+#     root /var/www/cartrack/public
+#     tls self_signed
+#     fastcgi / php-fpm:9000 php {
+#         index index.php
+#     }
+#     rewrite {
+#         to {path} {path}/ /index.php?{query}
+#     }
+# }

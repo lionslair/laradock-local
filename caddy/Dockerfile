@@ -1,6 +1,9 @@
-FROM abiosoft/caddy:no-stats
-#FROM caddy/caddy:builder
+FROM caddy/caddy:latest
 
-CMD ["--conf", "/etc/caddy/Caddyfile", "--log", "stdout", "--agree=true"]
+COPY ./caddy/Caddyfile /etc/caddy/Caddyfile
 
-EXPOSE 80 443 2015
+ENTRYPOINT ["/usr/bin/caddy"]
+
+CMD ["run", "--conf", "/etc/caddy/Caddyfile", "--log", "stdout", "--agree=true"]
+
+EXPOSE 80 443
