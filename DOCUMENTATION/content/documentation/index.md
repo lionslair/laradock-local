@@ -61,7 +61,7 @@ docker-compose down
 
 > Run commands in a running Container.
 
-1 - First list the current running containers with `docker ps`
+1 - First list the currently running containers with `docker ps`
 
 2 - Enter any container using:
 
@@ -220,9 +220,9 @@ The PHP-CLI extensions should be installed in `workspace/Dockerfile`.
 <br>
 <a name="Change-the-PHP-FPM-Version"></a>
 ## Change the (PHP-FPM) Version
-By default the latest stable PHP versin is configured to run.
+By default the latest stable PHP version is configured to run.
 
->The PHP-FPM is responsible of serving your application code, you don't have to change the PHP-CLI version if you are planning to run your application on different PHP-FPM version.
+>The PHP-FPM is responsible for serving your application code, you don't have to change the PHP-CLI version if you are planning to run your application on different PHP-FPM version.
 
 
 ### A) Switch from PHP `7.2` to PHP `5.6`
