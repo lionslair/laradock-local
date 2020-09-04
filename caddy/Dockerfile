@@ -1,4 +1,5 @@
 FROM abiosoft/caddy:no-stats
+#FROM caddy/caddy:builder
 
 CMD ["--conf", "/etc/caddy/Caddyfile", "--log", "stdout", "--agree=true"]
 
