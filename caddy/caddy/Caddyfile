@@ -29,8 +29,18 @@
 # Cine Q
 q.test:80 {
     root /var/www/q/public
+    proxy /websocket-proxy php-worker:6001 {
+        without /websocket-proxy
+        transparent
+        websocket
+    }
     fastcgi / php-fpm:9000 php {
         index index.php
+    }
+    rewrite / {
+        if {>Connection} has Upgrade
+        if {>Upgrade} is websocket
+        to /websocket-proxy/{path}?{query}
     }
     rewrite {
         to {path} {path}/ /index.php?{query}
@@ -39,20 +49,28 @@ q.test:80 {
 }
 
 q.test:443 {
-    root /var/www/q/public
-    tls self_signed
-    proxy /socket php-worker:6001 {
-        without /socket
+
+    rewrite / {
+        if {>Connection} has Upgrade
+        if {>Upgrade} is websocket
+        to /websocket-proxy/{path}?{query}
+    }
+
+    proxy /websocket-proxy php-worker:6001 {
+        without /websocket-proxy
         transparent
         websocket
     }
     fastcgi / php-fpm:9000 php {
         index index.php
     }
+
     rewrite {
-        if {path} not_starts_with /socket
         to {path} {path}/ /index.php?{query}
     }
+
+    root /var/www/q/public
+    tls self_signed
 }
 
 
