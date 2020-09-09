@@ -347,6 +347,7 @@ services:
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
         - ./laravel-horizon/supervisord.d:/etc/supervisord.d
+        - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
       depends_on:
         - workspace
       extra_hosts:
