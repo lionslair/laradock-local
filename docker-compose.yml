@@ -783,8 +783,12 @@ services:
       depends_on:
         - php-fpm
       networks:
-        - frontend
-        - backend
+        frontend:
+          aliases:
+            - q.test
+        backend:
+          aliases:
+            - q.test
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
