@@ -175,8 +175,7 @@ Take note each time you add a new site you will need to add it to the links refe
 I have created some aliases for my system to make starting, stopping and ssh a little easier.
 
 #### Start
-with caddy
-`alias lara='cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara='cd ~/Code/laradock; ./up.sh'`
 
 #### Access via SSH
 
@@ -184,11 +183,11 @@ with caddy
 
 #### Restart
 
-`alias lara-restart='cd ~/Code/laradock; docker-compose restart caddy mysql adminer redis elasticsearch kibana php-worker laravel-horizon selenium workspace'`
+`alias lara-restart='cd ~/Code/laradock; ./restart.sh'`
 
 #### Stop
 
-`alias lara-stop='cd ~/Code/laradock; docker-compose stop'`
+`alias lara-stop='cd ~/Code/laradock; ./down.sh'`
 
 #### Redis
 
