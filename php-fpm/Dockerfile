@@ -945,10 +945,7 @@ RUN apt-get install -y gconf-service libgbm1 libasound2 libatk1.0-0 libc6 libcai
 # adding node repo to apt
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get install -y nodejs
-#RUN npm install --global --unsafe-perm puppeteer
-#RUN chmod -R o+rx /usr/lib/node_modules/puppeteer/.local-chromium
 # end browsershot
-
 
 # Clean up
 RUN apt-get clean && \
