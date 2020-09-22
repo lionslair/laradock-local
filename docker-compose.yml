@@ -57,8 +57,6 @@ volumes:
   #   driver: ${VOLUMES_DRIVER}
   # sqs-ui:
   #   driver: ${VOLUMES_DRIVER}
-#  puppeteer:
-#    driver: ${VOLUMES_DRIVER}
 
 services:
 
