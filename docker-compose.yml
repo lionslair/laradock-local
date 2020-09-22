@@ -270,6 +270,7 @@ services:
         - FAKETIME=${PHP_FPM_FAKETIME}
       depends_on:
         - workspace
+        - puppeteer
       networks:
         - backend
       links:
@@ -780,8 +781,12 @@ services:
       depends_on:
         - php-fpm
       networks:
-        - frontend
-        - backend
+        frontend:
+          aliases:
+            - q.test
+        backend:
+          aliases:
+            - q.test
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
@@ -1811,6 +1816,13 @@ services:
         - "9325:9325"
       volumes:
         - "./sqs-config:/opt/custom"       
+      networks:
+        - frontend
+        - backend
+
+### PUPPETEER ###############################
+    puppeteer:
+      image: buildkite/puppeteer
       networks:
         - frontend
         - backend
