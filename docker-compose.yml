@@ -784,9 +784,12 @@ services:
         frontend:
           aliases:
             - q.test
+            - myoffer.test
+            - flooringlab.test
         backend:
           aliases:
             - q.test
+            - flooringlab.test
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
@@ -960,6 +963,8 @@ services:
         - caddy:greeta.test
         - caddy:taskey.test
         - caddy:surprise.test
+        - caddy:myoffer.test
+        - caddy:flooringlab.test
 
 ### Varnish ##########################################
     proxy:

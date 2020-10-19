@@ -20,6 +20,29 @@ q.test {
     encode gzip
 }
 
+# My Offer
+myoffer.test {
+
+    @ws {
+        header Connection *Upgrade*
+        header Upgrade    websocket
+    }
+    reverse_proxy @ws php-worker:6001
+
+    root * /var/www/myoffer/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+flooringlab.test {
+    root * /var/www/flooringlab/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
 
 # Greeta
 greeta.test {
