@@ -44,6 +44,14 @@ flooringlab.test {
     encode gzip
 }
 
+macutex.test {
+    root * /var/www/macutex/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 greeta.test {
     root * /var/www/greeta-laravel/public/

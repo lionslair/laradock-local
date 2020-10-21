@@ -5,3 +5,4 @@
 #* * * * * laradock /usr/bin/php /var/www/greeta-laravel/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/myoffer/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/flooringlab/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/macutex/artisan schedule:run >> /dev/null 2>&1
