@@ -61,4 +61,7 @@ GRANT ALL ON `myoffer`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `flooringlab` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `flooringlab`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `flooringlab_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `flooringlab_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
