@@ -969,6 +969,7 @@ services:
         - caddy:bestratedtransport.test
         - caddy:customerplus.test
         - caddy:leeelectrix.test
+        - caddy:esg.test
 
 ### Varnish ##########################################
     proxy:

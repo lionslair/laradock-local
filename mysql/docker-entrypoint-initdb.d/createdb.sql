@@ -88,4 +88,10 @@ GRANT ALL ON `leeelectrix`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `leeelectrix_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `leeelectrix_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `esg` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `esg`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `esg_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `esg_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
