@@ -55,13 +55,19 @@ GRANT ALL ON `laravel_websockets`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `myoffer` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `myoffer`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `myoffer` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `myoffer`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `myoffer_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `myoffer_testing`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `flooringlab` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `flooringlab`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `flooringlab_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `flooringlab_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `macutex` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `macutex`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `macutex_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `macutex_testing`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;
