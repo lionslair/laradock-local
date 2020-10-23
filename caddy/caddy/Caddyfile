@@ -52,6 +52,30 @@ macutex.test {
     encode gzip
 }
 
+bestratedtransport.test {
+    root * /var/www/bestratedtransport/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+customerplus.test {
+    root * /var/www/customerplus/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+leeelectrix.test {
+    root * /var/www/leeelectrix/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 greeta.test {
     root * /var/www/greeta-laravel/public/

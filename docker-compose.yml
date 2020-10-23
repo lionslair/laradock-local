@@ -965,6 +965,10 @@ services:
         - caddy:surprise.test
         - caddy:myoffer.test
         - caddy:flooringlab.test
+        - caddy:macutex.test
+        - caddy:bestratedtransport.test
+        - caddy:customerplus.test
+        - caddy:leeelectrix.test
 
 ### Varnish ##########################################
     proxy:

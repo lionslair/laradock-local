@@ -70,4 +70,22 @@ GRANT ALL ON `macutex`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `macutex_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `macutex_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `bestratedtransport` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `bestratedtransport`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `bestratedtransport_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `bestratedtransport_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `customerplus` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `customerplus`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `customerplus_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `customerplus_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `leeelectrix` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `leeelectrix`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `leeelectrix_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `leeelectrix_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
