@@ -789,6 +789,7 @@ services:
         backend:
           aliases:
             - q.test
+            - myoffer.test
             - flooringlab.test
 
 ### phpMyAdmin ###########################################
