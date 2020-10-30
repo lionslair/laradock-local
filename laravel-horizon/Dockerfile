@@ -32,7 +32,11 @@ RUN apk --update add wget \
   libgsasl-dev \
   supervisor \
   oniguruma-dev \
-  procps
+  procps \
+  libintl \
+  icu \
+  icu-dev
+
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
 RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 mongodb && docker-php-ext-enable memcached mongodb
@@ -45,6 +49,13 @@ ENV PGID ${PGID}
 
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
+
+#Install intl package:
+ARG INSTALL_INTL=false
+RUN if [ ${INSTALL_INTL} = true ]; then \
+    docker-php-ext-configure intl &&  \
+    docker-php-ext-install intl \
+;fi
 
 #Install BZ2:
 ARG INSTALL_BZ2=false
@@ -75,22 +86,13 @@ RUN set -eux; \
     pecl install imagick; \
     docker-php-ext-enable imagick; \
     php -m | grep -q 'imagick'; \
-  fi
-
-## Install ImageMagick
-#ARG INSTALL_IMAGEMAGICK=false
-#RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-#    apk add --update --no-cache autoconf g++ imagemagick-dev libtool make pcre-dev \
-#    && pecl install imagick \
-#    && docker-php-ext-enable imagick \
-#    && apk del autoconf g++ libtool make pcre-dev \
-#;fi
+fi;
 
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \
   docker-php-ext-install bcmath \
-  ;fi
+;fi
 
 #Install Sockets package:
 ARG INSTALL_SOCKETS=false
