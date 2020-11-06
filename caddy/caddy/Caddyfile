@@ -21,7 +21,7 @@ q.test {
 }
 
 
-laravel8est.test {
+laravel8.test {
 
     root * /var/www/laravel8/public/
     php_fastcgi php-fpm:9000
