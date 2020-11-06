@@ -20,7 +20,16 @@ q.test {
     encode gzip
 }
 
-# My Offer
+
+laravel8est.test {
+
+    root * /var/www/laravel8/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 myoffer.test {
 
     @ws {

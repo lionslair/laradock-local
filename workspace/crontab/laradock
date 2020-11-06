@@ -10,3 +10,4 @@
 * * * * * laradock /usr/bin/php /var/www/customerplus/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/leeelectrix/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/esg/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/laravel8/artisan schedule:run >> /dev/null 2>&1

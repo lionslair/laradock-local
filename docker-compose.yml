@@ -972,6 +972,7 @@ services:
         - caddy:customerplus.test
         - caddy:leeelectrix.test
         - caddy:esg.test
+        - caddy:laravel8.test
 
 ### Varnish ##########################################
     proxy:
