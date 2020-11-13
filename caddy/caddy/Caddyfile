@@ -22,13 +22,21 @@ q.test {
 
 
 laravel8.test {
-
     root * /var/www/laravel8/public/
     php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
 }
+
+defex.test {
+    root * /var/www/defex/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 
 myoffer.test {
 
