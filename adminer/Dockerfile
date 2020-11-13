@@ -1,9 +1,13 @@
-FROM adminer:4
+FROM adminer:latest
 
 LABEL maintainer="Patrick Artounian <partounian@gmail.com>"
 
 # Add volume for sessions to allow session persistence
 VOLUME /sessions
+
+#### Design
+ARG ADMINER_DESIGN=price
+ENV ADMINER_DESIGN ${ADMINER_DESIGN}
 
 #####################################
 # SQL SERVER:
