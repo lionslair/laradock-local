@@ -100,5 +100,11 @@ GRANT ALL ON `esg`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `defex_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `esg_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `acn` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `esg`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `acn_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `esg_testing`.* TO 'homestead'@'%' ;
+
 
 FLUSH PRIVILEGES ;

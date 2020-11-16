@@ -37,6 +37,13 @@ defex.test {
     encode gzip
 }
 
+acn.test {
+    root * /var/www/acn/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
 
 myoffer.test {
 

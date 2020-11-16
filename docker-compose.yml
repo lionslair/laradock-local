@@ -973,6 +973,7 @@ services:
         - caddy:leeelectrix.test
         - caddy:esg.test
         - caddy:defex.test
+        - caddy:acn.test
         - caddy:laravel8.test
 
 ### Varnish ##########################################
