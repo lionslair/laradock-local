@@ -140,6 +140,10 @@ Also add these for convenience
 
 127.0.0.1       php-worker
 
+127.0.0.1       puppeteer
+
+127.0.0.1       mailhog
+
 
 ## Databases
 
@@ -161,11 +165,12 @@ In order to run dusk tests you need to ensure the following exists at the end of
 depends_on:
   - caddy
 links:
-  - caddy:q.test
-  - caddy:screensavers.test
-  - caddy:greeta.test
-  - caddy:taskey.test
-  - caddy:surprise.test
+  - caddy:bestratedtransport.test
+  - caddy:flooringlab.test
+  - caddy:leeeletrix.test
+  - caddy:myoffer.test
+  - caddy:esg.test
+  
 ```
 
 Take note each time you add a new site you will need to add it to the links reference [https://github.com/laradock/laradock/issues/907](https://github.com/laradock/laradock/issues/907)
@@ -229,6 +234,22 @@ Laradock will not change the permissions on restart.
 Kibana http://localhost:5601
 Adminer http://localhost:8081/ (requires adminer container)
 SQS http://localhost:9325/ (requires a running sqs-ui container)
+Mailhog:  http://mailhog:8025
+
+## MailHog Settings
+
+Use these settings to use mailhog for local delivery
+
+```
+MAIL_DRIVER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+```
+
+Web UI Mailhog:  http://mailhog:8025
 
 ## Dev Tools
 Xdebug is installed by default.
