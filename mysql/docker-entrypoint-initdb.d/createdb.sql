@@ -106,5 +106,22 @@ GRANT ALL ON `acn`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `acn_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `acn_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `misura` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `misura`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `misura_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `misura_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `washed` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `washed`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `washed_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `awashed_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `wrapstudio` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wrapstudio`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `wrapstudio_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wrapstudio_testing`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;

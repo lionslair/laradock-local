@@ -974,6 +974,9 @@ services:
         - caddy:esg.test
         - caddy:defex.test
         - caddy:acn.test
+        - caddy:misura.test
+        - caddy:washed.test
+        - caddy:wrapstudio.test
         - caddy:laravel8.test
 
 ### Varnish ##########################################

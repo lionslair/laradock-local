@@ -84,6 +84,30 @@ macutex.test {
     encode gzip
 }
 
+misura.test {
+    root * /var/www/misura/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+washed.test {
+    root * /var/www/washed/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+wrapstudio.test {
+    root * /var/www/wrapstudio/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 bestratedtransport.test {
     root * /var/www/bestratedtransport/public/
     php_fastcgi php-fpm:9000
