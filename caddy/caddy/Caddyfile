@@ -108,6 +108,14 @@ wrapstudio.test {
     encode gzip
 }
 
+dcodesupport.test {
+    root * /var/www/dcodesupport/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 bestratedtransport.test {
     root * /var/www/bestratedtransport/public/
     php_fastcgi php-fpm:9000

@@ -977,6 +977,7 @@ services:
         - caddy:misura.test
         - caddy:washed.test
         - caddy:wrapstudio.test
+        - caddy:dcodesupport.test
         - caddy:laravel8.test
 
 ### Varnish ##########################################
