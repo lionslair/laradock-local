@@ -149,7 +149,7 @@ Also add these for convenience
 
 Add new databases to `mysql/docker-entrypoint-initdb.d/createdb.sql`
 
-To execute this file do `docker-compose exec mysql bash`
+To execute this file do `docker-compose exec mysql bash` or use the alias if setup `lara-mysql` to enter the container
 
 then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql`
 
