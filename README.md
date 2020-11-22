@@ -1,12 +1,12 @@
 # Customised laradock
 
-This repository is a customised fork of [https://github.com/laradock/laradock](https://github.com/laradock/laradock)
+This repository is a customised fork of [https://github.com/laradock/laradock](https://github.com/laradock/laradock) with all personal configurations made for projects I work on.
 
-Most of the notes here have been worked out from the laradocs documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
+Most of the notes here have been worked out from the official laradock documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
 
 ## Track changes
 
-In I will keep this up to date with the main laradock branch. However you should track your own changes on a fork of this repo.
+I keep this fork up to date with the main laradock branch. How ever you should track your own changes on a fork of this repo.
 
 [https://dev.to/jeremy/how-to-sync-your-fork-with-the-parent-repository-3ok1](https://dev.to/jeremy/how-to-sync-your-fork-with-the-parent-repository-3ok1)
 
@@ -50,7 +50,7 @@ The GPG key is a security feature.
 
 To ensure that the software you’re installing is authentic enter:
 
-`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add –`
+`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add`
 
 ##### Step 4 Install docker repo
 
@@ -65,17 +65,20 @@ Update the repositories you just added:
 `sudo apt-get update`
 
 ##### Step 6: Install Latest Version of Docker
+make sure it's the 19.x *(a the time of writing)* version. you should end up with the following.
+
+```
+docker-ce-cli/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
+docker-ce/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
+``` 
+
 To install the latest version of docker:
 
 `sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose`
 
-make sure its the 18.x version. I needed to do 
-
-`sudo apt install docker-ce=18.06.3~ce~3-0~ubuntu`
-
 release notes
 
-[https://docs.docker.com/engine/release-notes/#version-1903](https://docs.docker.com/engine/release-notes/#version-1903)
+[https://docs.docker.com/engine/release-notes](https://docs.docker.com/engine/release-notes)
 
 ##### Step 7 add user to group
 
@@ -96,40 +99,65 @@ The Docker service needs to be setup to run at startup. To do so, type in each c
 `sudo systemctl start docker`
 `sudo systemctl enable docker`
 
-### Requirements
+## System
+
+*IMPORTANT*
+
+on your local machine also run this as root. *This allows exceeding of pre-configured memory limits*
+
+`echo 'vm.max_map_count=262144' >> /etc/sysctl.conf`
+
+`echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf`
+
+`sysctl -p`
+
+When you start laradock it may create the horizon and websockets log files as root owner and group. Change the permission on the storage folder.
+
+`sudo chown -R youruser:yourgroup storage/`
+
+*Laradock will not change the permissions on restart.* 
+I have also created my own alias `storage` to do this for me.
+
+### Laradock
 
 * Git [https://git-scm.com/downloads](https://git-scm.com/downloads)
-* Docker >= 17.12 [https://www.docker.com/products/docker/](https://www.docker.com/products/docker/)
+* Docker >= 17.12 [https://www.docker.com/products/docker/](https://www.docker.com/products/docker/) *following above this should be done*
 
-Make sure you have docker and docker-compose installed. See information here [https://www.docker.com/products/docker/])
+Make sure you have docker and docker-compose installed. See information here [https://www.docker.com/products/docker/]) *following above this should be done*
+
+Laradock should live in the same directory as all your sites. Example. If your projects reside in `/home/<username>/Code` on your system then this is the same place you want to clone laradock into.
 
 Clone this repository to the same directory as you have your laravel sites. eg `/home/user/Code`
 
 `git clone git@bitbucket.org/lionslair/laradock.git`
 
-cd into the cloned directory and run the command below.
+cd into the cloned directory and run the command below. eg `/home/<username>/Code/laradock`
 
-`docker-compose up -d caddy mysql adminer redis elasticsearch kibana laravel-horizon selenium workspace`
+`./up.sh`
 
+Inside this bash script is the following. You may need to the paths and what services you want to bring up. 
+
+```
+#!/bin/bash
+
+cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis laravel-horizon selenium workspace php-worker mailhog
+```
 
 ## Sites
 
-### Caddy (Webserver)
-
-Configure sites in `./caddy/caddy/Caddyfile`
-
-edit as needed.
-
 ## Hosts file
 
-Ensure to add the website hosts to your /etc/hosts file
+Ensure to add the website hosts to your `/etc/hosts` file eg
 
+```
 127.0.0.1 site1.test
 
 127.0.0.1 site2.test
+```
 
-Also add these for convenience
+Also add these for convenience add these
 
+```
 127.0.0.1       mysql
 
 127.0.0.1       elasticsearch
@@ -143,23 +171,51 @@ Also add these for convenience
 127.0.0.1       puppeteer
 
 127.0.0.1       mailhog
+```
 
+### Caddy (Webserver)
+
+In order to effortlessly run local sites V2with https I have used [Caddy ](https://caddyserver.com) webserver *Currently have a PR open with Laradock to move to Caddy v2 which is what I am using.*
+
+Configure sites you want to server in `./caddy/caddy/Caddyfile`
+
+*You will see I have a number of sites in this file. Some will be familure, and some are past projects* edit as needed.
+
+Configuring a new site is very simple. You can work out what is needed by reviewing already configured sites and to learn more visit [https://caddyserver.com/docs/](https://caddyserver.com/docs/).
 
 ## Databases
 
-Add new databases to `mysql/docker-entrypoint-initdb.d/createdb.sql`
+You can configure databases to be created and privileges automatically assigned in `mysql/docker-entrypoint-initdb.d/createdb.sql`
 
-To execute this file do `docker-compose exec mysql bash` or use the alias if setup `lara-mysql` to enter the container
+You can access the mysql host locally with `mysql` if you added the hosts record above.
 
-then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql`
+You can use the following for db authentication.
+```
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+```
+
+or 
+```
+DB_USERNAME=root
+DB_PASSWORD=root
+```
+
+To execute this file do `docker-compose exec mysql bash` or use the alias if setup `lara-mysql` to enter the container. *(see aliases later)*
+
+then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql` This will create the Database and assign the user access to each.
 
 ## Horizon
 
-copy `laravel-horizon/supervisord.d/laravel-horizon.conf.example to a new file`
+Laravel Horizon runs as it's own contain within the `./laravel-horizon` directory. In order to configure new Horizon 
+setup's make a copy of `laravel-horizon/supervisord.d/laravel-horizon.conf.example` in the same directory. eg `laravel-horizon-flooringlab.conf`
+
+The file is simply the supervisor config file.
 
 ## Dusk
 
-In order to run dusk tests you need to ensure the following exists at the end of the *selenium* config in docker-compose.yml
+In order to run dusk tests you need to ensure the following exists at the end of the *selenium* config in `./docker-compose.yml`
+*You will see I already have a few configured*
 
 ```
 depends_on:
@@ -175,9 +231,17 @@ links:
 
 Take note each time you add a new site you will need to add it to the links reference [https://github.com/laradock/laradock/issues/907](https://github.com/laradock/laradock/issues/907)
 
+## Scheduler
+
+Cron scheduler is configured in the workspace container. When you need a new crontab line edit this file `./workspace/crontab/laradock`
+
+Standard crontab configuration is used. In order for this to run you will need to rebuild the container for it get applied. Run the following.
+
+`docker-compose build --no-cache workspace`
+
 ## Aliases
 
-I have created some aliases for my system to make starting, stopping and ssh a little easier.
+I have created some aliases for my system to make starting, stopping and ssh into a little easier.
 
 #### Start
 `alias lara='cd ~/Code/laradock; ./up.sh'`
@@ -207,34 +271,24 @@ I have created some aliases for my system to make starting, stopping and ssh a l
 `alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon php-worker'`
 
 #### Extra containers
-You can add any of the extra containers you may want or need to run. eg to use the sqs_extended drivers like on AWS add the below. These two should only be used when testing something specific. 
+You can add new ones or use any of the other existing containers to your environment. For easy add them to `up.sh`, `down.sh` and `restart.sh` scripts.
+
+Example of custom containers added are:
+eg to use the sqs_extended drivers like on AWS add the below. These two should only be used when testing something specific. 
 
 `sqs sqs-ui`
 
-## OTHER
+## Local UI's
 
-*IMPORTANT*
+Below are some of the UI's made available when using the given containers.
 
-on your local machine also run this as root
+Kibana http://localhost:5601 *(requires adminer container)*
+Adminer http://localhost:8081/ *(requires adminer container)*
+Phpmyadmin http://localhost:8081/ *(requires phpmyadmin container. You can not use phpmyadmin and adminer at the same time. I prefer adminer. You could change ports but thats up to you)*
+SQS http://localhost:9325/ *(requires a running sqs-ui container)*
+Mailhog:  http://mailhog:8025  *(requires mailhog container)*
 
-`echo 'vm.max_map_count=262144' >> /etc/sysctl.conf`
-
-`echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf`
-
-`sysctl -p`
-
-When you start laradock it may create the horizon and websockets log files as root owner and group. Change the permission on the storage folder.
-
-`sudo chown -R youruser:yourgroup storage/`
-
-Laradock will not change the permissions on restart.
-
-## Local UI
-
-Kibana http://localhost:5601
-Adminer http://localhost:8081/ (requires adminer container)
-SQS http://localhost:9325/ (requires a running sqs-ui container)
-Mailhog:  http://mailhog:8025
+Others have their own also but these are the ones I have used so far.
 
 ## MailHog Settings
 
@@ -272,7 +326,7 @@ then to clean up images
 
 `docker image prune -a`
 
-then to clean up volumes
+then to clean up volumes *(Getting rid of the volumes will loose data. eg local databases. Elastic Search indexes If you need that backup first,)*
 
 `docker volume prune`
 
@@ -282,8 +336,22 @@ In order to rebuild a container run
 
 `docker-compose build --no-cache laravel-horizon`
 
-It is best to then restart that container or sometimes do `lara-stop` then `lara` again
+It is best to then restart that container or sometimes do `lara-restart` or run `./restart.sh`
 
+## More notes
+
+When adding a new site to local eg example.test
+
+* Add the host to the Caddyfile
+* Add the new crontab setting to `./workspace/crontab/laradock`
+
+Then run `docker-compose build --no-cache caddy workspace` *will take just a few minutes*
+
+If you have added a horizon config or normal supervisor configs to php-worker then you will want to run all four containers. eg
+
+`docker-compose build --no-cache caddy workspace laravel-horizon php-worker`
+
+All should be setup and working. run `lara-restart` or `./restart.sh`
 
 ## Extra
 
