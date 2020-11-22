@@ -357,3 +357,43 @@ All should be setup and working. run `lara-restart` or `./restart.sh`
 
 We are running a local SQS type service. Repo is here https://hub.docker.com/r/roribio16/alpine-sqs (used for the UI) and https://hub.docker.com/r/localstack/localstack (used for the actual SQS mock)
 - Used for Q
+
+## .env file setup
+
+Below is an example of what my .env file looks like to access and work with laradock hosts *(taken from flooring lab)*
+
+```
+APP_NAME="Flooring Lab"
+APP_ENV=local
+APP_KEY=randomstringhere
+APP_DEBUG=true
+APP_URL=https://flooringlab.test
+BUGHERD_ENABLED=false
+DEBUGBAR_ENABLED=true
+
+DB_CONNECTION=mysql
+DB_HOST=mysql
+DB_PORT=3306
+DB_DATABASE=flooringlab
+DB_USERNAME=homestead
+DB_PASSWORD=secret
+
+BROADCAST_DRIVER=log
+CACHE_DRIVER=redis
+QUEUE_CONNECTION=redis
+SESSION_DRIVER=redis
+SESSION_LIFETIME=120
+
+REDIS_HOST=redis
+REDIS_PASSWORD=null
+REDIS_PORT=6379
+
+MAIL_MAILER=smtp
+MAIL_HOST=mailhog
+MAIL_PORT=1025
+MAIL_USERNAME=null
+MAIL_PASSWORD=null
+MAIL_ENCRYPTION=null
+MAIL_FROM_ADDRESS=noreply@flooringlab.test
+MAIL_FROM_NAME="${APP_NAME}"
+```
