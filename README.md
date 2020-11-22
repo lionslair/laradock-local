@@ -282,10 +282,10 @@ eg to use the sqs_extended drivers like on AWS add the below. These two should o
 
 Below are some of the UI's made available when using the given containers.
 
-Kibana http://localhost:5601 *(requires adminer container)*
-Adminer http://localhost:8081/ *(requires adminer container)*
-Phpmyadmin http://localhost:8081/ *(requires phpmyadmin container. You can not use phpmyadmin and adminer at the same time. I prefer adminer. You could change ports but thats up to you)*
-SQS http://localhost:9325/ *(requires a running sqs-ui container)*
+Kibana http://localhost:5601 *(requires adminer container)*\
+Adminer http://localhost:8081/ *(requires adminer container)*\
+Phpmyadmin http://localhost:8081/ *(requires phpmyadmin container. You can not use phpmyadmin and adminer at the same time. I prefer adminer. You could change ports but thats up to you)*\
+SQS http://localhost:9325/ *(requires a running sqs-ui container)*\
 Mailhog:  http://mailhog:8025  *(requires mailhog container)*
 
 Others have their own also but these are the ones I have used so far.
