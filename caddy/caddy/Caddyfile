@@ -84,7 +84,7 @@ macutex.test {
     encode gzip
 }
 
-misura.test {
+*.dev.app.misura.com.au {
     root * /var/www/misura/public/
     php_fastcgi php-fpm:9000
     file_server
