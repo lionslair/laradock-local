@@ -402,3 +402,10 @@ MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=noreply@flooringlab.test
 MAIL_FROM_NAME="${APP_NAME}"
 ```
+
+
+## References
+
+Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However the worker containers would probably still run the env version.
+
+https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071
