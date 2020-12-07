@@ -34,7 +34,10 @@ RUN apk --update add wget \
   oniguruma-dev \
   openssl \
   openssl-dev \
-  supervisor
+  supervisor \
+  libintl \
+  icu \
+  icu-dev
 
 RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
 RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
@@ -51,6 +54,16 @@ ENV PGID ${PGID}
 
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
+
+#Install intl package:
+
+ARG INSTALL_INTL=false
+
+RUN if [ ${INSTALL_INTL} = true ]; then \
+    docker-php-ext-configure intl &&  \
+    docker-php-ext-install intl \
+;fi
+
 
 #Install BZ2:
 ARG INSTALL_BZ2=false
