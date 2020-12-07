@@ -857,6 +857,30 @@ RUN if [ ${INSTALL_FFMPEG} = true ]; then \
     apt-get -y install ffmpeg \
 ;fi
 
+###########################################################################
+# BBC Audio Waveform Image Generator:
+###########################################################################
+
+USER root
+
+ARG INSTALL_AUDIOWAVEFORM=false
+
+RUN if [ ${INSTALL_AUDIOWAVEFORM} = true ]; then \
+   apt-get -y install git wget make cmake gcc g++ libmad0-dev libid3tag0-dev libsndfile1-dev libgd-dev libboost-filesystem-dev libboost-program-options-dev libboost-regex-dev \
+   && git clone https://github.com/bbc/audiowaveform.git \
+   && cd audiowaveform \
+   && wget https://github.com/google/googletest/archive/release-1.10.0.tar.gz \
+   && tar xzf release-1.10.0.tar.gz \
+   && ln -s googletest-release-1.10.0/googletest googletest \
+   && ln -s googletest-release-1.10.0/googlemock googlemock \
+   && mkdir build \
+   && cd build \
+   && cmake .. \
+   && make \
+   && make install \
+;fi
+
+
 #####################################
 # wkhtmltopdf:
 #####################################
@@ -919,6 +943,18 @@ ARG INSTALL_XMLRPC=false
 
 RUN if [ ${INSTALL_XMLRPC} = true ]; then \
     docker-php-ext-install xmlrpc \
+;fi
+
+###########################################################################
+# Downgrade Openssl:
+###########################################################################
+
+ARG DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL=false
+
+RUN if [ ${DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL} = true ]; then \
+    sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv1.2',g' /etc/ssl/openssl.cnf \
+    && \
+    sed -i 's,^\(CipherString[ ]*=\).*,\1'DEFAULT@SECLEVEL=1',g' /etc/ssl/openssl.cnf\
 ;fi
 
 ###########################################################################
