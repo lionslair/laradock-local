@@ -20,7 +20,6 @@ q.test {
     encode gzip
 }
 
-
 laravel8.test {
     root * /var/www/laravel8/public/
     php_fastcgi php-fpm:9000
@@ -108,7 +107,7 @@ wrapstudio.test {
     encode gzip
 }
 
-dcodesupport.test {
+kanopi.test {
     root * /var/www/dcodesupport/public/
     php_fastcgi php-fpm:9000
     file_server
