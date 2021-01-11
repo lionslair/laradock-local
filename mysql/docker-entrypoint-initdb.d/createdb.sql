@@ -130,10 +130,10 @@ GRANT ALL ON `dcodesupport`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `dcodesupport_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodesupport_testing`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `omboard` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `omboard`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `ombord` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `ombord`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `omboard_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `omboard_testing`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `ombord_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `ombord_testing`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;

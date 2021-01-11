@@ -131,8 +131,8 @@ customerplus.test {
     encode gzip
 }
 
-omboard.test {
-    root * /var/www/omboard/public/
+ombord.test {
+    root * /var/www/ombord/public/
     php_fastcgi php-fpm:9000
     file_server
 

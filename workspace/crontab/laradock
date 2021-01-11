@@ -17,4 +17,4 @@
 * * * * * laradock /usr/bin/php /var/www/wrapstudio/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/dcodesupport/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/laravel8/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php /var/www/omboard/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/ombord/artisan schedule:run >> /dev/null 2>&1
