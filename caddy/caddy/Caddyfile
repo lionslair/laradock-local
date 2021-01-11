@@ -131,6 +131,14 @@ customerplus.test {
     encode gzip
 }
 
+omboard.test {
+    root * /var/www/omboard/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 leeelectrix.test {
     root * /var/www/leeelectrix/public/
     php_fastcgi php-fpm:9000
