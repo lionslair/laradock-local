@@ -136,4 +136,10 @@ GRANT ALL ON `ombord`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `ombord_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `ombord_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `dynamicts` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `dynamicts`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `dynamicts_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `dynamicts_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
