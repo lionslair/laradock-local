@@ -142,4 +142,10 @@ GRANT ALL ON `dynamicts`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `dynamicts_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dynamicts_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `edge_stealth` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `edge_stealth`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `edge_stealth_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `edge_stealth_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
