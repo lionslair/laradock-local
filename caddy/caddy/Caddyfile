@@ -98,7 +98,7 @@ macutex.test {
 }
 
 edge.test {
-    root * /var/www/edge.stealth/public/
+    root * /var/www/edgegroup.stealth/public/
     php_fastcgi php-fpm:9000
     file_server
 
