@@ -153,7 +153,23 @@ bestratedtransport.test {
     encode gzip
 }
 
-esg.test {
+dev.esgportal.com {
+    root * /var/www/esg/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+dev.soildeclaration.com {
+    root * /var/www/esg/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+dev.earthsolutionsgroup.com.au {
     root * /var/www/esg/public/
     php_fastcgi php-fpm:9000
     file_server
