@@ -148,4 +148,7 @@ GRANT ALL ON `edge_stealth`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `edge_stealth_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `edge_stealth_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `mripro` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mripro`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
