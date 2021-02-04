@@ -153,6 +153,14 @@ bestratedtransport.test {
     encode gzip
 }
 
+esg.test {
+    root * /var/www/esg/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 customerplus.test {
     root * /var/www/customerplus/public/
     php_fastcgi php-fpm:9000
