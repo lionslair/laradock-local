@@ -130,7 +130,7 @@ wrapstudio.test {
 }
 
 kanopi.test {
-    root * /var/www/dcodesupport/public/
+    root * /var/www/kanopi/public/
     php_fastcgi php-fpm:9000
     file_server
 

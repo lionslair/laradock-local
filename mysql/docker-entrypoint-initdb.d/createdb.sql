@@ -124,11 +124,11 @@ GRANT ALL ON `wrapstudio`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `wrapstudio_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `wrapstudio_testing`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `dcodesupport` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `dcodesupport`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `kanopi` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `kanopi`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `dcodesupport_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `dcodesupport_testing`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `kanopi_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `kanopi_testing`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `ombord` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `ombord`.* TO 'homestead'@'%' ;
