@@ -89,7 +89,7 @@ flooringlab.test {
     encode gzip
 }
 
-macutex.test {
+macuport.test {
     root * /var/www/macutex/public/
     php_fastcgi php-fpm:9000
     file_server
