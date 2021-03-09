@@ -519,7 +519,7 @@ ARG INSTALL_PHPREDIS=false
 
 RUN if [ ${INSTALL_PHPREDIS} = true ]; then \
     apt-get update -yqq && \
-    apt-get install -yqq php-redis \
+    apt-get install -yqq php-redis php7.4-redis \
 ;fi
 
 ###########################################################################
@@ -1138,7 +1138,7 @@ USER root
 ARG INSTALL_IMAGEMAGICK=false
 
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
-    apt-get install -y imagemagick php-imagick \
+    apt-get install -y imagemagick php-imagick php7.4-imagick \
 ;fi
 
 ###########################################################################
