@@ -88,6 +88,8 @@ RUN set -eux; \
     php -m | grep -q 'imagick'; \
 fi;
 
+COPY ./policy.xml /etc/ImageMagick-6/policy.xml
+
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \

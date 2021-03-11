@@ -87,6 +87,8 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
   docker-php-ext-enable imagick \
 ;fi
 
+COPY ./policy.xml /etc/ImageMagick-6/policy.xml
+
 #Install GMP package:
 ARG INSTALL_GMP=false
 RUN if [ ${INSTALL_GMP} = true ]; then \
