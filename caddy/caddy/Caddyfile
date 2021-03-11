@@ -97,6 +97,14 @@ macuport.test {
     encode gzip
 }
 
+premax.test {
+    root * /var/www/premax/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 asbestosedge.test {
     root * /var/www/edgegroup.stealth/public/
     php_fastcgi php-fpm:9000

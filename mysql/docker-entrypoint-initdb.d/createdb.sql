@@ -148,4 +148,10 @@ GRANT ALL ON `edge_stealth`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `edge_stealth_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `edge_stealth_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `premax` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `premax`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `premax_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `premax_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
