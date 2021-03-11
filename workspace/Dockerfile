@@ -1141,6 +1141,8 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     apt-get install -y imagemagick php-imagick php7.4-imagick \
 ;fi
 
+COPY ./policy.xml /etc/ImageMagick-6/policy.xml
+
 ###########################################################################
 # Terraform:
 ###########################################################################
