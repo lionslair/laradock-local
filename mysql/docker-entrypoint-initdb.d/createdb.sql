@@ -154,4 +154,10 @@ GRANT ALL ON `premax`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `premax_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `premax_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `m2electrical` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `m2electrical`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `m2electrical_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `m2electrical_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

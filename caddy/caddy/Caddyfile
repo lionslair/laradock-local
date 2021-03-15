@@ -209,6 +209,14 @@ leeelectrix.test {
     encode gzip
 }
 
+m2electrical.test {
+    root * /var/www/m2electrical/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 greeta.test {
     root * /var/www/greeta-laravel/public/
