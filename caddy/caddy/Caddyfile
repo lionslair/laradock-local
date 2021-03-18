@@ -98,7 +98,7 @@ macuport.test {
 }
 
 premax.test {
-    root * /var/www/premax/public/
+    root * /var/www/premax.web/public/
     php_fastcgi php-fpm:9000
     file_server
 
