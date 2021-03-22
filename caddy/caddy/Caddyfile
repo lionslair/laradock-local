@@ -153,6 +153,14 @@ mripro.test {
     encode gzip
 }
 
+wpe.test {
+    root * /var/www/wpe/wp/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 bestratedtransport.test {
     root * /var/www/bestratedtransport/public/
     php_fastcgi php-fpm:9000

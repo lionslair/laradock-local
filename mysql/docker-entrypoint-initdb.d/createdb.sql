@@ -160,4 +160,10 @@ GRANT ALL ON `m2electrical`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `m2electrical_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `m2electrical_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `wpe` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wpe`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `wpe_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wpe_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

@@ -22,3 +22,4 @@
 * * * * * laradock /usr/bin/php /var/www/dynamictradesolutions/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/edgegroup.stealth/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/premax.web/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/wpe/artisan schedule:run >> /dev/null 2>&1
