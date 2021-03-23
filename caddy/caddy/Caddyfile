@@ -154,7 +154,7 @@ mripro.test {
 }
 
 wpe.test {
-    root * /var/www/wpe/public
+    root * /var/www/wpe/public/
     php_fastcgi php-fpm:9000
     file_server
 
