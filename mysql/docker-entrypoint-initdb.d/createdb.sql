@@ -166,4 +166,10 @@ GRANT ALL ON `wpe`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `wpe_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `wpe_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `kontrastinteriors` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `kontrastinteriors`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `kontrastinteriors_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `kontrastinteriors_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
