@@ -136,6 +136,7 @@ RUN if [ ${INSTALL_GMP} = true ]; then \
    docker-php-ext-install gmp \
 ;fi
 
+# might need to make this by the version number
 COPY ./policy.xml /etc/ImageMagick-6/policy.xml
 
 #Install BCMath package:
