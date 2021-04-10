@@ -136,6 +136,8 @@ RUN if [ ${INSTALL_GMP} = true ]; then \
    docker-php-ext-install gmp \
 ;fi
 
+COPY ./policy.xml /etc/ImageMagick-6/policy.xml
+
 #Install BCMath package:
 ARG INSTALL_BCMATH=false
 RUN if [ ${INSTALL_BCMATH} = true ]; then \

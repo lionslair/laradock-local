@@ -1206,6 +1206,9 @@ RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
     php -m | grep -q 'imagick' \
 ;fi
 
+# might needd to update to match version
+COPY ./policy.xml /etc/ImageMagick-6/policy.xml
+
 ###########################################################################
 # Terraform:
 ###########################################################################

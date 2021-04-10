@@ -134,6 +134,8 @@ RUN set -eux; \
     php -m | grep -q 'imagick'; \
   fi
 
+COPY ./policy.xml /etc/ImageMagick-6/policy.xml
+
 #Install GMP package:
 ARG INSTALL_GMP=false
 RUN if [ ${INSTALL_GMP} = true ]; then \

@@ -64,11 +64,11 @@ GRANT ALL ON `flooringlab`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `flooringlab_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `flooringlab_testing`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `macutex` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `macutex`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `macuport` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `macuport`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `macutex_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `macutex_testing`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `macuport_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `macuport_testing`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `bestratedtransport` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `bestratedtransport`.* TO 'homestead'@'%' ;
@@ -148,7 +148,28 @@ GRANT ALL ON `edge_stealth`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `edge_stealth_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `edge_stealth_testing`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `mripro` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `mripro`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `premax` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `premax`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `premax_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `premax_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `m2electrical` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `m2electrical`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `m2electrical_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `m2electrical_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `wpe` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wpe`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `wpe_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wpe_testing`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `kontrastinteriors` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `kontrastinteriors`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `kontrastinteriors_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `kontrastinteriors_testing`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;

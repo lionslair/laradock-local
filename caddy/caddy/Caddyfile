@@ -89,7 +89,7 @@ flooringlab.test {
     encode gzip
 }
 
-macutex.test {
+macuport.test {
     root * /var/www/macutex/public/
     php_fastcgi php-fpm:9000
     file_server
@@ -97,7 +97,15 @@ macutex.test {
     encode gzip
 }
 
-edge.test {
+premax.test {
+    root * /var/www/premax.web/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+asbestosedge.test {
     root * /var/www/edgegroup.stealth/public/
     php_fastcgi php-fpm:9000
     file_server
@@ -145,8 +153,24 @@ mripro.test {
     encode gzip
 }
 
+wpe.test {
+    root * /var/www/wpe/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 bestratedtransport.test {
     root * /var/www/bestratedtransport/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+kontrastinteriors.test {
+    root * /var/www/kontrastinteriors/public/
     php_fastcgi php-fpm:9000
     file_server
 
@@ -195,6 +219,14 @@ ombord.test {
 
 leeelectrix.test {
     root * /var/www/leeelectrix/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+m2electrical.test {
+    root * /var/www/m2electrical/public/
     php_fastcgi php-fpm:9000
     file_server
 
