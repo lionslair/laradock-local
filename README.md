@@ -16,7 +16,7 @@ Add this repo or laradock as an upstream
 
 or mine
 
-`git remote add upstream https://lionslair@bitbucket.org/lionslair/laradock.git`
+`git remote add upstream https://{your_username}@bitbucket.org/lionslair/laradock.git`
 
 get the upstream code.
 
