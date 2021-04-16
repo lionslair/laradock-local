@@ -67,7 +67,6 @@ dev.dynamicts.com.au {
 }
 
 myoffer.test {
-
     @ws {
         header Connection *Upgrade*
         header Upgrade    websocket
@@ -81,7 +80,7 @@ myoffer.test {
     encode gzip
 }
 
-flooringlab.test {
+*.flooringlab.test {
     root * /var/www/flooringlab/public/
     php_fastcgi php-fpm:9000
     file_server
