@@ -80,6 +80,14 @@ myoffer.test {
     encode gzip
 }
 
+flooringlab.test {
+    root * /var/www/flooringlab/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 *.flooringlab.test {
     root * /var/www/flooringlab/public/
     php_fastcgi php-fpm:9000
