@@ -172,4 +172,10 @@ GRANT ALL ON `kontrastinteriors`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `kontrastinteriors_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `kontrastinteriors_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `ephire_test` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `ephire_test`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `phs_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
