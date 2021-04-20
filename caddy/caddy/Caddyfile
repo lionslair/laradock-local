@@ -96,6 +96,14 @@ flooringlab.test {
     encode gzip
 }
 
+flooringlabtenant.test {
+    root * /var/www/flooringlab/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 macuport.test {
     root * /var/www/macutex/public/
     php_fastcgi php-fpm:9000
