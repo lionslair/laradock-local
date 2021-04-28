@@ -320,27 +320,37 @@ Web UI Mailhog:  http://mailhog:8025
 
 Web UI minio:  http://minio:9000 or http://localhost:9000 
 
+The inital login details are
+access key: access
+secret key: secretkey
+
 Create a bucket either through the webui or using the `mc client: bash mc mb minio/bucket`
 
-When configuring your other clients use the following details: `AWS_URL=http://minio:9000 AWS_ACCESS_KEY_ID=access AWS_SECRET_ACCESS_KEY=secretkey AWS_DEFAULT_REGION=us-east-1 AWS_BUCKET=test AWS_PATH_STYLE=true`
+When configuring your other clients use the following details in your env
+
+```
+  AWS_URL=http://minio:9000
+  AWS_ACCESS_KEY_ID=access
+  AWS_SECRET_ACCESS_KEY=secretkey
+  AWS_DEFAULT_REGION=us-east-1
+  AWS_BUCKET=test
+  AWS_PATH_STYLE=true
+```
 
 In filesystems.php you should use the following details (s3): 
 ```
-'s3' => [ 
-     'driver' => 's3',
-     'key' => env('AWS_ACCESS_KEY_ID'), 
-     'secret' => env('AWS_SECRET_ACCESS_KEY'), 
-     'region' => env('AWS_DEFAULT_REGION'), 
-     'bucket' => env('AWS_BUCKET'),
-     'endpoint' => env('AWS_URL'), 
-     'use_path_style_endpoint' => env('AWS_PATH_STYLE', false)
- ]
+'s3' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET'),
+            'endpoint' => env('AWS_URL'),
+            'use_path_style_endpoint' => env('AWS_PATH_STYLE', false)
+        ],
 ```
 
 `'AWS_PATH_STYLE'` shout set to true only for local purpouse
-
-
-
 
 ## Dev Tools
 Xdebug is installed by default.
