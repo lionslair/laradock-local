@@ -171,6 +171,10 @@ Also add these for convenience add these
 127.0.0.1       puppeteer
 
 127.0.0.1       mailhog
+
+127.0.0.1       minio
+
+127.0.0.1       mssql
 ```
 
 ### Caddy (Webserver)
@@ -282,7 +286,9 @@ eg to use the sqs_extended drivers like on AWS add the below. These two should o
 
 Below are some of the UI's made available when using the given containers.
 
-Mailhog: [http://mailhog:8025](http://mailhog:8025 )  *(requires mailhog container)*
+Mailhog: [http://mailhog:8025](http://mailhog:8025)  *(requires mailhog container)*
+
+Minio: [http://minio:9000](http://mailhog:9000)  *(requires minio container)*
 
 Adminer [http://localhost:8081/](http://localhost:8081/) *(requires adminer container)*
 
@@ -310,6 +316,42 @@ MAIL_ENCRYPTION=null
 
 Web UI Mailhog:  http://mailhog:8025
 
+## Minio Settings
+
+Web UI minio:  http://minio:9000 or http://localhost:9000 
+
+The inital login details are
+access key: access
+secret key: secretkey
+
+Create a bucket either through the webui or using the `mc client: bash mc mb minio/bucket`
+
+When configuring your other clients use the following details in your env
+
+```
+  AWS_URL=http://minio:9000
+  AWS_ACCESS_KEY_ID=access
+  AWS_SECRET_ACCESS_KEY=secretkey
+  AWS_DEFAULT_REGION=us-east-1
+  AWS_BUCKET=test
+  AWS_PATH_STYLE=true
+```
+
+In filesystems.php you should use the following details (s3): 
+```
+'s3' => [
+            'driver' => 's3',
+            'key' => env('AWS_ACCESS_KEY_ID'),
+            'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            'region' => env('AWS_DEFAULT_REGION'),
+            'bucket' => env('AWS_BUCKET'),
+            'endpoint' => env('AWS_URL'),
+            'use_path_style_endpoint' => env('AWS_PATH_STYLE', false)
+        ],
+```
+
+`'AWS_PATH_STYLE'` shout set to true only for local purpouse
+
 ## Dev Tools
 Xdebug is installed by default.
 
@@ -331,7 +373,7 @@ then to clean up images
 
 `docker image prune -a`
 
-then to clean up volumes *(Getting rid of the volumes will loose data. eg local databases. Elastic Search indexes If you need that backup first,)*
+then to clean up volumes *(Getting rid of the volumes will lose data. eg local databases. Elastic Search indexes If you need that backup first,)*
 
 `docker volume prune`
 
