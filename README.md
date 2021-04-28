@@ -363,7 +363,7 @@ then to clean up images
 
 `docker image prune -a`
 
-then to clean up volumes *(Getting rid of the volumes will loose data. eg local databases. Elastic Search indexes If you need that backup first,)*
+then to clean up volumes *(Getting rid of the volumes will lose data. eg local databases. Elastic Search indexes If you need that backup first,)*
 
 `docker volume prune`
 
