@@ -95,6 +95,14 @@ RUN set -eux; if [ ${INSTALL_GNUPG} = true ]; then \
       docker-php-ext-enable gnupg; \
     fi
 
+#Install LDAP
+ARG INSTALL_LDAP=false;
+RUN set -eux; if [ ${INSTALL_LDAP} = true ]; then \
+      apk add --no-cache --no-progress openldap-dev; \
+      docker-php-ext-install ldap; \
+      php -m | grep -oiE '^ldap$'; \
+    fi
+
 #Install GD package:
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
@@ -420,6 +428,24 @@ RUN if [ ${INSTALL_XMLRPC} = true ]; then \
       fi; \
       php -m | grep -r 'xmlrpc'; \
     fi
+
+###########################################################################
+# PHP Memcached:
+###########################################################################
+
+ARG INSTALL_MEMCACHED=false
+
+RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
+  apk --update add libmemcached-dev; \
+  # Install the php memcached extension
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+    pecl install memcached-2.2.0; \
+  else \
+    pecl install memcached; \
+  fi; \
+  docker-php-ext-enable memcached; \
+  php -m | grep -r 'memcached'; \
+fi
 
 #
 #--------------------------------------------------------------------------
