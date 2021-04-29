@@ -352,6 +352,14 @@ In filesystems.php you should use the following details (s3):
 
 `'AWS_PATH_STYLE'` shout set to true only for local purpouse
 
+## Microsoft SQL Server
+
+https://hub.docker.com/_/microsoft-mssql-server
+
+Image uses `FROM mcr.microsoft.com/mssql/server:2017-latest-ubuntu` but could be changed to one of the tags above.
+
+
+
 ## Dev Tools
 Xdebug is installed by default.
 
