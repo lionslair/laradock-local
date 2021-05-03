@@ -175,6 +175,8 @@ Also add these for convenience add these
 127.0.0.1       minio
 
 127.0.0.1       mssql
+
+127.0.0.1       minio.test
 ```
 
 ### Caddy (Webserver)
@@ -318,11 +320,13 @@ Web UI Mailhog:  http://mailhog:8025
 
 ## Minio Settings
 
-Web UI minio:  http://minio:9000 or http://localhost:9000 
+Web UI minio:  `https://minio.test` or `http://minio:9000` or `http://localhost:9000` 
 
 The inital login details are
+```
 access key: access
 secret key: secretkey
+```
 
 Create a bucket either through the webui or using the `mc client: bash mc mb minio/bucket`
 

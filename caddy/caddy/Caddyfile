@@ -4,6 +4,10 @@
     # auto_https disable_redirects
 }
 
+minio.test {
+   reverse_proxy minio:9000
+}
+
 # Cine Q
 q.test {
 
