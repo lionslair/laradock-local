@@ -177,6 +177,10 @@ Also add these for convenience add these
 127.0.0.1       mssql
 
 127.0.0.1       minio.test
+
+127.0.0.1       adminer.test
+
+127.0.0.1       mailhog.test
 ```
 
 ### Caddy (Webserver)
@@ -288,11 +292,11 @@ eg to use the sqs_extended drivers like on AWS add the below. These two should o
 
 Below are some of the UI's made available when using the given containers.
 
-Mailhog: [http://mailhog:8025](http://mailhog:8025)  *(requires mailhog container)*
+Mailhog: [https://mailhog.test](https://mailhog.test)  *(requires mailhog container)*
 
-Minio: [http://minio:9000](http://mailhog:9000)  *(requires minio container)*
+Minio: [https://minio.test](https://mailhog.test)  *(requires minio container)*
 
-Adminer [http://localhost:8081/](http://localhost:8081/) *(requires adminer container)*
+Adminer [https://adminer.test](https://adminer.test) *(requires adminer container)*
 
 Kibana [http://localhost:5601](http://localhost:5601) *(requires adminer container)*
 

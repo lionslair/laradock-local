@@ -4,6 +4,14 @@
     # auto_https disable_redirects
 }
 
+adminer.test {
+   reverse_proxy adminer:8081
+}
+
+mailhog.test {
+   reverse_proxy mailhog:8025
+}
+
 minio.test {
    reverse_proxy minio:9000
 }
