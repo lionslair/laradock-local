@@ -176,6 +176,8 @@ Also add these for convenience add these
 
 127.0.0.1       mssql
 
+127.0.0.1       adminer
+
 127.0.0.1       minio.test
 
 127.0.0.1       adminer.test
