@@ -5,7 +5,7 @@
 }
 
 adminer.test {
-   reverse_proxy adminer:8081
+   reverse_proxy adminer:8080
 }
 
 mailhog.test {
