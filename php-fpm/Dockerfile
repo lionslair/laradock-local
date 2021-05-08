@@ -151,19 +151,11 @@ ARG INSTALL_SYBASE=false
 
 RUN if [ ${INSTALL_SYBASE} = true ]; then \
     # Install the sybase extension
-#    echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list \
-#    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
     apt-get update -yqq \
-#    && apt-cache search libgnutls \
-#    && apt-get install -y libc6 unixodbc unixodbc-dev freetds-common freetds-bin tdsodbc \
     && apt-get install -y unixodbc unixodbc-dev freetds-dev freetds-bin freetds-common tdsodbc \
     libc6 multiarch-support libgnutls28-dev libgssapi-krb5-2 libsybdb5 \
     && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
-#    && whereis libsybdb.a \
-#     php-common php${LARADOCK_PHP_VERSION}-common php${LARADOCK_PHP_VERSION}-sybase \
-#    && docker-php-ext-configure pdo_dblib \
 	&& docker-php-ext-install pdo_dblib \
-    #      && apt-get install -y libffi-dev php${LARADOCK_PHP_VERSION}-common php${LARADOCK_PHP_VERSION}-sybase \
 ;fi
 
 ###########################################################################
