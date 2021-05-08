@@ -144,6 +144,21 @@ RUN if [ ${INSTALL_SSH2} = true ]; then \
 ;fi
 
 ###########################################################################
+# SYBASE:
+###########################################################################
+
+ARG INSTALL_SYBASE=false
+
+RUN if [ ${INSTALL_SYBASE} = true ]; then \
+    # Install the sybase extension
+    apt-get update -yqq \
+    && apt-get install -y unixodbc unixodbc-dev freetds-dev freetds-bin freetds-common tdsodbc \
+    libc6 multiarch-support libgnutls28-dev libgssapi-krb5-2 libsybdb5 \
+    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
+	&& docker-php-ext-install pdo_dblib \
+;fi
+
+###########################################################################
 # libfaketime:
 ###########################################################################
 
@@ -713,16 +728,11 @@ RUN set -eux; \
       # Ref from https://github.com/Microsoft/msphpsql/wiki/Dockerfile-for-adding-pdo_sqlsrv-and-sqlsrv-to-official-php-image
       ###########################################################################
       # Add Microsoft repo for Microsoft ODBC Driver 13 for Linux
-#      apt-get install -yqq apt-transport-https gnupg software-properties-common \
       apt-get install -yqq apt-transport-https gnupg \
       && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
       && curl https://packages.microsoft.com/config/debian/9/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-#      && echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list \
-#      && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
       && apt-get update -yqq \
       && ACCEPT_EULA=Y apt-get install -yqq unixodbc unixodbc-dev libgss3 odbcinst msodbcsql17 locales \
-#      libc6 unixodbc unixodbc-dev freetds-common freetds-bin tdsodbc \
-#      && apt-get install -y libffi-dev php${LARADOCK_PHP_VERSION}-common php${LARADOCK_PHP_VERSION}-sybase \
       && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
       && ln -sfn /etc/locale.alias /usr/share/locale/locale.alias \
       && locale-gen \
@@ -765,9 +775,6 @@ ENV IMAGEMAGICK_VERSION ${IMAGEMAGICK_VERSION}
 
 RUN if [ ${INSTALL_IMAGEMAGICK} = true ]; then \
 	apt-get install -yqq libmagickwand-dev imagemagick && \
-#	apt-get install -y php${LARADOCK_PHP_VERSION}-imagick php${LARADOCK_PHP_VERSION}-common imagemagick && \
-#    apt-get install -yf imagemagick libmagickwand-dev libmagickwand-6.q16-6 libmagickcore-6.q16-dev \
-#    libmagickcore-6.q16-6 libmagickcore-6.q16-dev librsvg2-2 librsvg2-dev && \
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ]; then \
       cd /tmp && \
       if [ ${IMAGEMAGICK_VERSION} = "latest" ]; then \

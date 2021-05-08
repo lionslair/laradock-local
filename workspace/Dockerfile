@@ -245,7 +245,6 @@ ARG INSTALL_GNUPG=false
 ARG INSTALL_SSH2=false
 ARG INSTALL_SOAP=false
 ARG INSTALL_XSL=false
-ARG INSTALL_SYBASE=true
 ARG PHP_VERSION=${LARADOCK_PHP_VERSION}
 
 RUN set -eux; \
@@ -289,17 +288,6 @@ RUN set -eux; \
       # Install the PHP XSL extension
       apt-get -yqq install libxslt-dev php${LARADOCK_PHP_VERSION}-xsl; \
     fi
-	###########################################################################
-	# SYBASE
-	###########################################################################
-#   if [ ${INSTALL_SYBASE} = true ]; then \
-#       add-apt-repository -y ppa:ondrej/php && \
-#       apt-get update && \
-##	  echo "deb http://ppa.launchpad.net/ondrej/php/ubuntu focal main" > /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list \
-##	  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C \
-#	  && apt-get install -yqq libc6 unixodbc unixodbc-dev freetds-common freetds-bin tdsodbc \
-#	  && apt-get install -y php${LARADOCK_PHP_VERSION}-common php${LARADOCK_PHP_VERSION}-sybase \
-#   fi
 
 ###########################################################################
 
