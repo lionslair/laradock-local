@@ -178,4 +178,10 @@ GRANT ALL ON `ephire_test`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `phs_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `phs_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `video_inspection` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `video_inspection_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `video_inspection_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

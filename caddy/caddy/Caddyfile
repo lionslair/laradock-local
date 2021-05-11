@@ -40,6 +40,14 @@ laravel8.test {
     encode gzip
 }
 
+video-inspection.test {
+    root * /var/www/video-inspection/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 defex.test {
     root * /var/www/defex/public/
     php_fastcgi php-fpm:9000
