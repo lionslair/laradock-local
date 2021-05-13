@@ -183,6 +183,8 @@ Also add these for convenience add these
 127.0.0.1       adminer.test
 
 127.0.0.1       mailhog.test
+
+127.0.0.1       meilisearch.test
 ```
 
 ### Caddy (Webserver)
@@ -298,6 +300,8 @@ Mailhog: [https://mailhog.test](https://mailhog.test)  *(requires mailhog contai
 
 Minio: [https://minio.test](https://mailhog.test)  *(requires minio container)*
 
+Minio: [https://meilisearch.test](https://meilisearch.test)  *(requires meilisearch container)*
+
 Adminer [https://adminer.test](https://adminer.test) *(requires adminer container)*
 
 Kibana [http://localhost:5601](http://localhost:5601) *(requires adminer container)*
@@ -308,6 +312,12 @@ SQS [http://localhost:9325/](http://localhost:9325/) *(requires a running sqs-ui
 
 
 Others have their own also but these are the ones I have used so far.
+
+## MeiliSearch Settings
+
+Web UI MeiliSearch: http://meilisearch:7700 or http://localhost:7700
+
+The private API key is `masterkey`
 
 ## MailHog Settings
 

@@ -16,6 +16,10 @@ minio.test {
    reverse_proxy minio:9000
 }
 
+meilisearch.test {
+   reverse_proxy minio:7700
+}
+
 # Cine Q
 q.test {
 
@@ -42,6 +46,14 @@ laravel8.test {
 
 video-inspection.test {
     root * /var/www/video-inspection/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+kinesis.test {
+    root * /var/www/amazon-kinesis-video-streams-webrtc-sdk-js/examples
     php_fastcgi php-fpm:9000
     file_server
 
