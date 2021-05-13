@@ -17,7 +17,7 @@ minio.test {
 }
 
 meilisearch.test {
-   reverse_proxy minio:7700
+   reverse_proxy meilisearch:7700
 }
 
 # Cine Q
