@@ -315,7 +315,7 @@ Others have their own also but these are the ones I have used so far.
 
 ## MeiliSearch Settings
 
-Web UI MeiliSearch: [https://meilisearch.test] or [http://localhost:7700]
+Web UI MeiliSearch: [https://meilisearch.test](https://meilisearch.test) or [http://localhost:7700](http://localhost:7700)
 
 The private API key is `masterkey`
 
@@ -332,11 +332,11 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 ```
 
-Web UI Mailhog:  http://mailhog:8025
+Web UI Mailhog: [https://mailhoog.test](https://mailhoog.test)
 
 ## Minio Settings
 
-Web UI minio:  `https://minio.test` or `http://minio:9000` or `http://localhost:9000` 
+Web UI minio:  [https://minio.test](https://minio.test) or `http://localhost:9000` 
 
 The inital login details are
 ```
@@ -374,7 +374,7 @@ In filesystems.php you should use the following details (s3):
 
 ## Microsoft SQL Server
 
-https://hub.docker.com/_/microsoft-mssql-server
+[https://hub.docker.com/_/microsoft-mssql-server](https://hub.docker.com/_/microsoft-mssql-server)
 
 Image uses `FROM mcr.microsoft.com/mssql/server:2017-latest-ubuntu` but could be changed to one of the tags above.
 
@@ -478,4 +478,4 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However the worker containers would probably still run the env version.
 
-https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071
+[https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071](https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071)
