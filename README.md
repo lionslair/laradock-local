@@ -315,7 +315,7 @@ Others have their own also but these are the ones I have used so far.
 
 ## MeiliSearch Settings
 
-Web UI MeiliSearch: http://meilisearch:7700 or http://localhost:7700
+Web UI MeiliSearch: [http://meilisearch:7700] or [http://localhost:7700]
 
 The private API key is `masterkey`
 
