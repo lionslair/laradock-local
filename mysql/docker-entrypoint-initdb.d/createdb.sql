@@ -184,4 +184,10 @@ GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `video_inspection_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `video_inspection_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `cabmaster` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `cabmaster`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `cabmaster_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `cabmaster_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

@@ -60,6 +60,14 @@ kinesis.test {
     encode gzip
 }
 
+cabmaster.test {
+    root * /var/www/cabmaster/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 defex.test {
     root * /var/www/defex/public/
     php_fastcgi php-fpm:9000
