@@ -26,3 +26,4 @@
 * * * * * laradock /usr/bin/php /var/www/kontrastinteriors/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/video-inspection/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/cabmaster/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/mlilyportal/artisan schedule:run >> /dev/null 2>&1

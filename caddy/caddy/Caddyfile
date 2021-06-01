@@ -289,6 +289,14 @@ ombord.test {
     encode gzip
 }
 
+mlilyportal.test {
+    root * /var/www/mlilyportal/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 leeelectrix.test {
     root * /var/www/leeelectrix/public/
     php_fastcgi php-fpm:9000
