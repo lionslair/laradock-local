@@ -190,4 +190,10 @@ GRANT ALL ON `cabmaster`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `cabmaster_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cabmaster_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `mlily` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mlily`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `mlily_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mlily_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
