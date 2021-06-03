@@ -475,6 +475,11 @@ MAIL_FROM_ADDRESS=noreply@flooringlab.test
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
+## Ngrok
+
+If you need to publish your local env to the web use ngrok. Install in for your host system then use the below to forward requests to your local env.  
+
+`ngrok http -host-header=cabmaster.test 80`
 
 ## References
 
