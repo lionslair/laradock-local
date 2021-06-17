@@ -68,6 +68,22 @@ http://cabmaster.test {
     encode gzip
 }
 
+asiamarketentry-au.test {
+    root * /var/www/asiamarketentry/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+asiamarketentry-sg.test {
+    root * /var/www/asiamarketentry/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 cabmaster.test {
     root * /var/www/cabmaster/public/
     php_fastcgi php-fpm:9000
