@@ -68,6 +68,30 @@ http://cabmaster.test {
     encode gzip
 }
 
+cabmaster.test {
+    root * /var/www/cabmaster/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+bestratedtransport.test {
+    root * /var/www/bestratedtransport/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+http://bestratedtransport.test {
+    root * /var/www/bestratedtransport/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 asiamarketentry-au.test {
     root * /var/www/asiamarketentry/public/
     php_fastcgi php-fpm:9000
@@ -83,16 +107,6 @@ asiamarketentry-sg.test {
 
     encode gzip
 }
-
-cabmaster.test {
-    root * /var/www/cabmaster/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-
 
 defex.test {
     root * /var/www/defex/public/
@@ -253,14 +267,6 @@ mripro.test {
 
 wpe.test {
     root * /var/www/wpe/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-bestratedtransport.test {
-    root * /var/www/bestratedtransport/public/
     php_fastcgi php-fpm:9000
     file_server
 
