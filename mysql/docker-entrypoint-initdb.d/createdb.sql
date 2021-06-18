@@ -199,7 +199,7 @@ GRANT ALL ON `mlily_testing`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `asiamarketentry` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `asiamarketentry`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `asiamarketentrytesting` COLLATE 'utf8_general_ci' ;
+CREATE DATABASE IF NOT EXISTS `asiamarketentry_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `asiamarketentry_testing`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;
