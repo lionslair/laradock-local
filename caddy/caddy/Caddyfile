@@ -52,6 +52,22 @@ video-inspection.test {
     encode gzip
 }
 
+stripe-payment.test {
+    root * /var/www/accept-a-payment/custom-payment-flow/server/php/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+http://stripe-payment.test {
+    root * /var/www/accept-a-payment/custom-payment-flow/server/php/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 kinesis.test {
     root * /var/www/amazon-kinesis-video-streams-webrtc-sdk-js/examples
     php_fastcgi php-fpm:9000
