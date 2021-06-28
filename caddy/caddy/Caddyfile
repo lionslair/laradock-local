@@ -329,6 +329,14 @@ customerplus.test {
     encode gzip
 }
 
+rpg.test {
+    root * /var/www/rpgroup/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 ombord.test {
     root * /var/www/ombord/public/
     php_fastcgi php-fpm:9000

@@ -28,3 +28,4 @@
 * * * * * laradock /usr/bin/php /var/www/cabmaster/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/mlilyportal/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/asiamarketentry/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/rpgroup/artisan schedule:run >> /dev/null 2>&1
