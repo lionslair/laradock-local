@@ -329,7 +329,7 @@ customerplus.test {
     encode gzip
 }
 
-rpg.test {
+rpgroup.test {
     root * /var/www/rpgroup/public/
     php_fastcgi php-fpm:9000
     file_server
