@@ -208,4 +208,10 @@ GRANT ALL ON `rpgroup`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `rpgroup_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rpgroup_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `dcodegroup` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `dcodegroup`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `dcodegroup_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `dcodegroup_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

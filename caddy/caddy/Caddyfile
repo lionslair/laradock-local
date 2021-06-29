@@ -337,6 +337,14 @@ rpgroup.test {
     encode gzip
 }
 
+dcodegroup.test {
+    root * /var/www/dcode/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 ombord.test {
     root * /var/www/ombord/public/
     php_fastcgi php-fpm:9000
