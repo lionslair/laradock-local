@@ -273,6 +273,14 @@ kanopi.test {
     encode gzip
 }
 
+http://kanopi.test {
+    root * /var/www/kanopi/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 mripro.test {
     root * /var/www/mripro/wp/
     php_fastcgi php-fpm:9000
