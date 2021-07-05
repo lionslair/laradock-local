@@ -214,4 +214,10 @@ GRANT ALL ON `dcodegroup`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `dcodegroup_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodegroup_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `latrobegarmin` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `latrobegarmin`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `latrobegarmin_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `latrobegarmin_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

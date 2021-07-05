@@ -281,8 +281,8 @@ http://kanopi.test {
     encode gzip
 }
 
-mripro.test {
-    root * /var/www/mripro/wp/
+latrobegarmin.test {
+    root * /var/www/latrobegarmin/wp/
     php_fastcgi php-fpm:9000
     file_server
 

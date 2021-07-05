@@ -30,3 +30,4 @@
 * * * * * laradock /usr/bin/php /var/www/asiamarketentry/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/rpgroup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/dcode/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/latrobegarmin/artisan schedule:run >> /dev/null 2>&1
