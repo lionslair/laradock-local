@@ -282,7 +282,7 @@ http://kanopi.test {
 }
 
 latrobegarmin.test {
-    root * /var/www/latrobegarmin/wp/
+    root * /var/www/latrobegarmin/public/
     php_fastcgi php-fpm:9000
     file_server
 
