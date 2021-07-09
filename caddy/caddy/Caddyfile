@@ -289,6 +289,14 @@ latrobegarmin.test {
     encode gzip
 }
 
+http://latrobegarmin.test {
+    root * /var/www/latrobegarmin/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 wpe.test {
     root * /var/www/wpe/public/
     php_fastcgi php-fpm:9000
