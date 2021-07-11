@@ -220,4 +220,10 @@ GRANT ALL ON `latrobegarmin`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `latrobegarmin_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `latrobegarmin_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `xconnect` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `xconnect`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `xconnect_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `xconnect_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

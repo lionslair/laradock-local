@@ -450,3 +450,11 @@ cartrack.test {
 
     encode gzip
 }
+
+xconnect.test {
+    root * /var/www/xconnect/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
