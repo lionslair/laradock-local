@@ -232,4 +232,10 @@ GRANT ALL ON `melbourneacl`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `melbourneacl_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `melbourneacl_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `ipg` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `ipg`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `ipg_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `ipg_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
