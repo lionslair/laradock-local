@@ -281,6 +281,14 @@ http://kanopi.test {
     encode gzip
 }
 
+melbourneacl.test {
+    root * /var/www/melbourneacl/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 latrobegarmin.test {
     root * /var/www/latrobegarmin/public/
     php_fastcgi php-fpm:9000

@@ -226,4 +226,10 @@ GRANT ALL ON `xconnect`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `xconnect_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `xconnect_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `melbourneacl` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `melbourneacl`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `melbourneacltesting` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `melbourneacl_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
