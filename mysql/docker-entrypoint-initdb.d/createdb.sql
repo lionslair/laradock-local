@@ -238,4 +238,10 @@ GRANT ALL ON `ipg`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `ipg_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `ipg_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `laundrylineup` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `laundrylineup`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `laundrylineup_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `laundrylineup_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
