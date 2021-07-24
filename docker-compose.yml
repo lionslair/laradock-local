@@ -536,7 +536,7 @@ services:
         - SA_PASSWORD=${MSSQL_PASSWORD}
         - ACCEPT_EULA=Y
       volumes:
-        - ${DATA_PATH_HOST}/mssql:/var/opt/mssql
+        - mssql:/var/opt/mssql
       ports:
         - "${MSSQL_PORT}:1433"
       networks:
@@ -1999,13 +1999,13 @@ services:
       environment:
         - CHOKIDAR_USEPOLLING=true
       networks:
-        - frontend
-        - backend
+          - frontend
+          - backend
       volumes:
         - ./react:/usr/src/app/react
         - /usr/src/app/react/node_modules
 
-  ### kafka ####################################################
+### kafka ####################################################
     kafka:
       image: wurstmeister/kafka
       ports:
@@ -2022,7 +2022,7 @@ services:
       networks:
         - backend
 
-  ### kafka-manager ###########################################
+### kafka-manager ###########################################
     kafka-manager:
       image: sheepkiller/kafka-manager
       ports:
@@ -2033,7 +2033,7 @@ services:
         - backend
 
 
-  ### tarantool ###########################################
+### tarantool ###########################################
     tarantool:
       build: ./tarantool
       volumes:
