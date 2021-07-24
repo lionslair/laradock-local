@@ -5,7 +5,7 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-FROM php:${LARADOCK_PHP_VERSION}-alpine
+FROM php:${LARADOCK_PHP_VERSION}-alpine3.13
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -23,7 +23,6 @@ RUN apk --update add wget \
   curl \
   git \
   build-base \
-  libmemcached-dev \
   libmcrypt-dev \
   libxml2-dev \
   pcre-dev \
@@ -42,13 +41,6 @@ RUN apk --update add wget \
 
 RUN pecl channel-update pecl.php.net; \
     docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
-
-RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
-      pecl install memcached-2.2.0 mcrypt-1.0.1; \
-    else \
-      pecl install memcached mcrypt-1.0.1; \
-    fi; \
-    docker-php-ext-enable memcached
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
