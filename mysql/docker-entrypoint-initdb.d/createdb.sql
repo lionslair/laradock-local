@@ -244,4 +244,10 @@ GRANT ALL ON `laundrylineup`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `laundrylineup_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `laundrylineup_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `agushi` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `agushi`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `agushi_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `agushi_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;

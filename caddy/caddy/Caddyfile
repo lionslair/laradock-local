@@ -84,6 +84,14 @@ http://cabmaster.test {
     encode gzip
 }
 
+agushi.test {
+    root * /var/www/agushi/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 cabmaster.test {
     root * /var/www/cabmaster/public/
     php_fastcgi php-fpm:9000
