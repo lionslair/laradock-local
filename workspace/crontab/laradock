@@ -36,3 +36,4 @@
 * * * * * laradock /usr/bin/php /var/www/industrypropertygroup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/laundrylineup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/agushi/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/mountaindistilling/artisan schedule:run >> /dev/null 2>&1

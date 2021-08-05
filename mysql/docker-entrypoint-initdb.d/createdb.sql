@@ -250,4 +250,10 @@ GRANT ALL ON `agushi`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `agushi_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `agushi_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `mountaindistilling` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mountaindistilling`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `mountaindistilling_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mountaindistilling_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
