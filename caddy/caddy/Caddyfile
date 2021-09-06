@@ -265,6 +265,14 @@ asbestosedge.test {
     encode gzip
 }
 
+evolutionelectrical.test {
+    root * /var/www/evolutionelectrical/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 washed.test {
     root * /var/www/washed/public/
     php_fastcgi php-fpm:9000

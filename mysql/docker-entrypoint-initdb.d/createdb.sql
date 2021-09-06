@@ -262,4 +262,10 @@ GRANT ALL ON `gradcon`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `gradcon_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `gradcon_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `evolutionelectrical` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `evolutionelectrical`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `evolutionelectrical_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `evolutionelectrical_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
