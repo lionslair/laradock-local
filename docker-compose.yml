@@ -71,7 +71,6 @@ services:
           - SHELL_OH_MY_ZSH=${SHELL_OH_MY_ZSH}
           - SHELL_OH_MY_ZSH_AUTOSUGESTIONS=${SHELL_OH_MY_ZSH_AUTOSUGESTIONS}
           - SHELL_OH_MY_ZSH_ALIASES=${SHELL_OH_MY_ZSH_ALIASES}
-          - UBUNTU_SOURCE=${UBUNTU_SOURCE}
           - BASE_IMAGE_TAG_PREFIX=${WORKSPACE_BASE_IMAGE_TAG_PREFIX}
           - LARADOCK_PHP_VERSION=${PHP_VERSION}
           - LARADOCK_PHALCON_VERSION=${PHALCON_VERSION}
@@ -781,12 +780,11 @@ services:
         - "${RABBITMQ_MANAGEMENT_HTTP_HOST_PORT}:15672"
         - "${RABBITMQ_MANAGEMENT_HTTPS_HOST_PORT}:15671"
       privileged: true
-      environment:
-        - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
-        - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
       hostname: laradock-rabbitmq
       volumes:
         - ${DATA_PATH_HOST}/rabbitmq:/var/lib/rabbitmq
+        - ./rabbitmq/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+        - ./rabbitmq/management_agent.disable_metrics_collector.conf:/etc/rabbitmq/conf.d/management_agent.disable_metrics_collector.conf
       depends_on:
         - php-fpm
       networks:
