@@ -481,6 +481,26 @@ If you need to publish your local env to the web use ngrok. Install in for your 
 
 `ngrok http -host-header=cabmaster.test 80`
 
+Lately I have been trying out expose [https://expose.dev/docs](https://expose.dev/docs)
+
+## Sites using legacy container
+
+* [https://defex.test](https://defex.test)
+* [https://dev.acn.com](https://dev.acn.com)
+* [https://dev.thatcatholicshop.com](https://dev.thatcatholicshop.com)
+* [https://dev.app.dynamicts.com.au](https://dev.app.dynamicts.com.au)
+* [https://dev.dynamicts.com.au](https://dev.dynamicts.com.au)
+* [https://phs.test](https://phs.test)
+* [https://asbestosedge.test](https://asbestosedge.test)
+* [https://washed.test](https://washed.test)
+* [https://kontrastinteriors.test](https://kontrastinteriors.test)
+* [https://dev.esgportal.com](https://dev.esgportal.com)
+* [https://dev.soildeclaration.com](https://dev.soildeclaration.com)
+* [https://dev.earthsolutionsgroup.com.au](https://dev.earthsolutionsgroup.com.au)
+* [https://ombord.test](https://ombord.test)
+* [https://mlilyportal.test](https://mlilyportal.test)
+* [*.dev.app.misura.com.au](*.dev.app.misura.com.au)
+
 ## References
 
 Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However the worker containers would probably still run the env version.

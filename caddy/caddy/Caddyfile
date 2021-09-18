@@ -142,7 +142,7 @@ asiamarketentry-sg.test {
 
 defex.test {
     root * /var/www/defex/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -150,7 +150,7 @@ defex.test {
 
 dev.acn.com {
     root * /var/www/acn/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -158,7 +158,7 @@ dev.acn.com {
 
 dev.thatcatholicshop.com {
     root * /var/www/acn/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -166,14 +166,14 @@ dev.thatcatholicshop.com {
 
 dev.app.dynamicts.com.au {
     root * /var/www/dynamictradesolutions/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
     encode gzip
 }
 
 dev.dynamicts.com.au {
     root * /var/www/dynamictradesolutions/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
     encode gzip
 }
@@ -194,7 +194,7 @@ myoffer.test {
 
 phs.test {
     root * /var/www/phs-webapp/app/webroot/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -251,7 +251,7 @@ premax.test {
 
 asbestosedge.test {
     root * /var/www/edgegroup.stealth/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -259,7 +259,7 @@ asbestosedge.test {
 
 *.dev.app.misura.com.au {
     root * /var/www/misura/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -275,7 +275,7 @@ evolutionelectrical.test {
 
 washed.test {
     root * /var/www/washed/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -363,7 +363,7 @@ wpe.test {
 
 kontrastinteriors.test {
     root * /var/www/kontrastinteriors/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -371,7 +371,7 @@ kontrastinteriors.test {
 
 dev.esgportal.com {
     root * /var/www/esg/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -379,7 +379,7 @@ dev.esgportal.com {
 
 dev.soildeclaration.com {
     root * /var/www/esg/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -387,7 +387,7 @@ dev.soildeclaration.com {
 
 dev.earthsolutionsgroup.com.au {
     root * /var/www/esg/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -419,7 +419,7 @@ dcodegroup.test {
 
 ombord.test {
     root * /var/www/ombord/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -427,7 +427,7 @@ ombord.test {
 
 mlilyportal.test {
     root * /var/www/mlilyportal/public/
-    php_fastcgi php-fpm:9000
+    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -450,29 +450,29 @@ m2electrical.test {
 }
 
 # Greeta
-greeta.test {
-    root * /var/www/greeta-laravel/public/
-    php_fastcgi php-fpm:9000
-    file_server
+#greeta.test {
+#    root * /var/www/greeta-laravel/public/
+#    php_fastcgi php-fpm:9000
+#    file_server
+#
+#    encode gzip
+#}
 
-    encode gzip
-}
+#screensavers.test {
+#    root * /var/www/screensavers/public
+#    php_fastcgi php-fpm:9000
+#    file_server
+#
+#    encode gzip
+#}
 
-screensavers.test {
-    root * /var/www/screensavers/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-surprise.test {
-    root * /var/www/surprise-and-delight/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
+#surprise.test {
+#    root * /var/www/surprise-and-delight/public
+#    php_fastcgi php-fpm:9000
+#    file_server
+#
+#    encode gzip
+#}
 
 # babyrzepecki
 babyrzepecki.test {
@@ -483,13 +483,13 @@ babyrzepecki.test {
     encode gzip
 }
 
-taskey.test {
-    root * /var/www/taskey-laravel/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
+#taskey.test {
+#    root * /var/www/taskey-laravel/public
+#    php_fastcgi php-fpm:9000
+#    file_server
+#
+#    encode gzip
+#}
 
 hctech-cars.test {
     root * /var/www/hctech_cars
@@ -507,10 +507,3 @@ cartrack.test {
     encode gzip
 }
 
-xconnect.test {
-    root * /var/www/xconnect/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
