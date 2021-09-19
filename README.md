@@ -267,8 +267,6 @@ I have created some aliases for my system to make starting, stopping and ssh int
 #### Access via SSH
 
 `alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
-and
-`alias lara-bash-legacy='cd ~/Code/laradock; docker-compose exec --user=laradock workspace-legacy bash'`
 
 #### Restart
 
