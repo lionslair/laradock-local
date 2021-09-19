@@ -1672,9 +1672,6 @@ RUN apt-get install -y --no-install-recommends jpegoptim optipng pngquant gifsic
 RUN npm install -g svgo
 
 # Install laravel legacy version
-ARG LARADOCK_PHP_VERSION_LEGACY
-#RUN ls -lh /etc/apt/sources.list.d/
-#RUN cat /etc/apt/sources.list.d/ondrej-ubuntu-php-focal.list
 RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y --allow-downgrades --allow-remove-essential \
@@ -1694,6 +1691,4 @@ RUN apt-get update \
         php7.4-bcmath \
         php7.4-memcached \
         php7.4-gd \
-        php7.4-dev \
-#RUN apt-get update
-#RUN apt-get install -y --no-install-recommends php${LARADOCK_PHP_VERSION_LEGACY}-{bcmath,bz2,common,curl,json,dba,gmp,gd,imap,intl,ldap,interbase,mbstring,mysql,odbc,opcache,pgsql,pspell,readline,sybase,tidy,xmlrpc,xml,zip,imagick,sqlite3}
+        php7.4-dev 
