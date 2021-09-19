@@ -4,6 +4,8 @@ This repository is a customised fork of [https://github.com/laradock/laradock](h
 
 Most of the notes here have been worked out from the official laradock documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
 
+This now runs PHP 8.0 as default. However PHP 7.4 is installed as an extra container for Caddy. Also included in the workspace image and horizon for the legacy projects.
+
 ## Track changes
 
 I keep this fork up to date with the main laradock branch. How ever you should track your own changes on a fork of this repo.
