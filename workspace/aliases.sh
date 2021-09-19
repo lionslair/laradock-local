@@ -153,3 +153,6 @@ function fs() {
 alias lang='artisan vue-i18n:generate'
 alias wipelogs='truncate -s 0 storage/logs/*.log'
 alias websockets="cd /var/www/laravel-websockets/; php artisan websockets:serve"
+
+# PHP
+alias php7.4='/usr/bin/php7.4'
