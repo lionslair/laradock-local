@@ -1691,4 +1691,4 @@ RUN apt-get update \
         php7.4-bcmath \
         php7.4-memcached \
         php7.4-gd \
-        php7.4-dev 
+        php7.4-dev

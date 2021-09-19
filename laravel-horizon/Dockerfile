@@ -324,6 +324,67 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 # -- Your awesome modifications go here -- #
 
 
+# Install laravel legacy version
+RUN apk --update --no-cache add php7 \
+    php7-cli \
+    php7-curl \
+    php7-intl \
+    php7-json \
+    php7-xml \
+    php7-mbstring \
+    php7-mysqli \
+    php7-pgsql \
+    php7-sqlite3 \
+    php7-zip \
+    php7-bcmath \
+    php7-memcached \
+    php7-gd \
+    php7-dev
+# This is from https://github.com/codecasts/php-alpine
+#ADD https://dl.bintray.com/php-alpine/3.12/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+#ADD  https://packages.whatwedo.ch/php-alpine/v3.12/php-alpine.rsa.pub /etc/apk/keys/php-alpine.rsa.pub
+
+#RUN apk --update-cache add ca-certificates && \
+#    echo "https://packages.whatwedo.ch/php-alpine/v3.12/php-7.4" >> /etc/apk/repositories
+#    echo "https://dl.bintray.com/php-alpine/v3.12/php-7.4" >> /etc/apk/repositories
+
+#RUN apk add --update-cache \
+#    php \
+#    php-common \
+#    php-fpm \
+#    php-bz2 \
+#    php-calendar \
+#    php-ctype \
+#    php-curl \
+#    php-dba \
+#    php-dom \
+#    php-exif \
+#    php-gd \
+#    php-gettext \
+#    php-gmp \
+#    php-iconv \
+#    php-imap \
+#    php-intl \
+#    php-json \
+#    php-ldap \
+#    php-mbstring \
+#    php-mcrypt \
+#    php-mysqli \
+#    php-mysqlnd \
+#    php-obdc \
+#    php-pdo \
+#    php-pdo_mysql \
+#    php-pdo_mysql \
+#    php-snmp \
+#    php-sqlite3 \
+#    php-xml \
+#    php-zip \
+#    php-zlib \
+#    php-imagick \
+#    php-memcached \
+#    php-redis
+
+
 ###########################################################################
 # Image optimizers:
 # # https://github.com/docker-library/php/issues/912#issuecomment-559918036
@@ -351,6 +412,8 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 #
 
 RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
+RUN php -v
+RUN php7 -v
 
 #
 #--------------------------------------------------------------------------
