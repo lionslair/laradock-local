@@ -342,7 +342,7 @@ Web UI Mailhog: [https://mailhoog.test](https://mailhoog.test)
 
 Web UI minio:  [https://minio.test](https://minio.test) or `http://localhost:9000` 
 
-The inital login details are
+The initial login details are
 ```
 access key: access
 secret key: secretkey
@@ -374,7 +374,7 @@ In filesystems.php you should use the following details (s3):
         ],
 ```
 
-`'AWS_PATH_STYLE'` shout set to true only for local purpouse
+`'AWS_PATH_STYLE'` shout set to true only for local purpose
 
 ## Microsoft SQL Server
 
@@ -505,6 +505,6 @@ Lately I have been trying out expose [https://expose.dev/docs](https://expose.de
 
 ## References
 
-Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However the worker containers would probably still run the env version.
+Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However, the worker containers would probably still run the env version.
 
 [https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071](https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071)
