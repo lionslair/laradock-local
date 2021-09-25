@@ -8,7 +8,7 @@ This now runs PHP 8.0 as default. However PHP 7.4 is installed as an extra conta
 
 ## Track changes
 
-I keep this fork up to date with the main laradock branch. How ever you should track your own changes on a fork of this repo.
+I keep this fork up to date with the main laradock branch. However you should track your own changes on a fork of this repo.
 
 [https://dev.to/jeremy/how-to-sync-your-fork-with-the-parent-repository-3ok1](https://dev.to/jeremy/how-to-sync-your-fork-with-the-parent-repository-3ok1)
 
