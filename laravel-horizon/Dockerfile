@@ -323,6 +323,26 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #
 # -- Your awesome modifications go here -- #
 
+# Install laravel legacy version
+RUN apk --update --no-cache add php7 \
+    php7-cli \
+    php7-curl \
+    php7-intl \
+    php7-json \
+    php7-xml \
+    php7-mbstring \
+    php7-mysqli \
+    php7-pgsql \
+    php7-redis \
+    php7-redis \
+    php7-pdo \
+    php7-pcntl \
+    php7-sqlite3 \
+    php7-zip \
+    php7-bcmath \
+    php7-memcached \
+    php7-gd \
+    php7-dev
 
 ###########################################################################
 # Image optimizers:
@@ -351,6 +371,8 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 #
 
 RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
+RUN php -v
+RUN php7 -v
 
 #
 #--------------------------------------------------------------------------

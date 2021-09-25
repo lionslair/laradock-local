@@ -4,6 +4,8 @@ This repository is a customised fork of [https://github.com/laradock/laradock](h
 
 Most of the notes here have been worked out from the official laradock documentation. [https://laradock.io/getting-started/#requirements](https://laradock.io/getting-started/#requirements)
 
+This now runs PHP 8.0 as default. However PHP 7.4 is installed as an extra container for Caddy. Also included in the workspace image and horizon for the legacy projects.
+
 ## Track changes
 
 I keep this fork up to date with the main laradock branch. How ever you should track your own changes on a fork of this repo.
@@ -340,7 +342,7 @@ Web UI Mailhog: [https://mailhoog.test](https://mailhoog.test)
 
 Web UI minio:  [https://minio.test](https://minio.test) or `http://localhost:9000` 
 
-The inital login details are
+The initial login details are
 ```
 access key: access
 secret key: secretkey
@@ -372,7 +374,7 @@ In filesystems.php you should use the following details (s3):
         ],
 ```
 
-`'AWS_PATH_STYLE'` shout set to true only for local purpouse
+`'AWS_PATH_STYLE'` shout set to true only for local purpose
 
 ## Microsoft SQL Server
 
@@ -481,8 +483,28 @@ If you need to publish your local env to the web use ngrok. Install in for your 
 
 `ngrok http -host-header=cabmaster.test 80`
 
+Lately I have been trying out expose [https://expose.dev/docs](https://expose.dev/docs)
+
+## Sites using legacy container
+
+* [*.dev.app.misura.com.au](*.dev.app.misura.com.au)
+* [https://asbestosedge.test](https://asbestosedge.test)
+* [https://defex.test](https://defex.test)
+* [https://dev.acn.com](https://dev.acn.com)
+* [https://dev.app.dynamicts.com.au](https://dev.app.dynamicts.com.au)
+* [https://dev.dynamicts.com.au](https://dev.dynamicts.com.au) *horizon
+* [https://dev.earthsolutionsgroup.com.au](https://dev.earthsolutionsgroup.com.au)
+* [https://dev.esgportal.com](https://dev.esgportal.com)
+* [https://dev.soildeclaration.com](https://dev.soildeclaration.com)
+* [https://dev.thatcatholicshop.com](https://dev.thatcatholicshop.com)
+* [https://kontrastinteriors.test](https://kontrastinteriors.test)
+* [https://mlilyportal.test](https://mlilyportal.test) *horizon
+* [https://ombord.test](https://ombord.test)
+* [https://phs.test](https://phs.test)
+* [https://washed.test](https://washed.test)
+
 ## References
 
-Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However the worker containers would probably still run the env version.
+Below could be a good way of adding php8 with 7 to the system. I like the implementation. Should work going up. However, the worker containers would probably still run the env version.
 
 [https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071](https://medium.com/@msirius/1-n-php-versions-and-projects-via-laradock-51938b337071)
