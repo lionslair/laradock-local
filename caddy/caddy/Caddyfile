@@ -313,6 +313,14 @@ industrypropertygroup.test {
     encode gzip
 }
 
+ipg.test {
+    root * /var/www/industrypropertygroup/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 melbourneacl.test {
     root * /var/www/melbourneacl/public/
     php_fastcgi php-fpm:9000
