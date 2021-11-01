@@ -35,3 +35,4 @@
 * * * * * laradock /usr/bin/php7.4 /var/www/washed/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/wpe/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/wrapstudio/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/staircaseconstructions/artisan schedule:run >> /dev/null 2>&1

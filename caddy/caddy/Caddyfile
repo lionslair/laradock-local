@@ -92,6 +92,14 @@ agushi.test {
     encode gzip
 }
 
+staircaseconstructions.test {
+    root * /var/www/staircaseconstructions/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 mountaindistilling.test {
     root * /var/www/mountaindistilling/public/
     php_fastcgi php-fpm:9000

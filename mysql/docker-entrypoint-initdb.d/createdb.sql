@@ -268,4 +268,10 @@ GRANT ALL ON `evolutionelectrical`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `evolutionelectrical_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `evolutionelectrical_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `staircaseconstructions` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%s' ;
+
+CREATE DATABASE IF NOT EXISTS `staircaseconstructions_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `staircaseconstruction_testing`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
