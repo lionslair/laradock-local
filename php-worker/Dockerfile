@@ -5,7 +5,7 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-FROM php:${LARADOCK_PHP_VERSION}-alpine3.13
+FROM php:${LARADOCK_PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -26,6 +26,7 @@ RUN apk --update add wget \
   libmemcached-dev \
   libmcrypt-dev \
   libxml2-dev \
+  linux-headers \
   pcre-dev \
   zlib-dev \
   autoconf \
@@ -59,7 +60,7 @@ ARG PGID=1000
 ENV PGID ${PGID}
 
 RUN addgroup -g ${PGID} laradock && \
-    adduser -D -G laradock -u ${PUID} laradock
+  adduser -D -G laradock -u ${PUID} laradock
 
 #Install intl package:
 
@@ -67,8 +68,8 @@ ARG INSTALL_INTL=false
 
 RUN if [ ${INSTALL_INTL} = true ]; then \
     docker-php-ext-configure intl &&  \
-    docker-php-ext-install intl \
-;fi
+    docker-php-ext-install intl; \
+fi
 
 
 #Install BZ2:
@@ -166,13 +167,19 @@ RUN if [ ${INSTALL_SOAP} = true ]; then \
 # Install MongoDB drivers:
 ARG INSTALL_MONGO=false
 RUN if [ ${INSTALL_MONGO} = true ]; then \
-  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
-  pecl install mongo; \
-  docker-php-ext-enable mongo; \
-  else \
-  pecl install mongodb; \
-  docker-php-ext-enable mongodb; \
-  fi; \
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+      pecl install mongo; \
+      docker-php-ext-enable mongo; \
+      php -m | grep -oiE '^mongo$'; \
+    else \
+      if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70000" ]; then \
+        pecl install mongodb-1.9.2; \
+      else \
+        pecl install mongodb; \
+      fi; \
+      docker-php-ext-enable mongodb; \
+      php -m | grep -oiE '^mongodb$'; \
+    fi; \
   fi
 
 ###########################################################################
@@ -369,20 +376,21 @@ RUN if [ ${INSTALL_REDIS} = true ]; then \
 
 ARG INSTALL_SWOOLE=false
 
-RUN if [ ${INSTALL_SWOOLE} = true ]; then \
-  # Install Php Swoole Extension
-  if   [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "50600" ]; then \
-  echo '' | pecl -q install swoole-2.0.10; \
-  elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70000" ]; then \
-  echo '' | pecl -q install swoole-4.3.5; \
-  elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70100" ]; then \
-  echo '' | pecl -q install swoole-4.5.11; \
-  else \
-  echo '' | pecl -q install swoole; \
-  fi; \
-  docker-php-ext-enable swoole \
-  && php -m | grep -q 'swoole' \
-  ;fi
+RUN set -eux; \
+  if [ ${INSTALL_SWOOLE} = true ]; then \
+    # Install Php Swoole Extension
+    if   [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "50600" ]; then \
+      pecl install swoole-2.0.10; \
+    elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70000" ]; then \
+      pecl install swoole-4.3.5; \
+    elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70100" ]; then \
+      pecl install swoole-4.5.11; \
+    else \
+      pecl install swoole; \
+    fi; \
+    docker-php-ext-enable swoole; \
+    php -m | grep -oiE '^swoole$'; \
+  fi
 
 ###########################################################################
 # Taint EXTENSION
@@ -446,6 +454,64 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
   docker-php-ext-enable memcached; \
   php -m | grep -r 'memcached'; \
   fi
+
+###########################################################################
+# SQL SERVER:
+###########################################################################
+
+ARG INSTALL_MSSQL=false
+
+RUN set -eux; \
+  if [ ${INSTALL_MSSQL} = true ]; then \
+  apk add --update gnupg \
+  ###########################################################################
+  # Ref from:
+  # - https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15#alpine17
+  ###########################################################################
+  # Add Microsoft repo for Microsoft ODBC Driver 17 for Linux
+  # Driver version 17.5 or higher is required for Alpine support.
+  # Download the desired package(s)
+  && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.8.1.1-1_amd64.apk \
+  # Verify signature, if 'gpg' is missing install it using 'apk add gnupg':
+  && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.8.1.1-1_amd64.sig \
+  && curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - \
+  && gpg --verify msodbcsql17_17.8.1.1-1_amd64.sig msodbcsql17_17.8.1.1-1_amd64.apk \
+  # Install the package(s)
+  && apk add --allow-untrusted msodbcsql17_17.8.1.1-1_amd64.apk unixodbc-dev \
+  && pecl install sqlsrv pdo_sqlsrv \
+  # && echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/10_pdo_sqlsrv.ini
+  # && echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/00_sqlsrv.ini
+  && docker-php-ext-enable pdo_sqlsrv sqlsrv \
+  && php -m | grep -q 'pdo_sqlsrv' \
+  && php -m | grep -q 'sqlsrv' \
+  ;fi
+
+###########################################################################
+# PHP SSDB:
+###########################################################################
+
+USER root
+
+ARG INSTALL_SSDB=false
+
+RUN set -xe; \
+  if [ ${INSTALL_SSDB} = true ] && [ $(php -r "echo PHP_MAJOR_VERSION;") != "8" ]; then \
+  apk --update add sudo wget && \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+  curl -L -o /tmp/ssdb-client-php.tar.gz https://github.com/jonnywang/phpssdb/archive/php7.tar.gz; \
+  else \
+  curl -L -o /tmp/ssdb-client-php.tar.gz https://github.com/jonnywang/phpssdb/archive/master.tar.gz; \
+  fi \
+  && mkdir -p /tmp/ssdb-client-php \
+  && tar -C /tmp/ssdb-client-php -zxvf /tmp/ssdb-client-php.tar.gz --strip 1 \
+  && cd /tmp/ssdb-client-php \
+  && phpize \
+  && ./configure \
+  && make \
+  && make install \
+  && rm /tmp/ssdb-client-php.tar.gz \
+  && docker-php-ext-enable ssdb \
+  ;fi
 
 #
 #--------------------------------------------------------------------------
