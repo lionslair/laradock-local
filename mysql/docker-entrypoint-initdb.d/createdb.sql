@@ -274,4 +274,7 @@ GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%s' ;
 CREATE DATABASE IF NOT EXISTS `staircaseconstructions_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `staircaseconstruction_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%s' ;
+
 FLUSH PRIVILEGES ;

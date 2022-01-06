@@ -515,3 +515,10 @@ cartrack.test {
     encode gzip
 }
 
+wedding.test {
+    root * /var/www/wedding-laravel/public
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
