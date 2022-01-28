@@ -233,7 +233,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
   # Install the xdebug extension
   # https://xdebug.org/docs/compat
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || { [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "4" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "3" ] ;} ;}; then \
-    pecl install xdebug-3.1.1; \
+    pecl install xdebug-3.1.2; \
   else \
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
       pecl install xdebug-2.5.5; \
@@ -499,6 +499,23 @@ RUN if [ ${INSTALL_GEARMAN} = true ]; then \
     rm -r /tmp/pecl-gearman && \
     docker-php-ext-enable gearman \
 ;fi
+
+###########################################################################
+# xlswriter:
+###########################################################################
+
+ARG INSTALL_XLSWRITER=false
+RUN set -eux; \
+    if [ ${INSTALL_XLSWRITER} = true ]; then \
+      # Install Php xlswriter Extension \
+      if [ $(php -r "echo PHP_MAJOR_VERSION;") != "5" ]; then \
+          pecl install xlswriter  &&\
+          docker-php-ext-enable xlswriter &&\
+          php -m | grep -q 'xlswriter'; \
+      else \
+          echo "PHP Extension for xlswriter is not supported for PHP 5.0";\
+      fi \
+    ;fi
 
 ###########################################################################
 # pcntl
