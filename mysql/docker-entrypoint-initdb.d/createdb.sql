@@ -269,12 +269,12 @@ CREATE DATABASE IF NOT EXISTS `evolutionelectrical_testing` COLLATE 'utf8_genera
 GRANT ALL ON `evolutionelectrical_testing`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `staircaseconstructions` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%s' ;
+GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `staircaseconstructions_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `staircaseconstruction_testing`.* TO 'homestead'@'%' ;
+GRANT ALL ON `staircaseconstructions_testing`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%s' ;
+GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
 FLUSH PRIVILEGES ;
