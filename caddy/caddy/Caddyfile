@@ -36,8 +36,8 @@ q.test {
     encode gzip
 }
 
-laravel8.test {
-    root * /var/www/laravel8/public/
+cambium.test {
+    root * /var/www/thecambium/public/
     php_fastcgi php-fpm:9000
     file_server
 

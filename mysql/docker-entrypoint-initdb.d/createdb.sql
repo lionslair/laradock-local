@@ -274,6 +274,12 @@ GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `staircaseconstructions_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `staircaseconstructions_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `cambium` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `cambium`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `cambium_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `cambium_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
