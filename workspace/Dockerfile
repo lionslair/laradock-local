@@ -1750,6 +1750,8 @@ RUN apt-get update \
         php7.4-mbstring \
         php7.4-mysql \
         php7.4-pgsql \
+        php7.4-pdo \
+        php7.4-redis \
         php7.4-sqlite \
         php7.4-sqlite3 \
         php7.4-zip \
@@ -1757,6 +1759,5 @@ RUN apt-get update \
         php7.4-memcached \
         php7.4-gd \
         php7.4-dev
-
 
 RUN update-alternatives --set php /usr/bin/php8.0

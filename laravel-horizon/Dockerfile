@@ -334,7 +334,6 @@ RUN apk --update --no-cache add php7 \
     php7-mysqli \
     php7-pgsql \
     php7-redis \
-    php7-redis \
     php7-pdo \
     php7-pcntl \
     php7-sqlite3 \
