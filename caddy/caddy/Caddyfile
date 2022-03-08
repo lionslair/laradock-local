@@ -156,6 +156,14 @@ defex.test {
     encode gzip
 }
 
+edge-website.test {
+    root * /var/www/edgegroup.website/public/
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
+
 dev.acn.com {
     root * /var/www/acn/public/
     php_fastcgi php-fpm-7.4:9000

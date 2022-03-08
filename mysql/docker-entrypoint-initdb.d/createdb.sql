@@ -280,6 +280,12 @@ GRANT ALL ON `cambium`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `cambium_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cambium_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `edge_website` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `edge_website`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `edge_website_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `edge_websitetesting`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
