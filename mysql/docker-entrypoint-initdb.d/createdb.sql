@@ -286,6 +286,12 @@ GRANT ALL ON `edge_website`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `edge_website_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `edge_websitetesting`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `enqip` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `enqip`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `enqip_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `enqip_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
