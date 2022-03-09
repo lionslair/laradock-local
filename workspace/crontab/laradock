@@ -8,7 +8,7 @@
 * * * * * laradock /usr/bin/php /var/www/customerplus/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/dcode/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/defex/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php7.4 /var/www/dynamictradesolutions/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/dynamictradesolutions/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/edgegroup.stealth/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/esg/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/evolutionelectrical/artisan schedule:run >> /dev/null 2>&1

@@ -190,14 +190,14 @@ dev.thatcatholicshop.com {
 
 dev.app.dynamicts.com.au {
     root * /var/www/dynamictradesolutions/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
     encode gzip
 }
 
 dev.dynamicts.com.au {
     root * /var/www/dynamictradesolutions/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
     encode gzip
 }
