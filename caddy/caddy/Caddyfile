@@ -224,6 +224,14 @@ phs.test {
     encode gzip
 }
 
+re-commercial.test {
+    root * /var/www/re-commercial-review/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 flooringlab-splash.test {
     root * /var/www/flooringlab-splash/
     php_fastcgi php-fpm:9000
@@ -231,7 +239,6 @@ flooringlab-splash.test {
 
     encode gzip
 }
-
 
 flooringlab.test {
     root * /var/www/flooringlab/public/
