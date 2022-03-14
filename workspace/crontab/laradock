@@ -17,7 +17,6 @@
 * * * * * laradock /usr/bin/php7.4 /var/www/industrypropertygroup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/kanopi/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/kontrastinteriors/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php /var/www/laravel8/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/latrobegarmin/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/laundrylineup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/leeelectrix/artisan schedule:run >> /dev/null 2>&1
