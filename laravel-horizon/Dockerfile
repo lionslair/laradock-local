@@ -40,12 +40,7 @@ RUN apk --update add wget \
   icu-dev
 
 RUN pecl channel-update pecl.php.net; \
-    docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl; \
-    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
-      php -m | grep -q 'tokenizer'; \
-    else \
-      docker-php-ext-install tokenizer; \
-    fi
+    docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif; \
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
@@ -349,20 +344,20 @@ RUN apk --update --no-cache add php7 \
 # # https://github.com/docker-library/php/issues/912#issuecomment-559918036
 ###########################################################################
 
-#ARG INSTALL_IMAGE_OPTIMIZERS=false
-#
-#RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
-#    if [ ${INSTALL_NODE} = true ]; then \
-#        exec bash && . ~/.bashrc && npm install -g svgo \
-#    ;fi && \
-#    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
-#    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
-#     docker-php-ext-configure gd \
-#        --with-freetype \
-#        --with-jpeg && \
-#      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
-#      docker-php-ext-install -j${NPROC} gd \
-#;fi
+ARG INSTALL_IMAGE_OPTIMIZERS=false
+
+RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
+    if [ ${INSTALL_NODE} = true ]; then \
+        exec bash && . ~/.bashrc && npm install -g svgo \
+    ;fi && \
+    apk --update add jpegoptim optipng pngquant gifsicle libpng libpng-dev jpeg-dev \
+    freetype freetype-dev libjpeg-turbo libjpeg-turbo-dev libxpm-dev libvpx-dev && \
+     docker-php-ext-configure gd \
+        --with-freetype \
+        --with-jpeg && \
+      NPROC=$(grep -c ^processor /proc/cpuinfo 2>/dev/null || 1) && \
+      docker-php-ext-install -j${NPROC} gd \
+;fi
 
 #
 #--------------------------------------------------------------------------

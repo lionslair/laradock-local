@@ -75,7 +75,7 @@ ARG INSTALL_BZ2=false
 RUN if [ ${INSTALL_BZ2} = true ]; then \
   apk --update add bzip2-dev; \
   docker-php-ext-install bz2; \
-fi
+  fi
 
 ###########################################################################
 # PHP GnuPG:
