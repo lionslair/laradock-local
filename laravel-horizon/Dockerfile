@@ -40,7 +40,12 @@ RUN apk --update add wget \
   icu-dev
 
 RUN pecl channel-update pecl.php.net; \
-    docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif; \
+    docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
+      php -m | grep -q 'tokenizer'; \
+    else \
+      docker-php-ext-install tokenizer; \
+    fi
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
