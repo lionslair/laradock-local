@@ -5,7 +5,7 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-FROM php:${LARADOCK_PHP_VERSION}-alpine3.13
+FROM php:${LARADOCK_PHP_VERSION}-alpine3.15
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -40,7 +40,12 @@ RUN apk --update add wget \
   icu-dev
 
 RUN pecl channel-update pecl.php.net; \
-    docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
+    docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
+      php -m | grep -q 'tokenizer'; \
+    else \
+      docker-php-ext-install tokenizer; \
+    fi
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
@@ -87,10 +92,11 @@ RUN set -eux; if [ ${INSTALL_LDAP} = true ]; then \
     fi
 
 #Install GD package:
+# future ref https://github.com/laradock/php-fpm/blob/master/Dockerfile-8.1
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
    apk add --update --no-cache freetype-dev libjpeg-turbo-dev jpeg-dev libpng-dev; \
-   if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80000" ] || [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
+   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
      docker-php-ext-configure gd --with-freetype --with-jpeg; \
    else \
      docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ --with-png-dir=/usr/lib/; \

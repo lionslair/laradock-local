@@ -5,7 +5,7 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-FROM php:${LARADOCK_PHP_VERSION}-alpine
+FROM php:${LARADOCK_PHP_VERSION}-alpine3.15
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -44,14 +44,12 @@ RUN apk --update add wget \
 
 
 RUN pecl channel-update pecl.php.net; \
-    docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl exif
-
-RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
-      pecl install memcached-2.2.0 mcrypt-1.0.1; \
-    else \
-      pecl install memcached mcrypt-1.0.1; \
-    fi; \
-    docker-php-ext-enable memcached
+  docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
+    php -m | grep -q 'tokenizer'; \
+  else \
+    docker-php-ext-install tokenizer; \
+  fi
 
 # Add a non-root user:
 ARG PUID=1000
@@ -77,7 +75,7 @@ ARG INSTALL_BZ2=false
 RUN if [ ${INSTALL_BZ2} = true ]; then \
   apk --update add bzip2-dev; \
   docker-php-ext-install bz2; \
-fi
+  fi
 
 ###########################################################################
 # PHP GnuPG:
