@@ -140,22 +140,6 @@ RUN if [ ${INSTALL_SSH2} = true ]; then \
 ;fi
 
 ###########################################################################
-# SYBASE:
-###########################################################################
-
-ARG INSTALL_SYBASE=false
-
-RUN if [ ${INSTALL_SYBASE} = true ]; then \
-    # Install the sybase extension \
-    #  multiarch-support -  was removed was an issue
-    apt-get update -yqq \
-    && apt-get install -y unixodbc unixodbc-dev freetds-dev freetds-bin freetds-common tdsodbc \
-    libc6 libgnutls28-dev libgssapi-krb5-2 libsybdb5 \
-    && ln -s /usr/lib/x86_64-linux-gnu/libsybdb.so /usr/lib/ \
-	&& docker-php-ext-install pdo_dblib \
-;fi
-
-###########################################################################
 # libfaketime:
 ###########################################################################
 
@@ -751,15 +735,12 @@ RUN set -eux; \
       && php -m | grep -oiE '^pdo_dblib$' \
     ;else \
       ###########################################################################
-      # Ref from https://github.com/Microsoft/msphpsql/wiki/Dockerfile-for-adding-pdo_sqlsrv-and-sqlsrv-to-official-php-image \
-      # There is no debian 11 package for msodbcsql17 at this time so it fails https://github.com/MicrosoftDocs/sql-docs/issues/6494#issuecomment-907890630
+      # Ref from https://github.com/Microsoft/msphpsql/wiki/Dockerfile-for-adding-pdo_sqlsrv-and-sqlsrv-to-official-php-image
       ###########################################################################
       # Add Microsoft repo for Microsoft ODBC Driver 13 for Linux
       apt-get install -yqq apt-transport-https gnupg lsb-release \
       && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-      && lsb_release -rs \
       && curl https://packages.microsoft.com/config/debian/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list \
-#      && curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list \
       && apt-get update -yqq \
       && ACCEPT_EULA=Y apt-get install -yqq unixodbc unixodbc-dev libgss3 odbcinst msodbcsql17 locales \
       && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
@@ -1238,6 +1219,27 @@ RUN if [ ${DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL} = true ]; then \
 ;fi
 
 ###########################################################################
+# zmq
+###########################################################################
+
+USER root
+
+ARG INSTALL_ZMQ=false
+
+RUN if [ ${INSTALL_ZMQ} = true ]; then \
+    apt-get install --yes git libzmq3-dev \
+    && git clone https://github.com/zeromq/php-zmq.git \
+    && cd php-zmq \
+    && phpize \
+    && ./configure \
+    && make \
+    && make install \
+    && cd .. \
+    && rm -fr php-zmq \
+    && echo "extension=zmq.so" > /usr/local/etc/php/conf.d/zmq.ini \
+;fi
+
+###########################################################################
 # Check PHP version:
 ###########################################################################
 
@@ -1254,13 +1256,13 @@ COPY ./xlaravel.pool.conf /usr/local/etc/php-fpm.d/
 
 USER root
 
-# for browsershot
-RUN apt-get update
+# for browsershot - Should move it to docker
+#RUN apt-get update
 
-RUN apt-get install -y gconf-service libgbm1 libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libnss3 lsb-release xdg-utils wget libgbm-dev libxshmfence-dev
+#RUN apt-get install -y gconf-service libgbm1 libasound2 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates fonts-liberation libnss3 lsb-release xdg-utils wget libgbm-dev libxshmfence-dev
 # adding node repo to apt
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
+#RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+#RUN apt-get install -y nodejs
 # end browsershot
 
 # Clean up
