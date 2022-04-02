@@ -92,10 +92,11 @@ RUN set -eux; if [ ${INSTALL_LDAP} = true ]; then \
     fi
 
 #Install GD package:
+# future ref https://github.com/laradock/php-fpm/blob/master/Dockerfile-8.1
 ARG INSTALL_GD=false
 RUN if [ ${INSTALL_GD} = true ]; then \
    apk add --update --no-cache freetype-dev libjpeg-turbo-dev jpeg-dev libpng-dev; \
-   if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80000" ] || [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
+   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
      docker-php-ext-configure gd --with-freetype --with-jpeg; \
    else \
      docker-php-ext-configure gd --with-freetype-dir=/usr/lib/ --with-jpeg-dir=/usr/lib/ --with-png-dir=/usr/lib/; \
