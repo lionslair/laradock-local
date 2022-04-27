@@ -14,7 +14,7 @@
 * * * * * laradock /usr/bin/php /var/www/evolutionelectrical/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/flooringlab/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/gradcon/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php7.4 /var/www/industrypropertygroup/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/industrypropertygroup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/kanopi/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/kontrastinteriors/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/latrobegarmin/artisan schedule:run >> /dev/null 2>&1
