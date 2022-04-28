@@ -336,6 +336,14 @@ industrypropertygroup.test {
     encode gzip
 }
 
+project-starter.test {
+    root * /var/www/project-starter/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 ipg.test {
     root * /var/www/industrypropertygroup/public/
     php_fastcgi php-fpm:9000

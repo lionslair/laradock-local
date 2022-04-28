@@ -298,6 +298,12 @@ GRANT ALL ON `re_commercial`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `re_commercial_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `re_commercial_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `project_starter` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `project_starter`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `project_starter_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `project_starter_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
