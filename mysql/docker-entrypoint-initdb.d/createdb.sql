@@ -304,6 +304,12 @@ GRANT ALL ON `project_starter`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `project_starter_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `project_starter_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `jetstream` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `jetstream`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `jetstream_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `jetstream_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
