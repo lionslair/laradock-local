@@ -310,6 +310,12 @@ GRANT ALL ON `jetstream`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `jetstream_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `jetstream_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `strata` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `strata`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `strata_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `strata_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 

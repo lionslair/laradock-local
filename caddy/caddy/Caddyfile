@@ -44,6 +44,14 @@ cambium.test {
     encode gzip
 }
 
+strata.test {
+    root * /var/www/strata/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 video-inspection.test {
     root * /var/www/video-inspection/public/
     php_fastcgi php-fpm:9000
