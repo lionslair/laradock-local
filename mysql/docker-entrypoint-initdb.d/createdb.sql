@@ -316,6 +316,12 @@ GRANT ALL ON `strata`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `strata_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `strata_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `loveusoap` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `loveusoap`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `loveusoap_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `loveusoap_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
