@@ -60,6 +60,14 @@ loveusoap.test {
     encode gzip
 }
 
+koala.test {
+    root * /var/www/koala-cherries/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 video-inspection.test {
     root * /var/www/video-inspection/public/
     php_fastcgi php-fpm:9000

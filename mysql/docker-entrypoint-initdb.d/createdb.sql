@@ -322,6 +322,12 @@ GRANT ALL ON `loveusoap`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `loveusoap_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `loveusoap_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `koala` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `koala`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `koala_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `koala_testing`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
