@@ -271,8 +271,8 @@ GRANT ALL ON `evolutionelectrical_testing`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `staircaseconstructions` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `staircaseconstructions_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `staircaseconstructions_testing`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `staircase_testing` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `staircase_testing`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `cambium` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cambium`.* TO 'homestead'@'%' ;
