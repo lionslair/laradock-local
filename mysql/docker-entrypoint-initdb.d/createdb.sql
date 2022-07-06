@@ -325,6 +325,9 @@ GRANT ALL ON `loveusoap_testing`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `koala` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `koala`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `theloom` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `theloom`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `forge` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `forge`.* TO 'homestead'@'%' ;
 

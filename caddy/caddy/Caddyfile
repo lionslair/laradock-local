@@ -36,6 +36,14 @@ q.test {
     encode gzip
 }
 
+theloom.test {
+    root * /var/www/theloom/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 cambium.test {
     root * /var/www/thecambium/public/
     php_fastcgi php-fpm:9000
