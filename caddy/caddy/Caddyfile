@@ -36,6 +36,14 @@ q.test {
     encode gzip
 }
 
+mailgun.test {
+    root * /var/www/webhook-mailgun/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 theloom.test {
     root * /var/www/theloom/public/
     php_fastcgi php-fpm:9000
