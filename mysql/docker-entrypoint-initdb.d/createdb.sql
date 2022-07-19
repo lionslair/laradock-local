@@ -331,4 +331,7 @@ GRANT ALL ON `forge`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `rhianandnathan` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `mailgun` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mailgun`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
