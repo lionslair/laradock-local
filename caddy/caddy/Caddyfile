@@ -264,8 +264,8 @@ phs.test {
     encode gzip
 }
 
-re-commercial.test {
-    root * /var/www/re-commercial-review/public
+connectedcommercial.test {
+    root * /var/www/connected-commercial/public
     php_fastcgi php-fpm:9000
     file_server
 

@@ -292,11 +292,8 @@ GRANT ALL ON `enqip`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `enqip_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `enqip_testing`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `re_commercial` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `re_commercial`.* TO 'homestead'@'%' ;
-
-CREATE DATABASE IF NOT EXISTS `re_commercial_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `re_commercial_testing`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `connectedcommercial` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `connectedcommercial`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `project_starter` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `project_starter`.* TO 'homestead'@'%' ;
