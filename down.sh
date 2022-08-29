@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cd ~/Code/laradock; docker-compose stop
+cd ~/Code/laradock; docker compose stop

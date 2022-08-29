@@ -76,7 +76,7 @@ docker-ce/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
 
 To install the latest version of docker:
 
-`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose`
+`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
 
 release notes
 
@@ -125,7 +125,7 @@ I have also created my own alias `storage` to do this for me.
 * Git [https://git-scm.com/downloads](https://git-scm.com/downloads)
 * Docker >= 17.12 [https://www.docker.com/products/docker/](https://www.docker.com/products/docker/) *following above this should be done*
 
-Make sure you have docker and docker-compose installed. See information here [https://www.docker.com/products/docker/]) *following above this should be done*
+Make sure you have docker and docker compose installed. See information here [https://www.docker.com/products/docker/]) *following above this should be done*
 
 Laradock should live in the same directory as all your sites. Example. If your projects reside in `/home/<username>/Code` on your system then this is the same place you want to clone laradock into.
 
@@ -142,7 +142,7 @@ Inside this bash script is the following. You may need to the paths and what ser
 ```
 #!/bin/bash
 
-cd ~/Code/laradock; docker-compose up -d caddy mysql adminer redis laravel-horizon selenium workspace php-worker mailhog
+cd ~/Code/laradock; docker compose up -d caddy mysql adminer redis laravel-horizon selenium workspace php-worker mailhog
 ```
 
 ## Sites
@@ -219,7 +219,7 @@ DB_USERNAME=root
 DB_PASSWORD=root
 ```
 
-To execute this file do `docker-compose exec mysql bash` or use the alias if setup `lara-mysql` to enter the container. *(see aliases later)*
+To execute this file do `docker compose exec mysql bash` or use the alias if setup `lara-mysql` to enter the container. *(see aliases later)*
 
 then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql` This will create the Database and assign the user access to each.
 
@@ -255,7 +255,7 @@ Cron scheduler is configured in the workspace container. When you need a new cro
 
 Standard crontab configuration is used. In order for this to run you will need to rebuild the container for it get applied. Run the following.
 
-`docker-compose build --no-cache workspace`
+`docker compose build --no-cache workspace`
 
 ## Aliases
 
@@ -266,7 +266,7 @@ I have created some aliases for my system to make starting, stopping and ssh int
 
 #### Access via SSH
 
-`alias lara-bash='cd ~/Code/laradock; docker-compose exec --user=laradock workspace bash'`
+`alias lara-bash='cd ~/Code/laradock; docker compose exec --user=laradock workspace bash'`
 
 #### Restart
 
@@ -278,15 +278,15 @@ I have created some aliases for my system to make starting, stopping and ssh int
 
 #### Redis
 
-`alias lara-redis='cd ~/Code/laradock; docker-compose exec redis bash'`
+`alias lara-redis='cd ~/Code/laradock; docker compose exec redis bash'`
 
 #### Mysql
 
-`alias lara-mysql='cd ~/Code/laradock; docker-compose exec mysql bash'`
+`alias lara-mysql='cd ~/Code/laradock; docker compose exec mysql bash'`
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker-compose restart laravel-horizon php-worker'`
+`alias lara-workers-restart='cd ~/Code/laradock; docker compose restart laravel-horizon php-worker'`
 
 #### Extra containers
 You can add new ones or use any of the other existing containers to your environment. For easy add them to `up.sh`, `down.sh` and `restart.sh` scripts.
@@ -395,7 +395,7 @@ follow the phpstorm instructions here [https://medium.com/@chenpohsun_12588/set-
 
 Remove all docker containers in order to rebuild by running
 
-`docker-compose down`
+`docker compose down`
 
 then to clean up containers
 
@@ -413,7 +413,7 @@ Then run `lara` again and all will be rebuilt.
 
 In order to rebuild a container run
 
-`docker-compose build --no-cache laravel-horizon`
+`docker compose build --no-cache laravel-horizon`
 
 It is best to then restart that container or sometimes do `lara-restart` or run `./restart.sh`
 
@@ -424,11 +424,11 @@ When adding a new site to local eg example.test
 * Add the host to the Caddyfile
 * Add the new crontab setting to `./workspace/crontab/laradock`
 
-Then run `docker-compose build --no-cache caddy workspace` *will take just a few minutes*
+Then run `docker compose build --no-cache caddy workspace` *will take just a few minutes*
 
 If you have added a horizon config or normal supervisor configs to php-worker then you will want to run all four containers. eg
 
-`docker-compose build --no-cache caddy workspace laravel-horizon php-worker`
+`docker compose build --no-cache caddy workspace laravel-horizon php-worker`
 
 All should be setup and working. run `lara-restart` or `./restart.sh`
 
