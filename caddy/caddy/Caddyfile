@@ -196,6 +196,14 @@ defex.test {
     encode gzip
 }
 
+honestysnacks.test {
+    root * /var/www/honestysnacks/public/
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
+
 enqip.test {
     root * /var/www/enqip/public/
     php_fastcgi php-fpm-7.4:9000
