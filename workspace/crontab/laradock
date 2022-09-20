@@ -28,7 +28,7 @@
 * * * * * laradock /usr/bin/php /var/www/mountaindistilling/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/myoffer/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/ombord/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php7.4 /var/www/honestysnacks/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/honestysnacks/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/premax.web/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/rpgroup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/video-inspection/artisan schedule:run >> /dev/null 2>&1

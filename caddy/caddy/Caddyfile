@@ -198,7 +198,7 @@ defex.test {
 
 honestysnacks.test {
     root * /var/www/honestysnacks/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
