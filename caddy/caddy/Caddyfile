@@ -204,6 +204,14 @@ honestysnacks.test {
     encode gzip
 }
 
+mandoleorchard.test {
+    root * /var/www/mandoleorchard/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 enqip.test {
     root * /var/www/enqip/public/
     php_fastcgi php-fpm-7.4:9000

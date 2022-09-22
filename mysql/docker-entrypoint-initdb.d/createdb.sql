@@ -52,6 +52,9 @@ GRANT ALL ON `leeelectrix`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `honestysnacks` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `honestysnacks`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `mandoleorchard` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `mandoleorchard`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `esg` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `esg`.* TO 'homestead'@'%' ;
 
