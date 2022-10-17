@@ -1,5 +1,5 @@
 * * * * * laradock /usr/bin/php /var/www/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php7.4 /var/www/acn/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/acn/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/agushi/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/asiamarketentry/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/bestratedtransport/artisan schedule:run >> /dev/null 2>&1
