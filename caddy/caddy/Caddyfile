@@ -238,7 +238,7 @@ dev.acn.com {
 
 dev.thatcatholicshop.com {
     root * /var/www/acn/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
