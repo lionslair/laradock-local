@@ -164,14 +164,6 @@ bestratedtransport.test {
     encode gzip
 }
 
-http://bestratedtransport.test {
-    root * /var/www/bestratedtransport/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 asiamarketentry-au.test {
     root * /var/www/asiamarketentry/public/
     php_fastcgi php-fpm:9000
