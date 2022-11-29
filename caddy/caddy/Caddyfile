@@ -36,8 +36,48 @@ q.test {
     encode gzip
 }
 
+mailgun.test {
+    root * /var/www/webhook-mailgun/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+theloom.test {
+    root * /var/www/theloom/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 cambium.test {
     root * /var/www/thecambium/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+strata.test {
+    root * /var/www/strata/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+loveusoap.test {
+    root * /var/www/loveusoap/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+koala.test {
+    root * /var/www/koala-cherries/public/
     php_fastcgi php-fpm:9000
     file_server
 
@@ -124,14 +164,6 @@ bestratedtransport.test {
     encode gzip
 }
 
-http://bestratedtransport.test {
-    root * /var/www/bestratedtransport/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 asiamarketentry-au.test {
     root * /var/www/asiamarketentry/public/
     php_fastcgi php-fpm:9000
@@ -156,6 +188,22 @@ defex.test {
     encode gzip
 }
 
+honestysnacks.test {
+    root * /var/www/honestysnacks/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+mandoleorchard.test {
+    root * /var/www/mandoleorchard/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 enqip.test {
     root * /var/www/enqip/public/
     php_fastcgi php-fpm-7.4:9000
@@ -174,7 +222,7 @@ edge-website.test {
 
 dev.acn.com {
     root * /var/www/acn/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
@@ -182,7 +230,7 @@ dev.acn.com {
 
 dev.thatcatholicshop.com {
     root * /var/www/acn/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
@@ -224,8 +272,8 @@ phs.test {
     encode gzip
 }
 
-re-commercial.test {
-    root * /var/www/re-commercial-review/public
+connectedcommercial.test {
+    root * /var/www/connected-commercial/public
     php_fastcgi php-fpm:9000
     file_server
 
@@ -290,7 +338,7 @@ asbestosedge.test {
 
 *.dev.app.misura.com.au {
     root * /var/www/misura/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
@@ -330,7 +378,23 @@ kanopi.test {
 
 industrypropertygroup.test {
     root * /var/www/industrypropertygroup/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+project-starter.test {
+    root * /var/www/project-starter/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+jetstream.test {
+    root * /var/www/jetstream-test/public/
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
@@ -338,7 +402,7 @@ industrypropertygroup.test {
 
 ipg.test {
     root * /var/www/industrypropertygroup/public/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
