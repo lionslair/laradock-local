@@ -5,7 +5,8 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-FROM php:${LARADOCK_PHP_VERSION}-alpine3.15
+#FROM php:${LARADOCK_PHP_VERSION}-alpine3.15
+FROM php:${LARADOCK_PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -219,6 +220,13 @@ RUN if [ ${INSTALL_AUDIOWAVEFORM} = true ]; then \
    && make install \
 ;fi
 
+
+# Install packages not yet updated for the current alpine version TODO remove when no longer needed
+# wkhtmltopdf midding from alpine-3.15 plus
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories
+RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories
+RUN apk add --no-cache wkhtmltopdf
+
 # Install Cassandra drivers:
 ARG INSTALL_CASSANDRA=false
 RUN if [ ${INSTALL_CASSANDRA} = true ]; then \
@@ -370,9 +378,9 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 #--------------------------------------------------------------------------
 #
 
-RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
-RUN php -v
-RUN php7 -v
+#RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
+#RUN php -v
+#RUN php7 -v
 
 #
 #--------------------------------------------------------------------------
