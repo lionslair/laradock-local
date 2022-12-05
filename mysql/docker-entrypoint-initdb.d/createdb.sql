@@ -133,9 +133,6 @@ GRANT ALL ON `melbourneacl`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `ipg` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `ipg`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `laundrylineup` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `laundrylineup`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `agushi` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `agushi`.* TO 'homestead'@'%' ;
 

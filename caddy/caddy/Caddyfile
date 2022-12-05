@@ -416,14 +416,6 @@ melbourneacl.test {
     encode gzip
 }
 
-laundrylineup.test {
-    root * /var/www/laundrylineup/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 gradcon.test {
     root * /var/www/gradcon/public/
     php_fastcgi php-fpm:9000
