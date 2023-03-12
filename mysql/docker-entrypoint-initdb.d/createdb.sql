@@ -175,6 +175,9 @@ GRANT ALL ON `loveusoap`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `koala` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `koala`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `stinkybins` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `stinkybins`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `theloom` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `theloom`.* TO 'homestead'@'%' ;
 

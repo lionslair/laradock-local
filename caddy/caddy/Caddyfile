@@ -424,6 +424,14 @@ gradcon.test {
     encode gzip
 }
 
+stinkybins.test {
+    root * /var/www/stinky-bins/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 latrobegarmin.test {
     root * /var/www/latrobegarmin/public/
     php_fastcgi php-fpm:9000
