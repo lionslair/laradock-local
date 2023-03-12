@@ -326,24 +326,27 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 # -- Your awesome modifications go here -- #
 
 # Install laravel legacy version
-RUN apk --update --no-cache add php7 \
-    php7-cli \
-    php7-curl \
-    php7-intl \
-    php7-json \
-    php7-xml \
-    php7-mbstring \
-    php7-mysqli \
-    php7-pgsql \
-    php7-redis \
-    php7-pdo \
-    php7-pcntl \
-    php7-sqlite3 \
-    php7-zip \
-    php7-bcmath \
-    php7-memcached \
-    php7-gd \
-    php7-dev
+RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN apk add php7@testing \
+#    php7-cli@testing \
+    php7-curl@testing \
+    php7-intl@testing \
+    php7-json@testing \
+    php7-xml@testing \
+    php7-mbstring@testing \
+    php7-mysqli@testing \
+    php7-pgsql@testing \
+    php7-redis@testing \
+    php7-pdo@testing \
+    php7-pcntl@testing \
+    php7-sqlite3@testing \
+    php7-zip@testing \
+    php7-bcmath@testing \
+    php7-memcached@testing \
+    php7-memcached@testing \
+    php7-gd@testing \
+    php7-memcached@testing \
+    php7-dev@testing
 
 ###########################################################################
 # Image optimizers:
