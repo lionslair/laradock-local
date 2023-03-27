@@ -178,6 +178,9 @@ GRANT ALL ON `koala`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `stinkybins` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `stinkybins`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `senseofself` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `senseofself`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `theloom` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `theloom`.* TO 'homestead'@'%' ;
 
