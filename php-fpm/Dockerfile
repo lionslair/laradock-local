@@ -212,12 +212,17 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
 ###########################################################################
 
 ARG INSTALL_XDEBUG=false
+ARG XDEBUG_PORT=9003
 
 RUN if [ ${INSTALL_XDEBUG} = true ]; then \
   # Install the xdebug extension
   # https://xdebug.org/docs/compat
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || { [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "4" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "3" ] ;} ;}; then \
-    pecl install xdebug-3.1.4; \
+    if [ ${LARADOCK_PHP_VERSION} = "8.2" ]; then \
+      pecl install xdebug-3.2.0; \
+    else \
+      pecl install xdebug-3.1.4; \
+    fi; \
   else \
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
       pecl install xdebug-2.5.5; \
@@ -238,7 +243,7 @@ COPY ./xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
 RUN if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || { [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "4" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "3" ] ;} ;}; then \
   sed -i "s/xdebug.remote_host=/xdebug.client_host=/" /usr/local/etc/php/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_connect_back=0/xdebug.discover_client_host=false/" /usr/local/etc/php/conf.d/xdebug.ini && \
-  sed -i "s/xdebug.remote_port=9000/xdebug.client_port=9003/" /usr/local/etc/php/conf.d/xdebug.ini && \
+  sed -i "s/xdebug.remote_port=9000/xdebug.client_port=${XDEBUG_PORT}/" /usr/local/etc/php/conf.d/xdebug.ini && \
   sed -i "s/xdebug.profiler_enable=0/; xdebug.profiler_enable=0/" /usr/local/etc/php/conf.d/xdebug.ini && \
   sed -i "s/xdebug.profiler_output_dir=/xdebug.output_dir=/" /usr/local/etc/php/conf.d/xdebug.ini && \
   sed -i "s/xdebug.remote_mode=req/; xdebug.remote_mode=req/" /usr/local/etc/php/conf.d/xdebug.ini && \
@@ -321,6 +326,8 @@ RUN set -eux; \
         pecl install swoole-4.3.5; \
       elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70100" ]; then \
         pecl install swoole-4.5.11; \
+      elif [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+        pecl install swoole-4.8.12; \
       else \
         pecl install swoole; \
       fi; \
@@ -740,8 +747,9 @@ RUN set -eux; \
       ###########################################################################
       # Ref from https://github.com/Microsoft/msphpsql/wiki/Dockerfile-for-adding-pdo_sqlsrv-and-sqlsrv-to-official-php-image
       ###########################################################################
-      # Add Microsoft repo for Microsoft ODBC Driver 13 for Linux
-      apt-get install -yqq apt-transport-https gnupg lsb-release \
+      # Add Microsoft repo for Microsoft ODBC Driver 13 for Linux \
+      apt-get update \
+      && apt-get install -yqq apt-transport-https gnupg lsb-release \
       && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
       && curl https://packages.microsoft.com/config/debian/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list \
       && apt-get update -yqq \
@@ -1207,9 +1215,10 @@ RUN set -xe; \
 ###########################################################################
 
 ARG DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL=false
+ARG DOWNGRADE_OPENSSL_TLS_VERSION=1.2
 
 RUN if [ ${DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL} = true ]; then \
-    sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv1.2',g' /etc/ssl/openssl.cnf \
+    sed -i 's,^\(MinProtocol[ ]*=\).*,\1'TLSv${DOWNGRADE_OPENSSL_TLS_VERSION}',g' /etc/ssl/openssl.cnf \
     && \
     sed -i 's,^\(CipherString[ ]*=\).*,\1'DEFAULT@SECLEVEL=1',g' /etc/ssl/openssl.cnf\
 ;fi
@@ -1235,6 +1244,38 @@ RUN if [ ${INSTALL_ZMQ} = true ]; then \
     && echo "extension=zmq.so" > /usr/local/etc/php/conf.d/zmq.ini \
 ;fi
 
+
+############################################################################
+## Event:
+############################################################################
+USER root
+
+ARG INSTALL_EVENT=false
+
+RUN set -eux; \
+  if [ ${INSTALL_EVENT} = true ]; then \
+      curl -L -o  /tmp/libevent.tar.gz https://github.com/libevent/libevent/releases/download/release-2.1.12-stable/libevent-2.1.12-stable.tar.gz   &&\
+      mkdir -p /tmp/libevent-php &&\
+      tar -C /tmp/libevent-php -zxvf /tmp/libevent.tar.gz --strip 1 &&\
+      cd /tmp/libevent-php &&\
+      ./configure --prefix=/usr/local/libevent-2.1.12  &&\
+      make &&\
+      make install &&\
+      rm /tmp/libevent.tar.gz &&\
+      docker-php-ext-install sockets  &&\
+      curl -L -o /tmp/event.tar.gz http://pecl.php.net/get/event-3.0.6.tgz &&\
+      mkdir -p /tmp/event-php &&\
+      tar -C /tmp/event-php -zxvf /tmp/event.tar.gz --strip 1 &&\
+      cd /tmp/event-php &&\
+      phpize &&\
+      ./configure  --with-event-libevent-dir=/usr/local/libevent-2.1.12/ &&\
+      make &&\
+      make install &&\
+      rm /tmp/event.tar.gz &&\
+      docker-php-ext-enable event &&\
+      php -m  | grep -q 'event' \
+;fi
+
 ###########################################################################
 # DNS utilities:
 ###########################################################################
@@ -1251,7 +1292,7 @@ RUN if [ ${INSTALL_DNSUTILS} = true ]; then \
 # Check PHP version:
 ###########################################################################
 
-RUN set -xe; php -v | head -n 1 | grep -q "PHP ${LARADOCK_PHP_VERSION}."
+RUN set -xe; php -v | grep -q "PHP ${LARADOCK_PHP_VERSION}."
 
 #
 #--------------------------------------------------------------------------
