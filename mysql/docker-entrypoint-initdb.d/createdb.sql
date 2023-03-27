@@ -193,4 +193,7 @@ GRANT ALL ON `rhianandnathan`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `mailgun` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `mailgun`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `shlink` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `shlink`.* TO 'homestead'@'%' ;
+
 FLUSH PRIVILEGES ;
