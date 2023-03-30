@@ -625,3 +625,11 @@ shlink.test {
 
     encode gzip
 }
+
+urlhub.test {
+    root * /var/www/urlhub/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
