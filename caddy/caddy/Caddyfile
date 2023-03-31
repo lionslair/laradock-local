@@ -552,6 +552,14 @@ m2electrical.test {
     encode gzip
 }
 
+aluline.test {
+    root * /var/www/aluline/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 #greeta.test {
 #    root * /var/www/greeta-laravel/public/

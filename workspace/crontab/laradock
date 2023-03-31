@@ -46,4 +46,5 @@
 * * * * * laradock /usr/bin/php /var/www/loveusoap/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/koala-cherries/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/mandoleorchard/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/aluline/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/urlhub/artisan schedule:run >> /dev/null 2>&1
