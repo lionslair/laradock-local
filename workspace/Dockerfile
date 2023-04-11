@@ -526,7 +526,11 @@ ARG INSTALL_GEARMAN=false
 RUN if [ ${INSTALL_GEARMAN} = true ]; then \
     add-apt-repository -y ppa:ondrej/pkg-gearman && \
     apt-get update && \
-    apt-get -yqq install php-gearman \
+    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
+      apt-get install php${LARADOCK_PHP_VERSION}-gearman -y  \
+    ; else \
+      apt-get install php-gearman -y  \
+    ;fi \
 ;fi
 
 ###########################################################################
@@ -1287,6 +1291,7 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
 USER root
 
 ARG INSTALL_PG_CLIENT=false
+ARG PG_CLIENT_VERSION
 
 RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
     # Install the pgsql client
@@ -1294,7 +1299,7 @@ RUN if [ ${INSTALL_PG_CLIENT} = true ]; then \
     && wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
     && echo "deb http://apt.postgresql.org/pub/repos/apt/ `lsb_release -cs`-pgdg main" | tee /etc/apt/sources.list.d/pgdg.list \
     && apt-get update \
-    && apt-get -y install postgresql-client-12 \
+    && apt-get -y install postgresql-client-${PG_CLIENT_VERSION} \
 ;fi
 
 ###########################################################################
@@ -1340,6 +1345,23 @@ RUN if [ $INSTALL_PHALCON = true ]; then \
       ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/phalcon.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/50-phalcon.ini; \
       php -m | grep -q 'phalcon' \
   ;fi
+
+###########################################################################
+# APCU:
+###########################################################################
+
+ARG INSTALL_APCU=false
+
+RUN if [ ${INSTALL_APCU} = true ]; then \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
+    pecl install apcu-4.0.11; \
+  else \
+    pecl install apcu; \
+  fi && \
+  echo "extension=apcu.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/apcu.ini; \
+  ln -s /etc/php/${LARADOCK_PHP_VERSION}/mods-available/apcu.ini /etc/php/${LARADOCK_PHP_VERSION}/cli/conf.d/50-apcu.ini; \
+  php -m | grep -q 'apcu' \
+;fi
 
 ###########################################################################
 USER root

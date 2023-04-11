@@ -5,7 +5,6 @@
 #
 
 ARG LARADOCK_PHP_VERSION
-#FROM php:${LARADOCK_PHP_VERSION}-alpine3.15
 FROM php:${LARADOCK_PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
@@ -35,18 +34,16 @@ RUN apk --update add wget \
   libressl \
   libressl-dev \
   supervisor \
-  procps \
-  libintl \
-  icu \
-  icu-dev
+  procps
 
 RUN pecl channel-update pecl.php.net; \
-    docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
-    if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
-      php -m | grep -q 'tokenizer'; \
-    else \
-      docker-php-ext-install tokenizer; \
-    fi
+  docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
+  if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80100" ] || \
+     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80200" ]; then \
+    php -m | grep -oiE '^tokenizer$'; \
+  else \
+    docker-php-ext-install tokenizer; \
+  fi
 
 # Add a non-root user to help install ffmpeg:
 ARG PUID=1000
@@ -57,11 +54,17 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
-#Install intl package:
+###########################################################################
+# Intl:
+###########################################################################
+
 ARG INSTALL_INTL=false
+
 RUN if [ ${INSTALL_INTL} = true ]; then \
-    docker-php-ext-configure intl &&  \
-    docker-php-ext-install intl \
+    apk add icu-dev && \
+    docker-php-ext-configure intl && \
+    docker-php-ext-install intl && \
+    docker-php-ext-enable intl \
 ;fi
 
 #Install BZ2:
@@ -382,8 +385,6 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 #
 
 #RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
-#RUN php -v
-#RUN php7 -v
 
 #
 #--------------------------------------------------------------------------
