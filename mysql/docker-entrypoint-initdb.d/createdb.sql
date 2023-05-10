@@ -184,6 +184,9 @@ GRANT ALL ON `senseofself`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `theloom` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `theloom`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `cjz` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `cjz`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `aluline` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `aluline`.* TO 'homestead'@'%' ;
 

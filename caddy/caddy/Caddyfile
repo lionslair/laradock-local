@@ -504,6 +504,14 @@ customerplus.test {
     encode gzip
 }
 
+cjz.test {
+    root * /var/www/cjz/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 rpgroup.test {
     root * /var/www/rpgroup/public/
     php_fastcgi php-fpm:9000
