@@ -214,6 +214,7 @@ DB_PASSWORD=secret
 ```
 
 or 
+
 ```
 DB_USERNAME=root
 DB_PASSWORD=root
