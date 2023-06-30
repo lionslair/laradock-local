@@ -181,6 +181,9 @@ GRANT ALL ON `stinkybins`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `senseofself` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `senseofself`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `aheevastatus` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `aheevastatus`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `senseofself_accuity` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `senseofself_accuity`.* TO 'homestead'@'%' ;
 
