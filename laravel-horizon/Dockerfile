@@ -338,7 +338,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 # Install laravel legacy version
 RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
 RUN apk add php7@testing \
-#    php7-cli@testing \
+    php7-cli@testing \
     php7-curl@testing \
     php7-intl@testing \
     php7-json@testing \
