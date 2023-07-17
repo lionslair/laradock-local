@@ -448,6 +448,14 @@ aheevastatus.test {
     encode gzip
 }
 
+visyproductcatalogue.test {
+    root * /var/www/visyproductcatalogue/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 senseofself-accuity.test {
     root * /var/www/senseofself-accuity/public/
     php_fastcgi php-fpm:9000
