@@ -1,5 +1,6 @@
-ARG POSTGRES_VERSION=alpine
-FROM postgres:${POSTGRES_VERSION}
+FROM postgres:alpine
+
+LABEL maintainer="Ben M <git@bmagg.com>"
 
 CMD ["postgres"]
 

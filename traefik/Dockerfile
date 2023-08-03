@@ -1,11 +1,7 @@
-FROM traefik:v2.2
+FROM traefik:1.7.5-alpine
 
 LABEL maintainer="Luis Coutinho <luis@luiscoutinho.pt>"
 
-WORKDIR /data
+COPY traefik.toml acme.json /
 
-RUN touch acme.json
-
-RUN chmod 600 acme.json
-
-VOLUME /data
+RUN chmod 600 /acme.json

@@ -1,12 +1,10 @@
 ---
-title: Help & Questions
+title: 5. Help & Questions
 type: index
-weight: 4
+weight: 5
 ---
 
 Join the chat room on [Gitter](https://gitter.im/Laradock/laradock) and get help and support from the community.
-
-[![Gitter](https://badges.gitter.im/Laradock/laradock.svg)](https://gitter.im/Laradock/laradock?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 You can as well can open an [issue](https://github.com/laradock/laradock/issues) on Github (will be labeled as Question) and discuss it with people on [Gitter](https://gitter.im/Laradock/laradock).
 
@@ -43,7 +41,7 @@ Use `http://127.0.0.1` instead of `http://localhost` in your browser.
 
 
 <br>
-## I see an error message containing (address already in use) or (port is already allocated)
+## I see an error message containing `address already in use` or `port is already allocated`
 
 Make sure the ports for the services that you are trying to run (22, 80, 443, 3306, etc.) are not being used already by other programs on the host, such as a built in `apache`/`httpd` service or other development tools you have installed.
 
@@ -87,7 +85,7 @@ This error sometimes happens because your Laravel application isn't running on t
 * Option B
    1. Change the `DB_HOST` value to the same name as the MySQL docker container. The Laradock docker-compose file currently has this as `mysql`
 
-## I get stuck when building nginx on (fetch mirrors.aliyun.com/alpine/v3.5/main/x86_64/APKINDEX.tar.gz)
+## I get stuck when building nginx on `fetch http://mirrors.aliyun.com/alpine/v3.5/main/x86_64/APKINDEX.tar.gz`
 
 As stated on [#749](https://github.com/laradock/laradock/issues/749#issuecomment-419652646), Already fixed，just set `CHANGE_SOURCE` to false.
 
@@ -97,15 +95,15 @@ In China, the origin source of composer and npm is very slow. You can add `WORKS
 
 Example:
 ```bash
-WORKSPACE_NPM_REGISTRY=https://registry.npmmirror.com
+WORKSPACE_NPM_REGISTRY=https://registry.npm.taobao.org
 WORKSPACE_COMPOSER_REPO_PACKAGIST=https://packagist.phpcomposer.com
 ```
 
 <br>
 
-## I got (Module build failed: Error: write EPIPE) while compiling react application
+## I get `Module build failed: Error: write EPIPE` while compiling react application
 
-When you run `npm build` or `yarn dev` building a react application using webpack with elixir you may receive an `Error: write EPIPE` while processing .jpg images.
+When you run `npm build` or `yarn dev` building a react application using webpack with elixir you may receive a `Error: write EPIPE` while processing .jpg images.
 
 This is caused of an outdated library for processing **.jpg files** in ubuntu 16.04.
 
@@ -113,7 +111,7 @@ To fix the problem you can follow those steps
 
 1 - Open the `.env`.
 
-2 - Search for `WORKSPACE_INSTALL_LIBPNG` or add the key, if missing.
+2 - Search for `WORKSPACE_INSTALL_LIBPNG` or add the key if missing.
 
 3 - Set the value to true:
 
@@ -127,21 +125,3 @@ WORKSPACE_INSTALL_LIBPNG=true
 docker-compose build workspace
 ```
 
-## Apache2 container won't start on mac m1
-
-To fix the problem you can follow those steps
-
-1 - Open the `.env`.
-
-2 - Search for `APACHE_FOR_MAC_M1` or add the key, if missing.
-
-3 - Set the value to true:
-
-```dotenv
-APACHE_FOR_MAC_M1=true
-```
-4 - Finally rebuild the workspace image
-
-```bash
-docker-compose build apache2
-```

@@ -1,10 +1,8 @@
 ---
-title: Contributions
+title: 7. Contributing
 type: index
-weight: 6
+weight: 7
 ---
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/laradock/laradock)
 
 
 ## Have a Question
@@ -53,20 +51,12 @@ To update the sidebar or add a new section to it, you can edit this `DOCUMENTATI
 
 ### Host the documentation locally
 
-**Option 1: Use Hugo Docker Image:**
-
-1. Update the `DOCUMENTATION/content`.
-2. Go to `DOCUMENTATION/`.
-3. Run `docker run --rm -it -v $PWD:/src -p 1313:1313 -u hugo jguyomard/hugo-builder hugo server -w --bind=0.0.0.0`
-4. Visit [http://localhost:1313/](http://localhost:1313/)
-
-**Option 2: Install Hugo Locally:**
-
 1. Install [Hugo](https://gohugo.io/) on your machine.
-2. Update the `DOCUMENTATION/content`.
+2. Edit the `DOCUMENTATION/content`.
 3. Delete the `/docs` folder from the root.
-4. Go to `DOCUMENTATION/`.
-5. Run the `hugo` command to generate the HTML docs inside a new `/docs` folder.
+4. After you finish the editing, go to `DOCUMENTATION/` and run the `hugo` command to generate the HTML docs (inside a new `/docs` folder).
+
+
 
 
 ## Support new Software (Add new Container)
@@ -81,7 +71,7 @@ To update the sidebar or add a new section to it, you can edit this `DOCUMENTATI
 
 * Make sure you follow the same code/comments style.
 
-* Add the environment variables to the `.env.example` if you have any.
+* Add the environment variables to the `env-example` if you have any.
 
 * **MOST IMPORTANTLY** update the `Documentation`, add as much information.
 
@@ -110,7 +100,7 @@ To update the sidebar or add a new section to it, you can edit this `DOCUMENTATI
 
 * Search for the image in the [Docker Hub](https://hub.docker.com/search/) and find the source..
 
-*Most of the image in Laradock are official images, these projects live in other repositories and maintainer by other organizations.*
+*Most of the image in Laradock are offical images, these projects live in other repositories and maintainer by other organizations.*
 
 **Note:** Laradock has two base images for (`Workspace` and `php-fpm`, mainly made to speed up the build time on your machine.
 
@@ -214,4 +204,4 @@ After your pull request is merged, you can safely delete your branch and pull th
 
 
 <br>
-## Happy Coding :)
+#### Happy Coding :)

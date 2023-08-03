@@ -1,7 +1,15 @@
-FROM varnish:6.3
+FROM debian:latest
+
+LABEL maintainer="ZeroC0D3 Team<zeroc0d3.team@gmail.com>"
 
 # Set Environment Variables
 ENV DEBIAN_FRONTEND noninteractive
+
+# Install Dependencies
+RUN apt-get update && apt-get install -y apt-utils && apt-get upgrade -y
+RUN mkdir /home/site && mkdir /home/site/cache
+RUN apt-get install -y varnish
+RUN rm -rf /var/lib/apt/lists/*
 
 # Setting Configurations
 ENV VARNISH_CONFIG  /etc/varnish/default.vcl
