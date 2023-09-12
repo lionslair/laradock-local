@@ -748,6 +748,7 @@ RUN if [ ${INSTALL_LDAP} = true ]; then \
 
 ARG INSTALL_MSSQL=false
 
+# Future reference https://github.com/laradock/laradock/issues/3357#issuecomment-1484704781
 RUN set -eux; \
   if [ ${INSTALL_MSSQL} = true ]; then \
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "5" ]; then \
@@ -764,7 +765,7 @@ RUN set -eux; \
       apt-get update \
       && apt-get install -yqq apt-transport-https gnupg lsb-release \
       && curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - \
-      && curl https://packages.microsoft.com/config/debian/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list \
+      && curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list \
       && apt-get update -yqq \
       && ACCEPT_EULA=Y apt-get install -yqq unixodbc unixodbc-dev libgss3 odbcinst msodbcsql17 locales \
       && echo "en_US.UTF-8 UTF-8" > /etc/locale.gen \
@@ -776,6 +777,10 @@ RUN set -eux; \
         pecl install pdo_sqlsrv-5.6.1 sqlsrv-5.6.1 \
       ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70200" ]; then \
         pecl install pdo_sqlsrv-5.8.1 sqlsrv-5.8.1 \
+      ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70300" ]; then \
+        pecl install pdo_sqlsrv-5.9.0 sqlsrv-5.9.0 \
+      ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
+        pecl install pdo_sqlsrv-5.10.1 sqlsrv-5.10.1 \
       ;else \
         pecl install pdo_sqlsrv sqlsrv \
       ;fi \
