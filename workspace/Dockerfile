@@ -1910,4 +1910,4 @@ RUN apt-get update \
         php7.4-gd \
         php7.4-dev
 
- RUN update-alternatives --set php /usr/bin/php8.1
+ RUN update-alternatives --set php /usr/bin/php8.2
