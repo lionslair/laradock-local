@@ -1506,6 +1506,7 @@ RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
 
 USER root
 
+
 ARG INSTALL_WKHTMLTOPDF=false
 ARG WKHTMLTOPDF_VERSION=0.12.6-1
 
@@ -1526,7 +1527,6 @@ RUN if [ ${INSTALL_WKHTMLTOPDF} = true ]; then \
    && dpkg -i "wkhtmltox_${WKHTMLTOPDF_VERSION}.focal_${ARCH}.deb" \
    && apt -f install \
 ;fi
-
 ###########################################################################
 # Mailparse extension:
 ###########################################################################
