@@ -1492,13 +1492,13 @@ RUN if [ ${INSTALL_AUDIOWAVEFORM} = true ]; then \
 #####################################
 # poppler-utils:
 #####################################
-USER root
-
-ARG INSTALL_POPPLER_UTILS=false
-
-RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
-  apt-get -y install poppler-utils antiword \
-;fi
+#USER root
+#
+#ARG INSTALL_POPPLER_UTILS=false
+#
+#RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
+#  apt-get -y install poppler-utils antiword \
+#;fi
 
 #####################################
 # wkhtmltopdf:
@@ -1854,13 +1854,13 @@ RUN if [ ${INSTALL_DNSUTILS} = true ]; then \
 # Java Development Kit:
 ###########################################################################
 
-ARG INSTALL_JDK=false
-
-RUN if [ ${INSTALL_JDK} = true ]; then \
-    apt-get update \
-    && apt-get install -y default-jdk ca-certificates-java \
-    && update-ca-certificates -f \
-;fi
+#ARG INSTALL_JDK=false
+#
+#RUN if [ ${INSTALL_JDK} = true ]; then \
+#    apt-get update \
+#    && apt-get install -y default-jdk ca-certificates-java \
+#    && update-ca-certificates -f \
+#;fi
 
 #
 #--------------------------------------------------------------------------
