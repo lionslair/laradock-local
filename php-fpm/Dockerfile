@@ -1023,6 +1023,7 @@ USER root
 ARG INSTALL_FFMPEG=false
 
 RUN if [ ${INSTALL_FFMPEG} = true ]; then \
+    apt-get update -y && \
     apt-get -y install ffmpeg \
 ;fi
 
