@@ -289,6 +289,12 @@ I have created some aliases for my system to make starting, stopping and ssh int
 
 `alias lara-workers-restart='cd ~/Code/laradock; docker compose restart laravel-horizon php-worker'`
 
+#### To many images
+
+If you get an error along the lines of `max depth exceeded` it could be you have to many build images.
+
+try running `docker system prune -a`
+
 #### Extra containers
 You can add new ones or use any of the other existing containers to your environment. For easy add them to `up.sh`, `down.sh` and `restart.sh` scripts.
 
