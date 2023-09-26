@@ -265,7 +265,7 @@ myoffer.test {
 }
 
 phs.test {
-    root * /var/www/phs-webapp/app/webroot/
+    root * /var/www/phs-webapp/public
     php_fastcgi php-fpm:9000
     file_server
 
