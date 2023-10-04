@@ -24,6 +24,7 @@
 * * * * * laradock /usr/bin/php /var/www/senseofself-accuity/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/aheevastatus/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/visyproductcatalogue/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/precision-scaffolding/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/leeelectrix/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/m2electrical/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/macutex/artisan schedule:run >> /dev/null 2>&1

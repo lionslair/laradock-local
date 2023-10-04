@@ -196,6 +196,9 @@ GRANT ALL ON `theloom`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `tallied` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `tallied`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `precision` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `precision`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `cjz` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cjz`.* TO 'homestead'@'%' ;
 

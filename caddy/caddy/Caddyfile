@@ -280,6 +280,14 @@ connectedcommercial.test {
     encode gzip
 }
 
+precision-scaffolding.test {
+    root * /var/www/precision-scaffolding/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 flooringlab-splash.test {
     root * /var/www/flooringlab-splash/
     php_fastcgi php-fpm:9000
