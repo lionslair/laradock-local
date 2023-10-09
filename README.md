@@ -131,7 +131,9 @@ Laradock should live in the same directory as all your sites. Example. If your p
 
 Clone this repository to the same directory as you have your laravel sites. eg `/home/user/Code`
 
-`git clone git@bitbucket.org/lionslair/laradock.git`
+```bash
+git clone git@github.com:lionslair/laradock-local.git
+```
 
 cd into the cloned directory and run the command below. eg `/home/<username>/Code/laradock`
 
@@ -139,7 +141,7 @@ cd into the cloned directory and run the command below. eg `/home/<username>/Cod
 
 Inside this bash script is the following. You may need to the paths and what services you want to bring up. 
 
-```
+```bash
 #!/bin/bash
 
 cd ~/Code/laradock; docker compose up -d caddy mysql adminer redis laravel-horizon selenium workspace php-worker mailhog
