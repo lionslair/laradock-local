@@ -73,6 +73,7 @@ alias seed="php artisan db:seed"
 alias serve="php artisan serve --quiet &"
 
 alias phpunit="./vendor/bin/phpunit"
+alias pest="./vendor/bin/pest"
 alias pu="phpunit"
 alias puf="phpunit --filter"
 alias pud='phpunit --debug'
