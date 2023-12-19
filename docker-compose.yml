@@ -533,6 +533,7 @@ services:
         - ./laravel-horizon/supervisord.d:/etc/supervisord.d
       depends_on:
         - workspace
+        - wkhtmltopdf
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
@@ -2351,6 +2352,13 @@ services:
 ### PUPPETEER ###############################
     puppeteer:
       image: buildkite/puppeteer
+      networks:
+        - frontend
+        - backend
+
+### WKHTMLTOPDF ###############################
+    wkhtmltopdf:
+      image: surnet/alpine-wkhtmltopdf:latest
       networks:
         - frontend
         - backend

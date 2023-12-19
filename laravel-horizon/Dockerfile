@@ -260,9 +260,11 @@ RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
 
 # Install packages not yet updated for the current alpine version TODO remove when no longer needed
 # wkhtmltopdf midding from alpine-3.15 plus
+# Ref https://stackoverflow.com/questions/56426050/how-to-install-wkhtmltopdf-on-docker-php-fpm-alpine-linux
 #RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories
 #RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories
-RUN #apk add --no-cache wkhtmltopdf
+#RUN apk add --no-cache wkhtmltopdf
+# wkhtmltopdf install dependencies
 
 # Install Cassandra drivers:
 ARG INSTALL_CASSANDRA=false
