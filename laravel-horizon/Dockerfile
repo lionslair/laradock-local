@@ -58,20 +58,30 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
-
-
 ###########################################################################
 # Intl:
 ###########################################################################
 
 ARG INSTALL_INTL=false
 
-RUN if [ ${INSTALL_INTL} = true ]; then \
-    apk --update add icu-dev && \
-    docker-php-ext-configure intl && \
-    docker-php-ext-install intl \
-    docker-php-ext-enable intl \
-;fi
+#RUN if [ ${INSTALL_INTL} = true ]; then \
+###    apk add --no-cache autoconf build-base --virtual build_deps && \
+##    apk --update add icu && \
+##    apk add --no-cache --virtual .php-deps make && \
+##    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS zlib-dev icu-dev g++ && \
+###    apk --update add icu-dev && \
+##    docker-php-ext-configure intl && \
+##    docker-php-ext-install intl && \
+##    docker-php-ext-enable intl && \
+##    { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } && \
+##    apk del .build-deps && \
+##    rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/* \
+#    curl -sSLf \
+#            -o /usr/local/bin/install-php-extensions \
+#            https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+#        chmod +x /usr/local/bin/install-php-extensions && \
+#        install-php-extensions intl \
+#;fi
 
 #Install BZ2:
 ARG INSTALL_BZ2=false
