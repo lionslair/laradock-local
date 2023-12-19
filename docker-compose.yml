@@ -2358,7 +2358,7 @@ services:
 
 ### WKHTMLTOPDF ###############################
     wkhtmltopdf:
-      image: surnet/alpine-wkhtmltopdf:latest
+      image: surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full
       networks:
         - frontend
         - backend
