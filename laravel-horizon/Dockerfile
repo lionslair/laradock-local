@@ -58,6 +58,8 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
+
+
 ###########################################################################
 # Intl:
 ###########################################################################
@@ -65,13 +67,9 @@ RUN addgroup -g ${PGID} laradock && \
 ARG INSTALL_INTL=false
 
 RUN if [ ${INSTALL_INTL} = true ]; then \
-#    apk --update add zlib-dev icu-dev g++ php82-intl && \
-#    apk --update add php82-intl icu-dev && \
-#    apk --update add zlib-dev icu-dev g++ && \
-#    apk --no-cache add icu-libs icu-dev && \
-    apk --no-cache add icu-dev && \
+    apk --update add icu-dev && \
     docker-php-ext-configure intl && \
-    docker-php-ext-install intl && \
+    docker-php-ext-install intl \
     docker-php-ext-enable intl \
 ;fi
 
@@ -356,27 +354,27 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 # -- Your awesome modifications go here -- #
 
 # Install laravel legacy version
-RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
-RUN apk --update add php7@testing \
-    php7-cli@testing \
-    php7-curl@testing \
-    php7-intl@testing \
-    php7-json@testing \
-    php7-xml@testing \
-    php7-mbstring@testing \
-    php7-mysqli@testing \
-    php7-pgsql@testing \
-    php7-redis@testing \
-    php7-pdo@testing \
-    php7-pcntl@testing \
-    php7-sqlite3@testing \
-    php7-zip@testing \
-    php7-bcmath@testing \
-    php7-memcached@testing \
-    php7-memcached@testing \
-    php7-gd@testing \
-    php7-memcached@testing \
-    php7-dev@testing
+#RUN echo "@testing https://dl-cdn.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+#RUN apk --update add php7@testing \
+#    php7-cli@testing \
+#    php7-curl@testing \
+#    php7-intl@testing \
+#    php7-json@testing \
+#    php7-xml@testing \
+#    php7-mbstring@testing \
+#    php7-mysqli@testing \
+#    php7-pgsql@testing \
+#    php7-redis@testing \
+#    php7-pdo@testing \
+#    php7-pcntl@testing \
+#    php7-sqlite3@testing \
+#    php7-zip@testing \
+#    php7-bcmath@testing \
+#    php7-memcached@testing \
+#    php7-memcached@testing \
+#    php7-gd@testing \
+#    php7-memcached@testing \
+#    php7-dev@testing
 
 ###########################################################################
 # Image optimizers:
