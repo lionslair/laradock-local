@@ -42,8 +42,8 @@ RUN apk --update add wget \
 
 RUN pecl channel-update pecl.php.net; \
   docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
-  if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80100" ] || \
-     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80200" ]; then \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && \
+     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") != "80000" ]; then \
     php -m | grep -oiE '^tokenizer$'; \
   else \
     docker-php-ext-install tokenizer; \
@@ -65,7 +65,11 @@ RUN addgroup -g ${PGID} laradock && \
 ARG INSTALL_INTL=false
 
 RUN if [ ${INSTALL_INTL} = true ]; then \
-    apk add icu-dev && \
+#    apk --update add zlib-dev icu-dev g++ php82-intl && \
+#    apk --update add php82-intl icu-dev && \
+#    apk --update add zlib-dev icu-dev g++ && \
+#    apk --no-cache add icu-libs icu-dev && \
+    apk --no-cache add icu-dev && \
     docker-php-ext-configure intl && \
     docker-php-ext-install intl && \
     docker-php-ext-enable intl \

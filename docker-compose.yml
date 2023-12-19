@@ -532,6 +532,9 @@ services:
         - workspace
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
+      dns:
+        - 1.0.0.1
+        - 9.9.9.9
       networks:
         - backend
 
