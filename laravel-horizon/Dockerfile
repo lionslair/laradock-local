@@ -58,8 +58,6 @@ ENV PGID ${PGID}
 RUN addgroup -g ${PGID} laradock && \
     adduser -D -G laradock -u ${PUID} laradock
 
-
-
 ###########################################################################
 # Intl:
 ###########################################################################
@@ -67,9 +65,27 @@ RUN addgroup -g ${PGID} laradock && \
 ARG INSTALL_INTL=false
 
 RUN if [ ${INSTALL_INTL} = true ]; then \
-    apk --update add icu-dev && \
+###    apk add --no-cache autoconf build-base --virtual build_deps && \
+##    apk --update add icu && \
+##    apk add --no-cache --virtual .php-deps make && \
+##    apk add --no-cache --virtual .build-deps $PHPIZE_DEPS zlib-dev icu-dev g++ && \
+###    apk --update add icu-dev && \
+##    docker-php-ext-configure intl && \
+##    docker-php-ext-install intl && \
+##    docker-php-ext-enable intl && \
+##    { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } && \
+##    apk del .build-deps && \
+##    rm -rf /tmp/* /usr/local/lib/php/doc/* /var/cache/apk/* \
+#    from https://github.com/mlocati/docker-php-extension-installer
+#    curl -sSLf \
+#            -o /usr/local/bin/install-php-extensions \
+#            https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions && \
+#        chmod +x /usr/local/bin/install-php-extensions && \
+#        IPE_ICU_EN_ONLY=1 install-php-extensions intl \
+#    apk add --no-cache icu-dev --repository=https://dl-cdn.alpinelinux.org/alpine/edge/main && \
+    apk add icu-dev && \
     docker-php-ext-configure intl && \
-    docker-php-ext-install intl \
+    docker-php-ext-install intl && \
     docker-php-ext-enable intl \
 ;fi
 
@@ -244,9 +260,11 @@ RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
 
 # Install packages not yet updated for the current alpine version TODO remove when no longer needed
 # wkhtmltopdf midding from alpine-3.15 plus
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories
-RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories
-RUN apk add --no-cache wkhtmltopdf
+# Ref https://stackoverflow.com/questions/56426050/how-to-install-wkhtmltopdf-on-docker-php-fpm-alpine-linux
+#RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/community' >> /etc/apk/repositories
+#RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories
+#RUN apk add --no-cache wkhtmltopdf
+# wkhtmltopdf install dependencies
 
 # Install Cassandra drivers:
 ARG INSTALL_CASSANDRA=false

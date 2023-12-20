@@ -168,6 +168,7 @@ services:
           - INSTALL_FFMPEG=${WORKSPACE_INSTALL_FFMPEG}
           - INSTALL_AUDIOWAVEFORM=${WORKSPACE_INSTALL_AUDIOWAVEFORM}
           - INSTALL_WKHTMLTOPDF=${WORKSPACE_INSTALL_WKHTMLTOPDF}
+          - WKHTMLTOPDF_VERSION=${WORKSPACE_WKHTMLTOPDF_VERSION}
           - INSTALL_GNU_PARALLEL=${WORKSPACE_INSTALL_GNU_PARALLEL}
           - INSTALL_LNAV=${WORKSPACE_INSTALL_LNAV}
           - INSTALL_PROTOC=${WORKSPACE_INSTALL_PROTOC}
@@ -181,6 +182,7 @@ services:
           - INSTALL_EVENT=${WORKSPACE_INSTALL_EVENT}
           - INSTALL_DNSUTILS=${WORKSPACE_INSTALL_DNSUTILS}
           - INSTALL_POPPLER_UTILS=${WORKSPACE_INSTALL_POPPLER_UTILS}
+          - INSTALL_JDK=${WORKSPACE_INSTALL_JDK}
           - http_proxy
           - https_proxy
           - no_proxy
@@ -288,15 +290,16 @@ services:
           - INSTALL_SSDB=${PHP_FPM_INSTALL_SSDB}
           - INSTALL_TRADER=${PHP_FPM_INSTALL_TRADER}
           - INSTALL_EVENT=${PHP_FPM_INSTALL_EVENT}
+          - LEGACY_OPENSSL=${PHP_LEGACY_OPENSSL}
           - DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL=${PHP_DOWNGRADE_OPENSSL_TLS_AND_SECLEVEL}
           - DOWNGRADE_OPENSSL_TLS_VERSION=${PHP_DOWNGRADE_OPENSSL_TLS_VERSION}
           - PUID=${PHP_FPM_PUID}
           - PGID=${PHP_FPM_PGID}
           - IMAGEMAGICK_VERSION=${PHP_FPM_IMAGEMAGICK_VERSION}
           - LOCALE=${PHP_FPM_DEFAULT_LOCALE}
-          - PHP_FPM_NEW_RELIC=${PHP_FPM_NEW_RELIC}
-          - PHP_FPM_NEW_RELIC_KEY=${PHP_FPM_NEW_RELIC_KEY}
-          - PHP_FPM_NEW_RELIC_APP_NAME=${PHP_FPM_NEW_RELIC_APP_NAME}
+          - NEW_RELIC=${PHP_FPM_NEW_RELIC}
+          - NEW_RELIC_KEY=${PHP_FPM_NEW_RELIC_KEY}
+          - NEW_RELIC_APP_NAME=${PHP_FPM_NEW_RELIC_APP_NAME}
           - INSTALL_DOCKER_CLIENT=${PHP_FPM_INSTALL_DOCKER_CLIENT}
           - INSTALL_DNSUTILS=${PHP_FPM_INSTALL_DNSUTILS}
           - INSTALL_POPPLER_UTILS=${PHP_FPM_INSTALL_POPPLER_UTILS}
@@ -530,11 +533,9 @@ services:
         - ./laravel-horizon/supervisord.d:/etc/supervisord.d
       depends_on:
         - workspace
+        - wkhtmltopdf
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
-      dns:
-        - 1.0.0.1
-        - 9.9.9.9
       networks:
         - backend
 
@@ -542,6 +543,8 @@ services:
     soketi:
       build:
         context: ./soketi
+      volumes:
+        - ./soketi/config.json:/app/bin/config.json:ro
       ports:
         - "${SOKETI_PORT}:6001"
         - "${SOKETI_METRICS_SERVER_PORT}:9601"
@@ -2349,6 +2352,13 @@ services:
 ### PUPPETEER ###############################
     puppeteer:
       image: buildkite/puppeteer
+      networks:
+        - frontend
+        - backend
+
+### WKHTMLTOPDF ###############################
+    wkhtmltopdf:
+      image: surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full
       networks:
         - frontend
         - backend

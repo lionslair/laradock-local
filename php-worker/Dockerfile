@@ -47,8 +47,8 @@ RUN apk --update add wget \
 
 RUN pecl channel-update pecl.php.net; \
   docker-php-ext-install mysqli mbstring pdo pdo_mysql xml pcntl exif; \
-  if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80100" ] || \
-     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80200" ]; then \
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] && \
+     [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") != "80000" ]; then \
     php -m | grep -oiE '^tokenizer$'; \
   else \
     docker-php-ext-install tokenizer; \
@@ -170,8 +170,12 @@ RUN if [ ${INSTALL_MONGO} = true ]; then \
       docker-php-ext-enable mongo; \
       php -m | grep -oiE '^mongo$'; \
     else \
-      if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "0" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ] ;}; then \
-        pecl install mongodb-1.9.2; \
+      if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && [ $(php -r "echo PHP_MINOR_VERSION;") != "4" ]; then \
+        if [ $(php -r "echo PHP_MINOR_VERSION;") = "0" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "1" ]; then \
+          pecl install mongodb-1.9.2; \
+        else \
+          pecl install mongodb-1.16.2; \
+        fi; \
       else \
         pecl install mongodb; \
       fi; \
@@ -502,27 +506,53 @@ ARG INSTALL_MSSQL=false
 
 RUN set -eux; \
   if [ ${INSTALL_MSSQL} = true ]; then \
-  apk add --update gnupg \
+  apk add --update gnupg; \
   ###########################################################################
   # Ref from:
   # - https://docs.microsoft.com/en-us/sql/connect/odbc/linux-mac/installing-the-microsoft-odbc-driver-for-sql-server?view=sql-server-ver15#alpine17
   ###########################################################################
+  if [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ]; then \
   # Add Microsoft repo for Microsoft ODBC Driver 17 for Linux
-  # Driver version 17.5 or higher is required for Alpine support.
+  # Driver version 17.10 or higher is required for Alpine support.
   # Download the desired package(s)
-  && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.8.1.1-1_amd64.apk \
+  curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.10.5.1-1_amd64.apk \
   # Verify signature, if 'gpg' is missing install it using 'apk add gnupg':
-  && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.8.1.1-1_amd64.sig \
+  && curl -O https://download.microsoft.com/download/e/4/e/e4e67866-dffd-428c-aac7-8d28ddafb39b/msodbcsql17_17.10.5.1-1_amd64.sig \
   && curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - \
-  && gpg --verify msodbcsql17_17.8.1.1-1_amd64.sig msodbcsql17_17.8.1.1-1_amd64.apk \
+  && gpg --verify msodbcsql17_17.10.5.1-1_amd64.sig msodbcsql17_17.10.5.1-1_amd64.apk \
   # Install the package(s)
-  && apk add --allow-untrusted msodbcsql17_17.8.1.1-1_amd64.apk unixodbc-dev \
-  && pecl install sqlsrv pdo_sqlsrv \
+  && apk add --allow-untrusted msodbcsql17_17.10.5.1-1_amd64.apk unixodbc-dev \
+  ;else \
+  # Add Microsoft repo for Microsoft ODBC Driver 18 for Linux
+  # Driver version 18.5 or higher is required for Alpine support.
+  # Download the desired package(s)
+  curl -O https://download.microsoft.com/download/3/5/5/355d7943-a338-41a7-858d-53b259ea33f5/msodbcsql18_18.3.2.1-1_amd64.apk \
+  # Verify signature, if 'gpg' is missing install it using 'apk add gnupg':
+  && curl -O https://download.microsoft.com/download/3/5/5/355d7943-a338-41a7-858d-53b259ea33f5/msodbcsql18_18.3.2.1-1_amd64.sig \
+  && curl https://packages.microsoft.com/keys/microsoft.asc  | gpg --import - \
+  && gpg --verify msodbcsql18_18.3.2.1-1_amd64.sig msodbcsql18_18.3.2.1-1_amd64.apk \
+  # Install the package(s)
+  && apk add --allow-untrusted msodbcsql18_18.3.2.1-1_amd64.apk unixodbc-dev \
+  ;fi \
+  #
+  && if [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70000" ]; then \
+    pecl install pdo_sqlsrv-5.3.0 sqlsrv-5.3.0 \
+  ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70100" ]; then \
+    pecl install pdo_sqlsrv-5.6.1 sqlsrv-5.6.1 \
+  ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70200" ]; then \
+    pecl install pdo_sqlsrv-5.8.1 sqlsrv-5.8.1 \
+  ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70300" ]; then \
+    pecl install pdo_sqlsrv-5.9.0 sqlsrv-5.9.0 \
+  ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
+    pecl install pdo_sqlsrv-5.10.1 sqlsrv-5.10.1 \
+  ;else \
+    pecl install pdo_sqlsrv sqlsrv \
+  ;fi \
   # && echo extension=pdo_sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/10_pdo_sqlsrv.ini
   # && echo extension=sqlsrv.so >> `php --ini | grep "Scan for additional .ini files" | sed -e "s|.*:\s*||"`/00_sqlsrv.ini
   && docker-php-ext-enable pdo_sqlsrv sqlsrv \
-  && php -m | grep -q 'pdo_sqlsrv' \
-  && php -m | grep -q 'sqlsrv' \
+  && php -m | grep -oiE '^pdo_sqlsrv$' \
+  && php -m | grep -oiE '^sqlsrv$' \
   ;fi
 
 ###########################################################################
