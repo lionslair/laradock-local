@@ -46,7 +46,9 @@ You’ll need to run these commands to allow your operating system to access the
 
 In the terminal window, type:
 
-`sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common`
+```bash
+sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+```
 
 ##### Step 3 Add Docker’s GPG Key
 
@@ -54,19 +56,25 @@ The GPG key is a security feature.
 
 To ensure that the software you’re installing is authentic enter:
 
-`curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add`
+```bash
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add
+```
 
 ##### Step 4 Install docker repo
 
 To install the Docker repository, enter the command:
 
-`sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"`
+```bash
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
+```
 
 
 ##### Step 5: Update Repositories
 Update the repositories you just added:
 
-`sudo apt-get update`
+```bash
+sudo apt-get update
+```
 
 ##### Step 6: Install Latest Version of Docker
 make sure it's the 19.x *(a the time of writing)* version. you should end up with the following.
@@ -78,7 +86,9 @@ docker-ce/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
 
 To install the latest version of docker:
 
-`sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin`
+```bash
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+```
 
 release notes
 
@@ -88,20 +98,28 @@ release notes
 
 Make sure the docker group exists
 
-`sudo groupadd docker`
+```bash
+sudo groupadd docker
+```
 *Should already exist*
 
 Add your user to the docker group
 
-`sudo usermod -a -G docker <your_user_here>`
+```bash
+sudo usermod -a -G docker <your_user_here>
+```
 *<your_user_here> would be nathanr in my case*
 
 ##### Step 8 start at boot
 
 The Docker service needs to be setup to run at startup. To do so, type in each command followed by enter:
 
-`sudo systemctl start docker`
-`sudo systemctl enable docker`
+```bash
+sudo systemctl start docker
+```
+```bash
+sudo systemctl enable docker
+```
 
 ## System
 
@@ -109,15 +127,23 @@ The Docker service needs to be setup to run at startup. To do so, type in each c
 
 on your local machine also run this as root. *This allows exceeding of pre-configured memory limits*
 
-`echo 'vm.max_map_count=262144' >> /etc/sysctl.conf`
+```bash
+echo 'vm.max_map_count=262144' >> /etc/sysctl.conf
+```
 
-`echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf`
+```bash
+echo 'vm.overcommit_memory = 1' >> /etc/sysctl.conf
+```
 
-`sysctl -p`
+```bash
+sysctl -p
+```
 
 When you start laradock it may create the horizon and websockets log files as root owner and group. Change the permission on the storage folder.
 
-`sudo chown -R youruser:yourgroup storage/`
+```bash
+sudo chown -R youruser:yourgroup storage/
+```
 
 *Laradock will not change the permissions on restart.* 
 I have also created my own alias `storage` to do this for me.
@@ -139,7 +165,9 @@ git clone git@github.com:lionslair/laradock-local.git
 
 cd into the cloned directory and run the command below. eg `/home/<username>/Code/laradock`
 
-`./up.sh`
+```bash
+./up.sh
+```
 
 Inside this bash script is the following. You may need to the paths and what services you want to bring up. 
 
