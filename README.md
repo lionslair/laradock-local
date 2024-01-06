@@ -77,31 +77,7 @@ sudo apt-get update
 
 ```
 
-##### Step 4 Install docker repo
-
-To install the Docker repository, enter the command:
-
-```bash
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs) stable"
-```
-
-
-##### Step 5: Update Repositories
-Update the repositories you just added:
-
-```bash
-sudo apt-get update
-```
-
-##### Step 6: Install Latest Version of Docker
-make sure it's the 19.x *(a the time of writing)* version. you should end up with the following.
-
-```
-docker-ce-cli/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
-docker-ce/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
-``` 
-
-To install the latest version of docker:
+##### Step 4 Install docker
 
 ```bash
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
