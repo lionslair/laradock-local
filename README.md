@@ -87,7 +87,7 @@ release notes
 
 [https://docs.docker.com/engine/release-notes](https://docs.docker.com/engine/release-notes)
 
-##### Step 7 add user to group
+##### Step 5 add user to group
 
 Make sure the docker group exists
 
@@ -103,7 +103,7 @@ sudo usermod -a -G docker <your_user_here>
 ```
 *<your_user_here> would be nathanr in my case*
 
-##### Step 8 start at boot
+##### Step 6 start at boot
 
 The Docker service needs to be setup to run at startup. To do so, type in each command followed by enter:
 
