@@ -14,15 +14,21 @@ I keep this fork up to date with the main laradock branch. However you should tr
 
 Add this repo or laradock as an upstream
 
-`git remote add upstream https://github.com/laradock/laradock.git`
+```bash
+git remote add upstream https://github.com/laradock/laradock.git
+```
 
 or mine
 
-`git remote add upstream https://github.com/lionslair/laradock-local.git`
+```bash
+git remote add upstream https://github.com/lionslair/laradock-local.git
+```
 
 get the upstream code.
 
-`git fetch upstream`
+```bash
+git fetch upstream
+```
 
 ## Install / Setup
 
