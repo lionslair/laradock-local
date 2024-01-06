@@ -36,7 +36,9 @@ Install docker [https://docs.docker.com/install/linux/docker-ce/ubuntu/](https:/
 
 Update the local database with the command:
 
-`sudo apt-get update`
+```bash
+sudo apt-get update
+```
 
 ##### Step 2 Download Dependencies
 
