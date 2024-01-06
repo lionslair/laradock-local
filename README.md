@@ -450,25 +450,35 @@ follow the phpstorm instructions here [https://medium.com/@chenpohsun_12588/set-
 
 Remove all docker containers in order to rebuild by running
 
-`docker compose down`
+```bash
+docker compose down
+```
 
 then to clean up containers
 
-`docker container prune`
+```bash
+docker container prune
+```
 
 then to clean up images
 
-`docker image prune -a`
+```bash
+docker image prune -a
+```
 
 then to clean up volumes *(Getting rid of the volumes will lose data. eg local databases. Elastic Search indexes If you need that backup first,)*
 
-`docker volume prune`
+```bash
+docker volume prune
+```
 
 Then run `lara` again and all will be rebuilt.
 
 In order to rebuild a container run
 
-`docker compose build --no-cache laravel-horizon`
+```bash
+docker compose build --no-cache laravel-horizon
+```
 
 It is best to then restart that container or sometimes do `lara-restart` or run `./restart.sh`
 
@@ -489,7 +499,9 @@ Then run `docker compose build --no-cache caddy workspace` *will take just a few
 
 If you have added a horizon config or normal supervisor configs to php-worker then you will want to run all four containers. eg
 
-`docker compose build --no-cache caddy workspace laravel-horizon php-worker`
+```bash
+docker compose build --no-cache caddy workspace laravel-horizon php-worker
+```
 
 All should be setup and working. run `lara-restart` or `./restart.sh`
 
@@ -542,7 +554,9 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 If you need to publish your local env to the web use ngrok. Install in for your host system then use the below to forward requests to your local env.  
 
-`ngrok http -host-header=cabmaster.test 80`
+```bash
+ngrok http -host-header=cabmaster.test 80
+```
 
 Lately I have been trying out expose [https://expose.dev/docs](https://expose.dev/docs)
 
