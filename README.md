@@ -56,12 +56,6 @@ In the terminal window, type:
 sudo apt-get install apt-transport-https ca-certificates curl gnupg software-properties-common
 ```
 
-then
-
-```bash
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-```
-
 
 ##### Step 3 Add Docker’s GPG Key
 
@@ -70,7 +64,17 @@ The GPG key is a security feature.
 To ensure that the software you’re installing is authentic enter:
 
 ```bash
+sudo install -m 0755 -d /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt-get update
+
 ```
 
 ##### Step 4 Install docker repo
