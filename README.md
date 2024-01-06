@@ -53,8 +53,15 @@ You’ll need to run these commands to allow your operating system to access the
 In the terminal window, type:
 
 ```bash
-sudo apt-get install apt-transport-https ca-certificates curl gnupg-agent software-properties-common
+sudo apt-get install apt-transport-https ca-certificates curl gnupg software-properties-common
 ```
+
+then
+
+```bash
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+```
+
 
 ##### Step 3 Add Docker’s GPG Key
 
@@ -63,7 +70,7 @@ The GPG key is a security feature.
 To ensure that the software you’re installing is authentic enter:
 
 ```bash
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ```
 
 ##### Step 4 Install docker repo
@@ -93,7 +100,7 @@ docker-ce/focal,now 5:19.03.13~3-0~ubuntu-focal amd64
 To install the latest version of docker:
 
 ```bash
-sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
 release notes
