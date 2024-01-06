@@ -294,38 +294,54 @@ Cron scheduler is configured in the workspace container. When you need a new cro
 
 Standard crontab configuration is used. In order for this to run you will need to rebuild the container for it get applied. Run the following.
 
-`docker compose build --no-cache workspace`
+```bash
+docker compose build --no-cache workspace
+```
 
 ## Aliases
 
 I have created some aliases for my system to make starting, stopping and ssh into a little easier.
 
 #### Start
-`alias lara='cd ~/Code/laradock; ./up.sh'`
+```bash
+alias lara='cd ~/Code/laradock; ./up.sh'
+```
 
 #### Access via SSH
 
-`alias lara-bash='cd ~/Code/laradock; docker compose exec --user=laradock workspace bash'`
+```bash
+alias lara-bash='cd ~/Code/laradock; docker compose exec --user=laradock workspace bash'
+```
 
 #### Restart
 
-`alias lara-restart='cd ~/Code/laradock; ./restart.sh'`
+```bash
+alias lara-restart='cd ~/Code/laradock; ./restart.sh'
+```
 
 #### Stop
 
-`alias lara-stop='cd ~/Code/laradock; ./down.sh'`
+```bash
+alias lara-stop='cd ~/Code/laradock; ./down.sh'
+```
 
 #### Redis
 
-`alias lara-redis='cd ~/Code/laradock; docker compose exec redis bash'`
+```bash
+alias lara-redis='cd ~/Code/laradock; docker compose exec redis bash'
+```
 
 #### Mysql
 
-`alias lara-mysql='cd ~/Code/laradock; docker compose exec mysql bash'`
+```bash
+alias lara-mysql='cd ~/Code/laradock; docker compose exec mysql bash'
+```
 
 #### Restart workers
 
-`alias lara-workers-restart='cd ~/Code/laradock; docker compose restart laravel-horizon php-worker'`
+```bash
+alias lara-workers-restart='cd ~/Code/laradock; docker compose restart laravel-horizon php-worker'
+```
 
 #### Extra containers
 You can add new ones or use any of the other existing containers to your environment. For easy add them to `up.sh`, `down.sh` and `restart.sh` scripts.
