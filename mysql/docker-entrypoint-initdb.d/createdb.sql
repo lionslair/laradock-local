@@ -103,6 +103,9 @@ GRANT ALL ON `ephire_test`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `phs_testing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `phs_testing`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `connected` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `connected`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `phs_webapp` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `phs_webapp`.* TO 'homestead'@'%' ;
 

@@ -280,6 +280,15 @@ connectedcommercial.test {
     encode gzip
 }
 
+connected.test {
+    root * /var/www/connected/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+
 design-system.test {
     root * /var/www/design-system/public
     php_fastcgi php-fpm:9000
