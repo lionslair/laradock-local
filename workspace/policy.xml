@@ -71,10 +71,11 @@
     <policy domain="path" rights="none" pattern="@*"/>
     <policy domain="cache" name="shared-secret" value="passphrase" stealth="true"/>
     <!-- disable ghostscript format types -->
-    <policy domain="coder" rights="none" pattern="PS" />
-    <policy domain="coder" rights="none" pattern="PS2" />
-    <policy domain="coder" rights="none" pattern="PS3" />
-    <policy domain="coder" rights="none" pattern="EPS" />
-    <policy domain="coder" rights="read|write" pattern="PDF" />
-    <policy domain="coder" rights="none" pattern="XPS" />
+    <policy domain="coder" rights="read | write" pattern="{MSVG,MVG,PS,PS2,PS3,EPS,PDF,RSVG,SVG,XPS}" />
+<!--    <policy domain="coder" rights="none" pattern="PS" />-->
+<!--    <policy domain="coder" rights="none" pattern="PS2" />-->
+<!--    <policy domain="coder" rights="none" pattern="PS3" />-->
+<!--    <policy domain="coder" rights="none" pattern="EPS" />-->
+<!--    <policy domain="coder" rights="read|write" pattern="PDF" />-->
+<!--    <policy domain="coder" rights="none" pattern="XPS" />-->
 </policymap>
