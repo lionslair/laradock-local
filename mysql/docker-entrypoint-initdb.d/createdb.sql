@@ -214,6 +214,9 @@ GRANT ALL ON `cjz`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `aluline` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `aluline`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `bentect` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `bentect`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `forge` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `forge`.* TO 'homestead'@'%' ;
 
