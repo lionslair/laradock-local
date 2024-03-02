@@ -369,7 +369,7 @@ The private API key is `masterkey`
 
 Use these settings to use mailhog for local delivery
 
-```
+```dotenv
 MAIL_DRIVER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -385,7 +385,7 @@ Web UI Mailhog: [https://mailhoog.test](https://mailhoog.test)
 Web UI minio:  [https://minio.test](https://minio.test) or `http://localhost:9000` 
 
 The initial login details are
-```
+```dotenv
 access key: access
 secret key: secretkey
 ```
@@ -394,7 +394,7 @@ Create a bucket either through the webui or using the `mc client: bash mc mb min
 
 When configuring your other clients use the following details in your env
 
-```
+```dotenv
   AWS_URL=http://minio:9000
   AWS_ACCESS_KEY_ID=access
   AWS_SECRET_ACCESS_KEY=secretkey
@@ -404,7 +404,7 @@ When configuring your other clients use the following details in your env
 ```
 
 In filesystems.php you should use the following details (s3): 
-```
+```php
 's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
@@ -459,7 +459,13 @@ then to clean up volumes *(Getting rid of the volumes will lose data. eg local d
 docker volume prune
 ```
 
-Then run `lara` again and all will be rebuilt.
+To clear all layers from the system. This does mean all containers will be rebuilt for sure.
+
+```bash
+docker system prune -f --all
+```
+
+Then run ```lara``` again and all will be rebuilt.
 
 In order to rebuild a container run
 
