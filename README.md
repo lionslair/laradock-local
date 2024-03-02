@@ -467,6 +467,14 @@ docker system prune -f --all
 
 Then run ```lara``` again and all will be rebuilt.
 
+Alternatively you can run the following to rebuild a single container. eg
+
+```bash
+docker compose down && docker container prune && docker image prune -a && docker system prune -f --all && lara
+```
+
+```bash
+
 In order to rebuild a container run
 
 ```bash
@@ -507,7 +515,7 @@ We are running a local SQS type service. Repo is here https://hub.docker.com/r/r
 
 Below is an example of what my .env file looks like to access and work with laradock hosts *(taken from flooring lab)*
 
-```
+```dotenv
 APP_NAME="Flooring Lab"
 APP_ENV=local
 APP_KEY=randomstringhere
