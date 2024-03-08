@@ -56,3 +56,4 @@
 * * * * * laradock /usr/bin/php /var/www/aluline/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/urlhub/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/bentect/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/integr8/artisan schedule:run >> /dev/null 2>&1

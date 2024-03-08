@@ -172,6 +172,14 @@ bentect.test {
     encode gzip
 }
 
+integr8.test {
+    root * /var/www/integr8/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 asiamarketentry-au.test {
     root * /var/www/asiamarketentry/public/
     php_fastcgi php-fpm:9000
