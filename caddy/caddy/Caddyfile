@@ -236,6 +236,14 @@ edge-website.test {
     encode gzip
 }
 
+matteos.test {
+    root * /var/www/matteos/www/
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
+
 dev.acn.com {
     root * /var/www/acn/public/
     php_fastcgi php-fpm:9000
