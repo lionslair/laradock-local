@@ -56,6 +56,8 @@ volumes:
   #   driver: ${VOLUMES_DRIVER}
   # sqs-ui:
   #   driver: ${VOLUMES_DRIVER}
+  typesense:
+    driver: ${VOLUMES_DRIVER}
 
 services:
 
@@ -2359,6 +2361,23 @@ services:
 ### WKHTMLTOPDF ###############################
     wkhtmltopdf:
       image: surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full
+      networks:
+        - frontend
+        - backend
+
+### TYPESENSE #################################
+    typesense:
+      image: typesense/typesens:26.0
+      build:
+        context: ./typesense
+        args:
+          - data-dir=/data
+          - api-key=${TYPESENSE_API_KEY}
+          - enable-cors
+      volumes:
+        - ${DATA_PATH_HOST}/typesense-data:/data
+      ports:
+        - "${TYPESENSE_HOST_PORT}:8108"
       networks:
         - frontend
         - backend
