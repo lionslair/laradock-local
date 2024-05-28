@@ -1125,13 +1125,14 @@ services:
         frontend:
           aliases:
             - q.test
-            - myoffer.test
             - flooringlab.test
+            - connected.test
+            - kanopi.test
         backend:
           aliases:
             - q.test
-            - myoffer.test
-            - flooringlab.test
+            - connected.test
+            - kanopi.test
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
