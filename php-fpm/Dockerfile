@@ -1362,9 +1362,9 @@ RUN if [ ${INSTALL_DNSUTILS} = true ]; then \
 
 
 
-###########################################################################
-# Node / NVM:
-###########################################################################
+############################################################################
+## Node / NVM:
+############################################################################
 
 # Check if NVM needs to be installed
 ARG NODE_VERSION=node
@@ -1453,9 +1453,22 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
     ln -s $NODE_MODS_DIR/vue-cli/bin/vue-list /usr/local/bin/vue-list \
 ;fi
 
+# Install puppeteer
 RUN if [ ${INSTALL_NODE} = true ]; then \
-  . ~/.bashrc && npm install puppeteer --location=global \
+#  . ~/.bashrc && npm install --location=global --unsafe-perm puppeteer && \
+#    npm install --location=global --unsafe-perm puppeteer && \
+#    npm install --unsafe-perm puppeteer && \
+    npm install -g --unsafe-perm puppeteer \
+#    npx puppeteer browsers install chrome \
 ;fi
+
+RUN apt-get install -y chromium
+RUN #mkdir -p /var/www/testing
+#RUN mkdir -p /var/www/.cache
+#RUN mkdir -p /var/www/.cache/puppeteer
+#RUN chmod -R o+rx /var/www/.cache/puppeteer
+#RUN chown -R www-data:www-data /var/www/.cache/
+
 
 RUN if [ ${NPM_REGISTRY} ]; then \
     . ~/.bashrc && npm config set registry ${NPM_REGISTRY} \

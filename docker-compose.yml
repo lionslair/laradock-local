@@ -342,7 +342,7 @@ services:
         - FAKETIME=${PHP_FPM_FAKETIME}
       depends_on:
         - workspace
-        - puppeteer
+#        - puppeteer
       networks:
         - backend
       links:
@@ -448,7 +448,7 @@ services:
         - FAKETIME=${PHP_FPM_FAKETIME}
       depends_on:
         - workspace
-        - puppeteer
+#        - puppeteer
       networks:
         - backend
       links:
@@ -2372,7 +2372,13 @@ services:
 
 ### PUPPETEER ###############################
     puppeteer:
-      image: buildkite/puppeteer
+      image: ghcr.io/puppeteer/puppeteer:latest
+      init: true
+      cap_add:
+         - SYS_ADMIN
+      ports:
+        - '9222:9222'
+#      command: node -e "$(cat /app/script.js)"
       networks:
         - frontend
         - backend
