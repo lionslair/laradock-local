@@ -1453,6 +1453,10 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
     ln -s $NODE_MODS_DIR/vue-cli/bin/vue-list /usr/local/bin/vue-list \
 ;fi
 
+RUN if [ ${INSTALL_NODE} = true ]; then \
+  . ~/.bashrc && npm install puppeteer --location=global \
+;fi
+
 RUN if [ ${NPM_REGISTRY} ]; then \
     . ~/.bashrc && npm config set registry ${NPM_REGISTRY} \
 ;fi
