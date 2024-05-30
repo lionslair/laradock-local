@@ -1126,6 +1126,7 @@ services:
           aliases:
             - q.test
             - flooringlab.test
+            - fl.flooringlab.test
             - connected.test
             - kanopi.test
         backend:
@@ -1133,6 +1134,8 @@ services:
             - q.test
             - connected.test
             - kanopi.test
+            - flooringlab.test
+            - fl.flooringlab.test
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
@@ -1352,6 +1355,7 @@ services:
         - caddy:surprise.test
         - caddy:myoffer.test
         - caddy:flooringlab.test
+        - caddy:fl.flooringlab.test
         - caddy:macutex.test
         - caddy:bestratedtransport.test
         - caddy:customerplus.test
