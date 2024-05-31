@@ -1143,6 +1143,7 @@ services:
             - fl.flooringlab.test
             - connected.test
             - kanopi.test
+            - minio.test
         backend:
           aliases:
             - q.test
@@ -1150,6 +1151,7 @@ services:
             - kanopi.test
             - flooringlab.test
             - fl.flooringlab.test
+            - minio.test
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
@@ -1382,6 +1384,7 @@ services:
         - caddy:washed.test
         - caddy:wrapstudio.test
         - caddy:dcodesupport.test
+        - minio.test
 
 ### Varnish ##########################################
     proxy:
