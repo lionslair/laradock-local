@@ -1384,7 +1384,7 @@ services:
         - caddy:washed.test
         - caddy:wrapstudio.test
         - caddy:dcodesupport.test
-        - minio.test
+        - caddy:minio.test
 
 ### Varnish ##########################################
     proxy:
