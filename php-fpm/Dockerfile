@@ -1463,7 +1463,7 @@ RUN if [ ${INSTALL_NODE} = true ]; then \
 ;fi
 
 RUN apt-get install -y chromium
-RUN #mkdir -p /var/www/testing
+#RUN mkdir -p /var/www/testing
 #RUN mkdir -p /var/www/.cache
 #RUN mkdir -p /var/www/.cache/puppeteer
 #RUN chmod -R o+rx /var/www/.cache/puppeteer
