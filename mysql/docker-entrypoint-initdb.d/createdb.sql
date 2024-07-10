@@ -97,17 +97,20 @@ GRANT ALL ON `wpe`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `kontrastinteriors` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `kontrastinteriors`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `ephire_test` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `ephire_test`.* TO 'homestead'@'%' ;
-
-CREATE DATABASE IF NOT EXISTS `phs_testing` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `phs_testing`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `connected` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `connected`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `phs_webapp` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `phs_webapp`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `phs_vic` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_vic`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `phs_nsw` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_nsw`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `phs_qld` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_qld`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `video_inspection` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
