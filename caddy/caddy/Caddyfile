@@ -244,6 +244,14 @@ matteos.test {
     encode gzip
 }
 
+fossnovena.test {
+    root * /var/www/acn-foss/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 dev.acn.com {
     root * /var/www/acn/public/
     php_fastcgi php-fpm:9000
