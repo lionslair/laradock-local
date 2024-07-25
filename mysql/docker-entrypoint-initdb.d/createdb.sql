@@ -64,6 +64,12 @@ GRANT ALL ON `defex`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `acn` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `acn`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `crtn_wordpress` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `crtn_wordpress`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `foss_wordpress` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `foss_wordpress`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `misura` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `misura`.* TO 'homestead'@'%' ;
 
