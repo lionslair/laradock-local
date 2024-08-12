@@ -109,14 +109,14 @@ GRANT ALL ON `connected`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `phs_webapp` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `phs_webapp`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `phs_vic` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `phs_vic`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `phs_vic_laravel` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_vic_laravel`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `phs_nsw` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `phs_nsw`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `phs_nsw_laravel` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_nsw_laravel`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `phs_qld` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `phs_qld`.* TO 'homestead'@'%' ;
+CREATE DATABASE IF NOT EXISTS `phs_qld_laravel` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `phs_qld_laravel`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `video_inspection` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
