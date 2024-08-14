@@ -172,6 +172,14 @@ bentect.test {
     encode gzip
 }
 
+bendigotyreandauto.test {
+    root * /var/www/bendigo-tyre-auto/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 integr8.test {
     root * /var/www/integr8/public/
     php_fastcgi php-fpm:9000

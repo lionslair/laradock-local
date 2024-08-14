@@ -121,6 +121,9 @@ GRANT ALL ON `phs_qld_laravel`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `video_inspection` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `bendigotyreandauto` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `bendigotyreandauto`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `cabmaster` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cabmaster`.* TO 'homestead'@'%' ;
 
