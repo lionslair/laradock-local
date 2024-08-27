@@ -2396,13 +2396,7 @@ services:
 
 ### TYPESENSE #################################
     typesense:
-      image: typesense/typesense:26.0
-#      build:
-#        context: ./typesense
-#        args:
-#          - data-dir="/data"
-#          - api-key=${TYPESENSE_API_KEY}
-#          - enable-cors
+      image: typesense/typesense:27.0
       environment:
         - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
         - TYPESENSE_DATA_DIR=/data
