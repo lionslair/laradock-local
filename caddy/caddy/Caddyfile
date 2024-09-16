@@ -667,7 +667,7 @@ aluline.test {
 }
 
 clicks.test {
-    root * /var/www/clicksrecruit/web/
+    root * /var/www/clicks/web/
     php_fastcgi php-fpm-7.4:9000
     file_server
 
