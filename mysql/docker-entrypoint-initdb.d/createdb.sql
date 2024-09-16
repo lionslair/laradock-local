@@ -124,6 +124,12 @@ GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `bendigotyreandauto` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `bendigotyreandauto`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `clicks` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `clicks`.* TO 'homestead'@'%' ;
+
+CREATE DATABASE IF NOT EXISTS `hoban` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `hoban`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `cabmaster` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cabmaster`.* TO 'homestead'@'%' ;
 
