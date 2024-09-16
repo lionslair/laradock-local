@@ -666,6 +666,22 @@ aluline.test {
     encode gzip
 }
 
+clicks.test {
+    root * /var/www/clicksrecruit/web/
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
+
+hoban.test {
+    root * /var/www/hoban/web/
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 #greeta.test {
 #    root * /var/www/greeta-laravel/public/
