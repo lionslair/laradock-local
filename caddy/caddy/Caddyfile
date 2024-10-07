@@ -682,6 +682,14 @@ hoban.test {
     encode gzip
 }
 
+bluehawk.test {
+    root * /var/www/bluehawk/web/
+    php_fastcgi php-fpm-7.4:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 #greeta.test {
 #    root * /var/www/greeta-laravel/public/

@@ -42,6 +42,7 @@
 * * * * * laradock /usr/bin/php7.4 /var/www/washed/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/edgegroup.website/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php7.4 /var/www/enqip/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php7.4 /var/www/bluehawk/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/connected-commercial/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/connected/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/wpe/artisan schedule:run >> /dev/null 2>&1

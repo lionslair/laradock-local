@@ -130,6 +130,9 @@ GRANT ALL ON `clicks`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `hoban` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `hoban`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `bluehawk` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `bluehawk`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `cabmaster` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cabmaster`.* TO 'homestead'@'%' ;
 
