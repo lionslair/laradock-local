@@ -683,7 +683,7 @@ hoban.test {
 }
 
 bluehawk.test {
-    root * /var/www/bluehawk/web/
+    root * /var/www/bluehawk/public/
     php_fastcgi php-fpm-7.4:9000
     file_server
 
