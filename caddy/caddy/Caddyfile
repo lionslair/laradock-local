@@ -61,11 +61,7 @@ cambium.test {
 }
 
 cambium-cms.test {
-    root * /var/www/thecambium-strapi-cms/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
+     reverse_proxy 127.0.0.1:9000
 }
 
 strata.test {
