@@ -60,6 +60,14 @@ cambium.test {
     encode gzip
 }
 
+cambium-cms.test {
+    root * /var/www/thecambium-strapi-cms/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 strata.test {
     root * /var/www/strata/public/
     php_fastcgi php-fpm:9000

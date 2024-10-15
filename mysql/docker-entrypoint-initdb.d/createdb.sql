@@ -178,6 +178,9 @@ GRANT ALL ON `staircaseconstructions`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `cambium` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cambium`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `cambium-cms` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `cambium-cms`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `edge_website` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `edge_website`.* TO 'homestead'@'%' ;
 
