@@ -60,8 +60,8 @@ cambium.test {
     encode gzip
 }
 
-cambium-cms.test {
-     reverse_proxy 127.0.0.1:9000
+cms.cambium.test {
+     reverse_proxy 127.0.0.1:1337
 }
 
 strata.test {
@@ -251,6 +251,7 @@ edge-website.test {
 matteos.test {
     root * /var/www/matteos/www/
     php_fastcgi php-fpm-7.4:9000
+
     file_server
 
     encode gzip
