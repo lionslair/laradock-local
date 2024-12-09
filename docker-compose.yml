@@ -210,6 +210,8 @@ services:
         - DOCKER_TLS_CERTDIR=/certs
         - DOCKER_CERT_PATH=/certs/client
         - CHOKIDAR_USEPOLLING=true
+      depends_on:
+        - tesseract
       networks:
         - frontend
         - backend
@@ -550,6 +552,7 @@ services:
       depends_on:
         - workspace
         - wkhtmltopdf
+        - tesseract
       extra_hosts:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
@@ -2405,6 +2408,13 @@ services:
         - ${DATA_PATH_HOST}/typesense-data:/data
       ports:
         - "${TYPESENSE_HOST_PORT}:8108"
+      networks:
+        - frontend
+        - backend
+
+  ### Tesseract OCR ###############################
+    tesseract:
+      image: ghcr.io/jitesoft/tesseract:latest
       networks:
         - frontend
         - backend
