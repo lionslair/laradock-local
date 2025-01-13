@@ -695,6 +695,14 @@ bluehawk.test {
     encode gzip
 }
 
+wellbeing-server.test {
+    root * /var/www/wellbeing-server/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 # Greeta
 #greeta.test {
 #    root * /var/www/greeta-laravel/public/
