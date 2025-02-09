@@ -354,11 +354,11 @@ ARG INSTALL_PHALCON=false
 ARG LARADOCK_PHALCON_VERSION
 ENV LARADOCK_PHALCON_VERSION ${LARADOCK_PHALCON_VERSION}
 
-RUN if [ $INSTALL_PHALCON = true ]; then \
-      apt-get update -yqq \
+RUN if [ "$INSTALL_PHALCON" = true ]; then \
+      apk update \
       && pecl channel-update pecl.php.net \
-      && apt-get install -yqq libpcre3-dev; \
-      pecl install phalcon-${LARADOCK_PHALCON_VERSION}; \
+      && apk add --no-cache libpcre32 \
+      && pecl install phalcon-${LARADOCK_PHALCON_VERSION}; \
       docker-php-ext-enable phalcon; \
       php -m | grep -q 'phalcon' \
     ;fi
@@ -545,6 +545,8 @@ RUN set -eux; \
     pecl install pdo_sqlsrv-5.9.0 sqlsrv-5.9.0 \
   ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "70400" ]; then \
     pecl install pdo_sqlsrv-5.10.1 sqlsrv-5.10.1 \
+  ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80000" ]; then \
+    pecl install pdo_sqlsrv-5.11.1 sqlsrv-5.11.1 \
   ;else \
     pecl install pdo_sqlsrv sqlsrv \
   ;fi \

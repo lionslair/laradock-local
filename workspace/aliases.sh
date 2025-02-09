@@ -72,8 +72,12 @@ alias rollback="php artisan migrate:rollback"
 alias seed="php artisan db:seed"
 alias serve="php artisan serve --quiet &"
 
-alias phpunit="./vendor/bin/phpunit"
+alias pint="./vendor/bin/pint"
 alias pest="./vendor/bin/pest"
+alias phpstan="./vendor/bin/phpstan"
+alias php-cs-fixer="./vendor/bin/php-cs-fixer"
+
+alias phpunit="./vendor/bin/phpunit"
 alias pu="phpunit"
 alias puf="phpunit --filter"
 alias pud='phpunit --debug'

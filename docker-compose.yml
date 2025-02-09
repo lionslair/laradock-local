@@ -185,6 +185,11 @@ services:
           - INSTALL_DNSUTILS=${WORKSPACE_INSTALL_DNSUTILS}
           - INSTALL_POPPLER_UTILS=${WORKSPACE_INSTALL_POPPLER_UTILS}
           - INSTALL_JDK=${WORKSPACE_INSTALL_JDK}
+          - INSTALL_GITHUB_CLI=${WORKSPACE_INSTALL_GITHUB_CLI}
+          - ORACLE_INSTANT_CLIENT_MIRROR=${ORACLE_INSTANT_CLIENT_MIRROR}
+          - ORACLE_INSTANT_CLIENT_ARCH=${ORACLE_INSTANT_CLIENT_ARCH}
+          - ORACLE_INSTANT_CLIENT_MAJOR=${ORACLE_INSTANT_CLIENT_MAJOR}
+          - ORACLE_INSTANT_CLIENT_MINOR=${ORACLE_INSTANT_CLIENT_MINOR}
           - http_proxy
           - https_proxy
           - no_proxy
@@ -218,6 +223,7 @@ services:
 
 ### PHP-FPM ##############################################
     php-fpm:
+      restart: always
       build:
         context: ./php-fpm
         args:
@@ -320,6 +326,10 @@ services:
           - INSTALL_NPM_VUE_CLI=${WORKSPACE_INSTALL_NPM_VUE_CLI}
           - INSTALL_NPM_ANGULAR_CLI=${WORKSPACE_INSTALL_NPM_ANGULAR_CLI}
           - INSTALL_NPM_CHECK_UPDATES_CLI=${WORKSPACE_INSTALL_NPM_CHECK_UPDATES_CLI}
+          - ORACLE_INSTANT_CLIENT_MIRROR=${ORACLE_INSTANT_CLIENT_MIRROR}
+          - ORACLE_INSTANT_CLIENT_ARCH=${ORACLE_INSTANT_CLIENT_ARCH}
+          - ORACLE_INSTANT_CLIENT_MAJOR=${ORACLE_INSTANT_CLIENT_MAJOR}
+          - ORACLE_INSTANT_CLIENT_MINOR=${ORACLE_INSTANT_CLIENT_MINOR}
           - http_proxy
           - https_proxy
           - no_proxy
@@ -340,6 +350,7 @@ services:
         - DOCKER_TLS_CERTDIR=/certs
         - DOCKER_CERT_PATH=/certs/client
         - FAKETIME=${PHP_FPM_FAKETIME}
+        - TZ=${WORKSPACE_TIMEZONE}
       depends_on:
         - workspace
 #        - puppeteer
@@ -456,12 +467,14 @@ services:
 
 ### PHP Worker ############################################
     php-worker:
+      restart: always
       build:
         context: ./php-worker
         args:
           - CHANGE_SOURCE=${CHANGE_SOURCE}
           - LARADOCK_PHP_VERSION=${PHP_VERSION}
           - PHALCON_VERSION=${PHALCON_VERSION}
+          - LARADOCK_PHALCON_VERSION=${PHALCON_VERSION}
           - INSTALL_BZ2=${PHP_WORKER_INSTALL_BZ2}
           - INSTALL_GD=${PHP_WORKER_INSTALL_GD}
           - INSTALL_IMAGEMAGICK=${PHP_WORKER_INSTALL_IMAGEMAGICK}
@@ -500,11 +513,17 @@ services:
           - IMAGEMAGICK_VERSION=${PHP_WORKER_IMAGEMAGICK_VERSION}
           - INSTALL_IMAGE_OPTIMIZERS=${PHP_FPM_INSTALL_IMAGE_OPTIMIZERS}
           - INSTALL_NODE=${WORKSPACE_INSTALL_NODE}
+          - ORACLE_INSTANT_CLIENT_MIRROR=${ORACLE_INSTANT_CLIENT_MIRROR}
+          - ORACLE_INSTANT_CLIENT_ARCH=${ORACLE_INSTANT_CLIENT_ARCH}
+          - ORACLE_INSTANT_CLIENT_MAJOR=${ORACLE_INSTANT_CLIENT_MAJOR}
+          - ORACLE_INSTANT_CLIENT_MINOR=${ORACLE_INSTANT_CLIENT_MINOR}
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
         - ./php-worker/supervisord.d:/etc/supervisord.d
       depends_on:
         - workspace
+      environment:
+        - TZ=${WORKSPACE_TIMEZONE}
       ports:
         - "6001:6001"
       extra_hosts:
@@ -513,6 +532,7 @@ services:
         - backend
 ### Laravel Horizon ############################################
     laravel-horizon:
+      restart: always
       build:
         context: ./laravel-horizon
         args:
@@ -559,6 +579,9 @@ services:
     soketi:
       build:
         context: ./soketi
+        args:
+          - NODE_VERSION=${SOKETI_NODE_VERSION}
+          - BASE_IMAGE_TAG_PREFIX=${SOKETI_BASE_IMAGE_TAG_PREFIX}
       volumes:
         - ./soketi/config.json:/app/bin/config.json:ro
       ports:
@@ -570,6 +593,7 @@ services:
 
 ### NGINX Server #########################################
     nginx:
+      restart: always
       build:
         context: ./nginx
         args:
@@ -598,6 +622,7 @@ services:
 
 ### OpenResty Server #########################################
     openresty:
+      restart: always
       build:
         context: ./openresty
         args:
@@ -635,6 +660,7 @@ services:
 
 ### Apache Server ########################################
     apache2:
+      restart: always
       build:
         context: ./apache2
         args:
@@ -660,6 +686,7 @@ services:
 
 ### HHVM #################################################
     hhvm:
+      restart: always
       build: ./hhvm
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
@@ -673,6 +700,7 @@ services:
 
 ### Minio ################################################
     minio:
+      restart: always
       build: ./minio
       volumes:
         - ${DATA_PATH_HOST}/minio/data:/export
@@ -689,6 +717,7 @@ services:
 
 ### MySQL ################################################
     mysql:
+      restart: always
       build:
         context: ./mysql
         args:
@@ -709,6 +738,7 @@ services:
 
 ### Percona ################################################
     percona:
+      restart: always
       build:
         context: ./percona
       environment:
@@ -726,6 +756,7 @@ services:
 
 ### MSSQL ################################################
     mssql:
+      restart: always
       build:
         context: ./mssql
       environment:
@@ -742,6 +773,7 @@ services:
 
 ### MariaDB ##############################################
     mariadb:
+      restart: always
       build:
         context: ./mariadb
         args:
@@ -765,6 +797,7 @@ services:
 
 ### PostgreSQL ###########################################
     postgres:
+      restart: always
       build:
         context: ./postgres
         args:
@@ -819,6 +852,7 @@ services:
 
 ### PostgreSQL PostGis ###################################
     postgres-postgis:
+      restart: always
       build:
         context: ./postgres-postgis
         args:
@@ -837,6 +871,7 @@ services:
 
 ### Neo4j ################################################
     neo4j:
+      restart: always
       ports:
           - '7401:7474'
           - '7402:7687'
@@ -860,6 +895,7 @@ services:
 
 ### MongoDB ##############################################
     mongo:
+      restart: always
       build: ./mongo
       ports:
         - "${MONGODB_PORT}:27017"
@@ -874,6 +910,7 @@ services:
 
 ### RethinkDB ##############################################
     rethinkdb:
+      restart: always
       build: ./rethinkdb
       ports:
         - "${RETHINKDB_PORT}:8080"
@@ -915,6 +952,7 @@ services:
 
   ### Redis ################################################
     redis:
+      restart: always
       build: ./redis
       volumes:
         - ${DATA_PATH_HOST}/redis:/data
@@ -926,6 +964,7 @@ services:
 
 ### Redis Cluster ##########################################
     redis-cluster:
+      restart: always
       build: ./redis-cluster
       ports:
         - "${REDIS_CLUSTER_PORT_RANGE}:7000-7005"
@@ -933,6 +972,7 @@ services:
         - backend
 ### SSDB ################################################
     ssdb:
+      restart: always
       build: ./ssdb
       volumes:
         - ${DATA_PATH_HOST}/ssdb:/data
@@ -943,6 +983,7 @@ services:
 
 ### ZooKeeper #########################################
     zookeeper:
+      restart: always
       build: ./zookeeper
       volumes:
         - ${DATA_PATH_HOST}/zookeeper/data:/data
@@ -954,6 +995,7 @@ services:
 
 ### Aerospike ##########################################
     aerospike:
+      restart: always
       build: ./aerospike
       volumes:
         - workspace
@@ -972,6 +1014,7 @@ services:
 
 ### Memcached ############################################
     memcached:
+      restart: always
       build: ./memcached
       volumes:
         - ${DATA_PATH_HOST}/memcached:/var/lib/memcached
@@ -984,6 +1027,7 @@ services:
 
 ### Beanstalkd ###########################################
     beanstalkd:
+      restart: always
       build: ./beanstalkd
       ports:
         - "${BEANSTALKD_HOST_PORT}:11300"
@@ -995,6 +1039,7 @@ services:
 
 ### SQS #############################################
     sqs:
+      restart: always
       build: ./sqs
       ports:
         - "${SQS_NODE_HOST_PORT}:9324"
@@ -1009,6 +1054,7 @@ services:
 
 ### RabbitMQ #############################################
     rabbitmq:
+      restart: always
       build: ./rabbitmq
       ports:
         - "${RABBITMQ_NODE_HOST_PORT}:5672"
@@ -1028,6 +1074,7 @@ services:
 
 ### Mercure #############################################
     mercure:
+      restart: always
       build: ./mercure
       ports:
         - "${MERCURE_NODE_HOST_HTTP_PORT}:80"
@@ -1046,6 +1093,7 @@ services:
 
 ### Cassandra ############################################
     cassandra:
+      restart: always
       build: ./cassandra
       ports:
         - "${CASSANDRA_TRANSPORT_PORT_NUMBER}:7000"
@@ -1078,6 +1126,7 @@ services:
 
 ### Gearman ############################################
     gearman:
+      restart: always
       build: ./gearman
       ports:
         - "${GEARMAN_PORT}:4730"
@@ -1111,6 +1160,7 @@ services:
 
 ### Beanstalkd Console ###################################
     beanstalkd-console:
+      restart: always
       build: ./beanstalkd-console
       ports:
         - "${BEANSTALKD_CONSOLE_HOST_PORT}:2080"
@@ -1121,6 +1171,7 @@ services:
 
 ### Caddy Server #########################################
     caddy:
+      restart: always
       build: ./caddy
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}${APP_CODE_CONTAINER_FLAG}
@@ -1155,6 +1206,7 @@ services:
 
 ### phpMyAdmin ###########################################
     phpmyadmin:
+      restart: always
       build: ./phpmyadmin
       environment:
         - PMA_ARBITRARY=1
@@ -1174,6 +1226,7 @@ services:
 
 ### Adminer ###########################################
     adminer:
+      restart: always
       build:
         context: ./adminer
         args:
@@ -1192,6 +1245,7 @@ services:
 
 ### pgAdmin ##############################################
     pgadmin:
+      restart: always
       image: dpage/pgadmin4:latest
       environment:
         - "PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL}"
@@ -1221,6 +1275,7 @@ services:
 
 ### ElasticSearch ########################################
     elasticsearch:
+      restart: always
       build:
         context: ./elasticsearch
         args:
@@ -1254,6 +1309,7 @@ services:
 
 ### Logstash ##############################################
     logstash:
+      restart: always
       build:
         context: ./logstash
         args:
@@ -1275,6 +1331,7 @@ services:
 
 ### Kibana ##############################################
     kibana:
+      restart: always
       build:
         context: ./kibana
         args:
@@ -1289,6 +1346,7 @@ services:
 
 ### Dejavu ##############################################
     dejavu:
+      restart: always
       build:
         context: ./dejavu
       ports:
@@ -1314,6 +1372,7 @@ services:
 
 ### MailCatcher ################################################
     mailcatcher:
+      restart: always
       build: ./mailcatcher
       ports:
         - "1025:1025"
@@ -1324,6 +1383,7 @@ services:
 
 ### Mailhog ################################################
     mailhog:
+      restart: always
       build: ./mailhog
       ports:
         - "1025:1025"
@@ -1334,6 +1394,7 @@ services:
 
 ### MailDev ##############################################
     maildev:
+      restart: always
       build: ./maildev
       ports:
         - "${MAILDEV_HTTP_PORT}:80"
@@ -1344,6 +1405,7 @@ services:
 
 ### Mailpit ##############################################
     mailpit:
+      restart: always
       build: ./mailpit
       ports:
         - "${MAILPIT_HTTP_PORT}:8025"
@@ -1354,6 +1416,7 @@ services:
 
 ### Selenium ###############################################
     selenium:
+      restart: always
       build: ./selenium
       ports:
         - "${SELENIUM_PORT}:4444"
@@ -1389,6 +1452,7 @@ services:
 
 ### Varnish ##########################################
     proxy:
+      restart: always
       container_name: proxy
       build: ./varnish
       expose:
@@ -1430,6 +1494,7 @@ services:
 
 ### HAProxy ####################################
     haproxy:
+      restart: always
       build: ./haproxy
       ports:
         - "${HAPROXY_HOST_HTTP_PORT}:8085"
@@ -1441,6 +1506,7 @@ services:
 
 ### Jenkins ###################################################
     jenkins:
+      restart: always
       build: ./jenkins
       environment:
         JAVA_OPTS: "-Djava.awt.headless=true"
@@ -1457,6 +1523,7 @@ services:
 
 ### Grafana ################################################
     grafana:
+      restart: always
       build:
         context: ./grafana
       volumes:
@@ -1468,6 +1535,7 @@ services:
 
 ### Graylog #######################################
     graylog:
+      restart: always
       build: ./graylog
       environment:
         - GRAYLOG_PASSWORD_SECRET=${GRAYLOG_PASSWORD}
@@ -1498,6 +1566,7 @@ services:
 
 ### Laravel Echo Server #######################################
     laravel-echo-server:
+      restart: always
       build:
         context: ./laravel-echo-server
         args:
@@ -1514,6 +1583,7 @@ services:
 
 ### Solr ################################################
     solr:
+      restart: always
       build:
         context: ./solr
         args:
@@ -1529,6 +1599,7 @@ services:
 
 ### Thumbor #########################################
     thumbor:
+      restart: always
       build: ./thumbor
       volumes:
         - ${DATA_PATH_HOST}/thumbor/data:/data
@@ -1645,6 +1716,7 @@ services:
 
 ### AWS EB-CLI ################################################
     aws:
+      restart: always
       build:
         context: ./aws-eb-cli
       volumes:
@@ -1655,6 +1727,7 @@ services:
 
 ### Portainer ################################################
     portainer:
+      restart: always
       build:
         context: ./portainer
       volumes:
@@ -1716,6 +1789,7 @@ services:
 
 ### JupyterHub #########################################
     jupyterhub:
+      restart: always
       build:
         context: ./jupyterhub
       depends_on:
@@ -1751,6 +1825,7 @@ services:
 
 ### IPython #########################################
     ipython-controller:
+      restart: always
       build:
         context: ./ipython
         dockerfile: Dockerfile.controller
@@ -1771,6 +1846,7 @@ services:
 
 ### Docker-in-Docker ################################################
     docker-in-docker:
+      restart: always
       image: docker:20.10-dind
       environment:
         DOCKER_TLS_SAN: DNS:docker-in-docker
@@ -1785,6 +1861,7 @@ services:
 
 ### NetData ################################################
     netdata:
+      restart: always
       image: netdata/netdata:latest
       cap_add:
         - SYS_PTRACE
@@ -1799,6 +1876,7 @@ services:
 
 ### REDISWEBUI ################################################
     redis-webui:
+      restart: always
       build:
         context: ./redis-webui
       environment:
@@ -1816,6 +1894,7 @@ services:
 
 ### MongoWebUI ################################################
     mongo-webui:
+      restart: always
       build:
         context: ./mongo-webui
       environment:
@@ -1833,6 +1912,7 @@ services:
 
 ### Metabase #################################################
     metabase:
+      restart: always
       image: metabase/metabase:latest
       environment:
         - MB_DB_FILE=/metabase-data/${METABASE_DB_FILE}
