@@ -285,6 +285,12 @@ Standard crontab configuration is used. In order for this to run you will need t
 docker compose build --no-cache workspace
 ```
 
+Others like typesense which have been added by me might need eg
+
+```bash
+docker compose up -d --force-recreate typesense
+```
+
 ## Aliases
 
 I have created some aliases for my system to make starting, stopping and ssh into a little easier.
