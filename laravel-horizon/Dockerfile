@@ -117,6 +117,11 @@ RUN set -eux; if [ ${INSTALL_LDAP} = true ]; then \
       php -m | grep -oiE '^ldap$'; \
     fi
 
+ARG INSTALL_GHOSTSCRIPT=false
+RUN if [ $INSTALL_GHOSTSCRIPT = true ]; then \
+  apk --update add ghostscript \
+  ;fi
+
 #Install GD package:
 # future ref https://github.com/laradock/php-fpm/blob/master/Dockerfile-8.1
 ARG INSTALL_GD=false
