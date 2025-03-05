@@ -681,7 +681,7 @@ clicks.test {
 
 hoban.test {
     root * /var/www/hoban/web/
-    php_fastcgi php-fpm-7.4:9000
+    php_fastcgi php-fpm:9000
     file_server
 
     encode gzip
