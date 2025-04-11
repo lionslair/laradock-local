@@ -295,20 +295,6 @@ dev.dynamicts.com.au {
     encode gzip
 }
 
-myoffer.test {
-    @ws {
-        header Connection *Upgrade*
-        header Upgrade    websocket
-    }
-    reverse_proxy @ws php-worker:6001
-
-    root * /var/www/myoffer/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 phs.test {
     root * /var/www/phs-webapp/public
     php_fastcgi php-fpm:9000

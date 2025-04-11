@@ -28,9 +28,6 @@ GRANT ALL ON `screensavers`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `laravel_websockets` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `laravel_websockets`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `myoffer` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `myoffer`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `flooringlab_central` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `flooringlab_central`.* TO 'homestead'@'%' ;
 
