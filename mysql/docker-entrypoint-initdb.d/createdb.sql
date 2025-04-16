@@ -40,6 +40,9 @@ GRANT ALL ON `macuport`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `bestratedtransport` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `bestratedtransport`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `bestratedtransport_reverb` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `bestratedtransport_reverb`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `customerplus` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `customerplus`.* TO 'homestead'@'%' ;
 
