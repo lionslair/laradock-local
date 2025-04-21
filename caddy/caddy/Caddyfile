@@ -112,22 +112,6 @@ http://stripe-payment.test {
     encode gzip
 }
 
-kinesis.test {
-    root * /var/www/amazon-kinesis-video-streams-webrtc-sdk-js/examples
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-http://cabmaster.test {
-    root * /var/www/cabmaster/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 agushi.test {
     root * /var/www/agushi/public/
     php_fastcgi php-fpm:9000
@@ -311,14 +295,6 @@ http://phs.test {
     encode gzip
 }
 
-connectedcommercial.test {
-    root * /var/www/connected-commercial/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 connected.test {
     root * /var/www/connected/public
     php_fastcgi php-fpm:9000
@@ -401,13 +377,13 @@ asbestosedge.test {
     encode gzip
 }
 
-*.dev.app.misura.com.au {
-    root * /var/www/misura/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
+#*.dev.app.misura.com.au {
+#    root * /var/www/misura/public/
+#    php_fastcgi php-fpm:9000
+#    file_server
+#
+#    encode gzip
+#}
 
 evolutionelectrical.test {
     root * /var/www/evolutionelectrical/public/
@@ -457,24 +433,8 @@ project-starter.test {
     encode gzip
 }
 
-jetstream.test {
-    root * /var/www/jetstream-test/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 ipg.test {
     root * /var/www/industrypropertygroup/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-melbourneacl.test {
-    root * /var/www/melbourneacl/public/
     php_fastcgi php-fpm:9000
     file_server
 
@@ -523,14 +483,6 @@ visyproductcatalogue.test {
 
 senseofself-accuity.test {
     root * /var/www/senseofself-accuity/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-latrobegarmin.test {
-    root * /var/www/latrobegarmin/public/
     php_fastcgi php-fpm:9000
     file_server
 
@@ -705,63 +657,6 @@ wellbeing-server.test {
 #
 #    encode gzip
 #}
-
-#screensavers.test {
-#    root * /var/www/screensavers/public
-#    php_fastcgi php-fpm:9000
-#    file_server
-#
-#    encode gzip
-#}
-
-#surprise.test {
-#    root * /var/www/surprise-and-delight/public
-#    php_fastcgi php-fpm:9000
-#    file_server
-#
-#    encode gzip
-#}
-
-# babyrzepecki
-babyrzepecki.test {
-    root * /var/www/babyrzepecki/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-#taskey.test {
-#    root * /var/www/taskey-laravel/public
-#    php_fastcgi php-fpm:9000
-#    file_server
-#
-#    encode gzip
-#}
-
-hctech-cars.test {
-    root * /var/www/hctech_cars
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-cartrack.test {
-    root * /var/www/cartrack/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-wedding.test {
-    root * /var/www/wedding-laravel/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
 
 shlink.test {
     root * /var/www/shlink/public

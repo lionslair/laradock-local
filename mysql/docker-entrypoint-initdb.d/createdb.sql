@@ -22,9 +22,6 @@ GRANT ALL ON `homestead`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `q` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `q`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `screensavers` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `screensavers`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `laravel_websockets` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `laravel_websockets`.* TO 'homestead'@'%' ;
 
@@ -133,9 +130,6 @@ GRANT ALL ON `hoban`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `bluehawk` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `bluehawk`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `cabmaster` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `cabmaster`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `mlily` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `mlily`.* TO 'homestead'@'%' ;
 
@@ -148,14 +142,8 @@ GRANT ALL ON `rpgroup`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `dcodegroup` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodegroup`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `latrobegarmin` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `latrobegarmin`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `xconnect` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `xconnect`.* TO 'homestead'@'%' ;
-
-CREATE DATABASE IF NOT EXISTS `melbourneacl` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `melbourneacl`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `ipg` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `ipg`.* TO 'homestead'@'%' ;
@@ -186,9 +174,6 @@ GRANT ALL ON `edge_website`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `enqip` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `enqip`.* TO 'homestead'@'%' ;
-
-CREATE DATABASE IF NOT EXISTS `connectedcommercial` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `connectedcommercial`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `project_starter` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `project_starter`.* TO 'homestead'@'%' ;

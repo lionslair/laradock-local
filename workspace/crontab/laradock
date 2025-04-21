@@ -3,7 +3,6 @@
 #* * * * * laradock /usr/bin/php /var/www/agushi/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/asiamarketentry/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/bestratedtransport/artisan schedule:run >> /dev/null 2>&1
-#* * * * * laradock /usr/bin/php /var/www/cabmaster/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/cartrack/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/customerplus/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/dcode/artisan schedule:run >> /dev/null 2>&1
@@ -18,7 +17,6 @@
 # * * * * * laradock /usr/bin/php /var/www/industrypropertygroup/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/kanopi/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php7.4 /var/www/kontrastinteriors/artisan schedule:run >> /dev/null 2>&1
-#* * * * * laradock /usr/bin/php /var/www/latrobegarmin/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/stinky-bins/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/senseofself/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/senseofself-accuity/artisan schedule:run >> /dev/null 2>&1
@@ -29,7 +27,6 @@
 * * * * * laradock /usr/bin/php /var/www/leeelectrix/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/m2electrical/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/macutex/artisan schedule:run >> /dev/null 2>&1
-#* * * * * laradock /usr/bin/php /var/www/melbourneacl/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php /var/www/misura/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php7.4 /var/www/mlilyportal/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/mountaindistilling/artisan schedule:run >> /dev/null 2>&1
@@ -42,7 +39,6 @@
 * * * * * laradock /usr/bin/php7.4 /var/www/edgegroup.website/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php7.4 /var/www/enqip/artisan schedule:run >> /dev/null 2>&1
 #* * * * * laradock /usr/bin/php7.4 /var/www/bluehawk/artisan schedule:run >> /dev/null 2>&1
-#* * * * * laradock /usr/bin/php /var/www/connected-commercial/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/connected/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/wpe/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/wrapstudio/artisan schedule:run >> /dev/null 2>&1
