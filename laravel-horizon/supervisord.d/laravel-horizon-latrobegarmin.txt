@@ -1,8 +1,0 @@
-[program:laravel-horizon-latrobegarmin]
-process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/latrobegarmin/artisan horizon
-autostart=true
-autorestart=true
-redirect_stderr=true
-user=laradock
-stdout_logfile=/var/www/latrobegarmin/storage/logs/horizon.log

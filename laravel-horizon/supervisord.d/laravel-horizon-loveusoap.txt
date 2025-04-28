@@ -1,8 +1,0 @@
-[program:laravel-horizon-loveusoap]
-process_name=%(program_name)s_%(process_num)02d
-command=php /var/www/loveusoap/artisan horizon
-autostart=true
-autorestart=true
-redirect_stderr=true
-user=laradock
-stdout_logfile=/var/www/loveusoap/storage/logs/horizon.log

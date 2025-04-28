@@ -1,8 +1,0 @@
-[program:laravel-horizon-mlily]
-process_name=%(program_name)s_%(process_num)02d
-command=/usr/bin/php7 /var/www/mlilyportal/artisan horizon
-autostart=true
-autorestart=true
-redirect_stderr=true
-user=laradock
-stdout_logfile=/var/www/mlilyportal/storage/logs/horizon.log
