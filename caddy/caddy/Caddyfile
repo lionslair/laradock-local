@@ -120,30 +120,6 @@ agushi.test {
     encode gzip
 }
 
-staircaseconstructions.test {
-    root * /var/www/staircaseconstructions/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-mountaindistilling.test {
-    root * /var/www/mountaindistilling/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-cabmaster.test {
-    root * /var/www/cabmaster/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 bestratedtransport.test {
     root * /var/www/bestratedtransport/public/
     php_fastcgi php-fpm:9000
@@ -152,40 +128,8 @@ bestratedtransport.test {
     encode gzip
 }
 
-bentect.test {
-    root * /var/www/bentect/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-bendigotyreandauto.test {
-    root * /var/www/bendigo-tyre-auto/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 integr8.test {
     root * /var/www/integr8/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-asiamarketentry-au.test {
-    root * /var/www/asiamarketentry/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-asiamarketentry-sg.test {
-    root * /var/www/asiamarketentry/public/
     php_fastcgi php-fpm:9000
     file_server
 
@@ -218,14 +162,6 @@ mandoleorchard.test {
 
 enqip.test {
     root * /var/www/enqip/public/
-    php_fastcgi php-fpm-7.4:9000
-    file_server
-
-    encode gzip
-}
-
-edge-website.test {
-    root * /var/www/edgegroup.website/public/
     php_fastcgi php-fpm-7.4:9000
     file_server
 
@@ -353,25 +289,9 @@ flooringlabtenant.test {
     encode gzip
 }
 
-macuport.test {
-    root * /var/www/macutex/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 premax.test {
     root * /var/www/premax.web/public/
     php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-asbestosedge.test {
-    root * /var/www/edgegroup.stealth/public/
-    php_fastcgi php-fpm-7.4:9000
     file_server
 
     encode gzip
@@ -449,14 +369,6 @@ gradcon.test {
     encode gzip
 }
 
-stinkybins.test {
-    root * /var/www/stinky-bins/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 senseofself.test {
     root * /var/www/senseofself/public/
     php_fastcgi php-fpm:9000
@@ -497,22 +409,6 @@ http://latrobegarmin.test {
     encode gzip
 }
 
-wpe.test {
-    root * /var/www/wpe/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-kontrastinteriors.test {
-    root * /var/www/kontrastinteriors/public/
-    php_fastcgi php-fpm-7.4:9000
-    file_server
-
-    encode gzip
-}
-
 dev.esgportal.com {
     root * /var/www/esg/public/
     php_fastcgi php-fpm:9000
@@ -545,22 +441,6 @@ customerplus.test {
     encode gzip
 }
 
-cjz.test {
-    root * /var/www/cjz/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-rpgroup.test {
-    root * /var/www/rpgroup/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 dcodegroup.test {
     root * /var/www/dcode/public/
     php_fastcgi php-fpm:9000
@@ -587,14 +467,6 @@ mlilyportal.test {
 
 leeelectrix.test {
     root * /var/www/leeelectrix/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
-m2electrical.test {
-    root * /var/www/m2electrical/public/
     php_fastcgi php-fpm:9000
     file_server
 
