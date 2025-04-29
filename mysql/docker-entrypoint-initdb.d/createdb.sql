@@ -85,6 +85,9 @@ GRANT ALL ON `dynamicts`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `premax` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `premax`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `dcodepay` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `dcodepay`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `connected` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `connected`.* TO 'homestead'@'%' ;
 

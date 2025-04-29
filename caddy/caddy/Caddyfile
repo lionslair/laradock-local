@@ -401,8 +401,8 @@ senseofself-accuity.test {
     encode gzip
 }
 
-http://latrobegarmin.test {
-    root * /var/www/latrobegarmin/public/
+http://dcodepay.test {
+    root * /var/www/dcodepay/public/
     php_fastcgi php-fpm:9000
     file_server
 
