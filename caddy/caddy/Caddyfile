@@ -409,6 +409,14 @@ http://dcodepay.test {
     encode gzip
 }
 
+http://tradepilot-landing.test {
+    root * /var/www/tradepilot-landing/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 dev.esgportal.com {
     root * /var/www/esg/public/
     php_fastcgi php-fpm:9000
