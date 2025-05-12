@@ -489,6 +489,14 @@ aluline.test {
     encode gzip
 }
 
+fpaa.test {
+    root * /var/www/fpaa/web/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 clicks.test {
     root * /var/www/clicks/web/
     php_fastcgi php-fpm:9000
