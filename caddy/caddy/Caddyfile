@@ -546,14 +546,6 @@ wellbeing-server.test {
 #    encode gzip
 #}
 
-shlink.test {
-    root * /var/www/shlink/public
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 urlhub.test {
     root * /var/www/urlhub/public
     php_fastcgi php-fpm:9000
