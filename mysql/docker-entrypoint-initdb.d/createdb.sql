@@ -82,9 +82,6 @@ GRANT ALL ON `ombord`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `dynamicts` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dynamicts`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `premax` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `premax`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `dcodepay` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodepay`.* TO 'homestead'@'%' ;
 
@@ -121,26 +118,17 @@ GRANT ALL ON `hoban`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `bluehawk` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `bluehawk`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `mlily` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `mlily`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `dcodegroup` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodegroup`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `xconnect` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `xconnect`.* TO 'homestead'@'%' ;
 
-CREATE DATABASE IF NOT EXISTS `ipg` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `ipg`.* TO 'homestead'@'%' ;
-
 CREATE DATABASE IF NOT EXISTS `agushi` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `agushi`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `gradcon` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `gradcon`.* TO 'homestead'@'%' ;
-
-CREATE DATABASE IF NOT EXISTS `evolutionelectrical` COLLATE 'utf8_general_ci' ;
-GRANT ALL ON `evolutionelectrical`.* TO 'homestead'@'%' ;
 
 CREATE DATABASE IF NOT EXISTS `cambium` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `cambium`.* TO 'homestead'@'%' ;

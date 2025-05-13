@@ -3,7 +3,6 @@
 * * * * * laradock /usr/bin/php /var/www/bestratedtransport/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/dynamictradesolutions/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/esg/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php /var/www/evolutionelectrical/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/flooringlab/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/gradcon/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/kanopi/artisan schedule:run >> /dev/null 2>&1
