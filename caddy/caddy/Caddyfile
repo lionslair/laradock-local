@@ -490,7 +490,7 @@ aluline.test {
 }
 
 fpaa.test {
-    root * /var/www/fpaa/web/
+    root * /var/www/fpaa/public
     php_fastcgi php-fpm:9000
     file_server
 
