@@ -479,8 +479,6 @@ Alternatively you can run the following to rebuild a single container. eg
 docker compose down && docker container prune && docker image prune -a && docker system prune -f --all && lara
 ```
 
-```bash
-
 In order to rebuild a container run
 
 ```bash
