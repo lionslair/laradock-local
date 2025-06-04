@@ -495,6 +495,18 @@ If you get an error along the lines of `max depth exceeded` it could be you have
 
 try running `docker system prune -a`
 
+## Save all images to a tar file
+
+```bash
+docker save -o all-images.tar $(docker compose images | awk 'NR>1 {print $2}' | sort | uniq)
+```
+
+Then once you have it you can load with 
+
+```bash
+docker load -i all-images.tar
+```
+
 ## More notes
 
 When adding a new site to local eg example.test
