@@ -118,6 +118,9 @@ GRANT ALL ON `hoban`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `bluehawk` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `bluehawk`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `willco` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `willco`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `dcodegroup` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodegroup`.* TO 'homestead'@'%' ;
 

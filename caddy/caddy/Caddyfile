@@ -456,6 +456,15 @@ fpaa.test {
     encode gzip
 }
 
+willco.test {
+    root * /var/www/willco-cold-storage/public/
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
+
 clicks.test {
     root * /var/www/clicks/web/
     php_fastcgi php-fpm:9000
