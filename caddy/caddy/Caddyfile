@@ -384,14 +384,6 @@ tradepilot-landing.test {
     encode gzip
 }
 
-willcologistics-landing.test {
-    root * /var/www/willcologistics-landing/public/
-    php_fastcgi php-fpm:9000
-    file_server
-
-    encode gzip
-}
-
 dev.esgportal.com {
     root * /var/www/esg/public/
     php_fastcgi php-fpm:9000
