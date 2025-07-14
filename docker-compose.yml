@@ -2478,7 +2478,7 @@ services:
 
 ### TYPESENSE #################################
     typesense:
-      image: typesense/typesense:28.0
+      image: typesense/typesense:29.0
       environment:
         - TYPESENSE_API_KEY=${TYPESENSE_API_KEY}
         - TYPESENSE_DATA_DIR=/data

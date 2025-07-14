@@ -497,7 +497,7 @@ elaa.test {
     encode gzip
 }
 
-wellbeing-server.test {
+wellbeing-server.test, admin.wellbeing-server.test, client.wellbeing-server.test, api.wellbeing-server.test {
     root * /var/www/wellbeing-server/public/
     php_fastcgi php-fpm:9000
     file_server
