@@ -190,6 +190,9 @@ GRANT ALL ON `integr8`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `elaa` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `elaa`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `embeddedhealth` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `embeddedhealth`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `wellbeing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `wellbeing`.* TO 'homestead'@'%' ;
 

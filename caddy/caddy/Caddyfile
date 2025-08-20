@@ -223,6 +223,14 @@ phs.test {
     encode gzip
 }
 
+embeddedhealth.test {
+    root * /var/www/referralsystem/public
+    php_fastcgi php-fpm:9000
+    file_server
+
+    encode gzip
+}
+
 http://phs.test {
     root * /var/www/phs-webapp/public
     php_fastcgi php-fpm:9000
