@@ -136,13 +136,13 @@ integr8.test {
     encode gzip
 }
 
-defex.test {
-    root * /var/www/defex/public/
-    php_fastcgi php-fpm-7.4:9000
-    file_server
-
-    encode gzip
-}
+#defex.test {
+#    root * /var/www/defex/public/
+#    php_fastcgi php-fpm-7.4:9000
+#    file_server
+#
+#    encode gzip
+#}
 
 honestysnacks.test {
     root * /var/www/honestysnacks/public/
@@ -160,22 +160,22 @@ mandoleorchard.test {
     encode gzip
 }
 
-enqip.test {
-    root * /var/www/enqip/public/
-    php_fastcgi php-fpm-7.4:9000
-    file_server
+#enqip.test {
+#    root * /var/www/enqip/public/
+#    php_fastcgi php-fpm-7.4:9000
+#    file_server
+#
+#    encode gzip
+#}
 
-    encode gzip
-}
-
-matteos.test {
-    root * /var/www/matteos/www/
-    php_fastcgi php-fpm-7.4:9000
-
-    file_server
-
-    encode gzip
-}
+#matteos.test {
+#    root * /var/www/matteos/www/
+#    php_fastcgi php-fpm-7.4:9000
+#
+#    file_server
+#
+#    encode gzip
+#}
 
 fossnovena.test {
     root * /var/www/acn-foss/
@@ -432,13 +432,13 @@ dcodegroup.test {
     encode gzip
 }
 
-ombord.test {
-    root * /var/www/ombord/public/
-    php_fastcgi php-fpm-7.4:9000
-    file_server
-
-    encode gzip
-}
+#ombord.test {
+#    root * /var/www/ombord/public/
+#    php_fastcgi php-fpm-7.4:9000
+#    file_server
+#
+#    encode gzip
+#}
 
 leeelectrix.test {
     root * /var/www/leeelectrix/public/
