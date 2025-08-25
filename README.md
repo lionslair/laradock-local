@@ -401,7 +401,7 @@ Create a bucket either through the webui or using the `mc client: bash mc mb min
 When configuring your other clients use the following details in your env
 
 ```dotenv
-  AWS_URL=http://minio:9000
+  AWS_URL=http://minio:9900
   AWS_ACCESS_KEY_ID=access
   AWS_SECRET_ACCESS_KEY=secretkey
   AWS_DEFAULT_REGION=us-east-1

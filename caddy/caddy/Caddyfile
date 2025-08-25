@@ -13,7 +13,7 @@ mailhog.test {
 }
 
 minio.test {
-   reverse_proxy minio:9001
+   reverse_proxy minio:9901
 }
 
 meilisearch.test {

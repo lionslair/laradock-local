@@ -1281,7 +1281,7 @@ A package ([Laravel RethinkDB](https://github.com/duxet/laravel-rethinkdb)) is b
     ```
 5. When configuring your other clients use the following details:
     ```
-    AWS_URL=http://minio:9000
+    AWS_URL=http://minio:9900
     AWS_ACCESS_KEY_ID=access
     AWS_SECRET_ACCESS_KEY=secretkey
     AWS_DEFAULT_REGION=us-east-1
