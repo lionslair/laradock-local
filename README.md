@@ -330,6 +330,12 @@ alias lara-redis='cd ~/Code/laradock; docker compose exec redis bash'
 alias lara-mysql='cd ~/Code/laradock; docker compose exec mysql bash'
 ```
 
+#### php fpm
+
+```bash
+alias lara-php-fpm='cd ~/Code/laradock; docker compose exec php-fpm bash'
+```
+
 #### Restart workers
 
 ```bash
