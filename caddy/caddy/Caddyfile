@@ -224,7 +224,7 @@ phs.test {
 }
 
 embeddedhealth.test {
-    root * /var/www/referralsystem/public
+    root * /var/www/embeddedhealth/public
     php_fastcgi php-fpm:9000
     file_server
 

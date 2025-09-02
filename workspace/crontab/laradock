@@ -29,4 +29,4 @@
 * * * * * laradock /usr/bin/php /var/www/tradepilot-landing/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/fpaa/artisan schedule:run >> /dev/null 2>&1
 * * * * * laradock /usr/bin/php /var/www/willco-cold-storage/artisan schedule:run >> /dev/null 2>&1
-* * * * * laradock /usr/bin/php /var/www/referralsystem/artisan schedule:run >> /dev/null 2>&1
+* * * * * laradock /usr/bin/php /var/www/embeddedhealth/artisan schedule:run >> /dev/null 2>&1
