@@ -247,7 +247,17 @@ DB_PASSWORD=root
 
 To execute this file do `docker compose exec mysql bash` or use the alias if setup `lara-mysql` to enter the container. *(see aliases later)*
 
-then run the file `mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql` This will create the Database and assign the user access to each.
+then run the file 
+```bash
+mysql -u root -proot < ./docker-entrypoint-initdb.d/createdb.sql
+```
+This will create the Database and assign the user access to each.
+
+To clear the binlog run this from the mysql container
+
+```bash
+PURGE BINARY LOGS BEFORE now();
+```
 
 ## Horizon
 
