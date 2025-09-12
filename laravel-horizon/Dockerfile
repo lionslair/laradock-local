@@ -4,6 +4,8 @@
 #--------------------------------------------------------------------------
 #
 
+#from surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
+
 ARG LARADOCK_PHP_VERSION
 FROM php:${LARADOCK_PHP_VERSION}-alpine
 
@@ -270,6 +272,37 @@ RUN if [ ${INSTALL_POPPLER_UTILS} = true ]; then \
 #RUN echo 'https://dl-cdn.alpinelinux.org/alpine/v3.14/main' >> /etc/apk/repositories
 #RUN apk add --no-cache wkhtmltopdf
 # wkhtmltopdf install dependencies
+RUN apk add --no-cache \
+    libstdc++ \
+    libx11 \
+    libxrender \
+    libxext \
+    libssl3 \
+    ca-certificates \
+    fontconfig \
+    freetype \
+    ttf-dejavu \
+    ttf-droid \
+    ttf-freefont \
+    ttf-liberation \
+    # more fonts
+  && apk add --no-cache --virtual .build-deps \
+    msttcorefonts-installer \
+  # Install microsoft fonts
+  && update-ms-fonts \
+  && fc-cache -f \
+  # Clean up when done
+  && rm -rf /tmp/* \
+  && apk del .build-deps
+
+#COPY --from=surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full /bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+#COPY --from=surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full /bin/wkhtmltoimage /usr/local/bin/wkhtmltoimage
+#COPY --from=surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full /lib/libwkhtmltox* /lib/
+
+COPY --from=surnet/alpine-wkhtmltopdf:3.22.0-024b2b2-full /bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
+COPY --from=surnet/alpine-wkhtmltopdf:3.22.0-024b2b2-full /bin/wkhtmltoimage /usr/local/bin/wkhtmltoimage
+COPY --from=surnet/alpine-wkhtmltopdf:3.22.0-024b2b2-full /lib/libwkhtmltox* /lib/
+
 
 # Install Cassandra drivers:
 ARG INSTALL_CASSANDRA=false
