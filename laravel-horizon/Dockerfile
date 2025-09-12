@@ -295,9 +295,6 @@ RUN apk add --no-cache \
   && rm -rf /tmp/* \
   && apk del .build-deps
 
-#COPY --from=surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full /bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
-#COPY --from=surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full /bin/wkhtmltoimage /usr/local/bin/wkhtmltoimage
-#COPY --from=surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full /lib/libwkhtmltox* /lib/
 
 COPY --from=surnet/alpine-wkhtmltopdf:3.22.0-024b2b2-full /bin/wkhtmltopdf /usr/local/bin/wkhtmltopdf
 COPY --from=surnet/alpine-wkhtmltopdf:3.22.0-024b2b2-full /bin/wkhtmltoimage /usr/local/bin/wkhtmltoimage
