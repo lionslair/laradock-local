@@ -1395,6 +1395,7 @@ RUN if [ ${INSTALL_DUSK_DEPS} = true ]; then \
   && unzip chromedriver_linux64.zip \
   && mv chromedriver /usr/local/bin/ \
   && rm chromedriver_linux64.zip \
+  && ln -s /opt/google/chrome/google-chrome /usr/bin/chromium \
 ;fi
 
 ###########################################################################
