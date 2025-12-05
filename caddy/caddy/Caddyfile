@@ -177,6 +177,15 @@ mandoleorchard.test {
 #    encode gzip
 #}
 
+interchem.test {
+    root * /var/www/interchem/www/
+    php_fastcgi php-fpm-7.4:9000
+
+    file_server
+
+    encode gzip
+}
+
 fossnovena.test {
     root * /var/www/acn-foss/
     php_fastcgi php-fpm:9000
