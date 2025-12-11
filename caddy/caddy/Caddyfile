@@ -526,6 +526,7 @@ wellbeing-server.test,
 admin.wellbeing-server.test,
 client.wellbeing-server.test,
 warehouse.wellbeing-server.test,
+driver.wellbeing-server.test,
 api.wellbeing-server.test {
     root * /var/www/wellbeing-server/public/
     php_fastcgi php-fpm:9000
