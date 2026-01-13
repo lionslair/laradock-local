@@ -97,6 +97,9 @@ GRANT ALL ON `interchem`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `fpaa` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `fpaa`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `m2electrical` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `m2electrical`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `phs_webapp` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `phs_webapp`.* TO 'homestead'@'%' ;
 

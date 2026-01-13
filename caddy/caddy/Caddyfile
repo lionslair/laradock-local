@@ -186,6 +186,15 @@ interchem.test {
     encode gzip
 }
 
+m2electrical.test {
+    root * /var/www/m2electrical/public/
+    php_fastcgi php-fpm:9000
+
+    file_server
+
+    encode gzip
+}
+
 fossnovena.test {
     root * /var/www/acn-foss/
     php_fastcgi php-fpm:9000
