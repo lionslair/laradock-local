@@ -4,8 +4,6 @@
 #--------------------------------------------------------------------------
 #
 
-#from surnet/alpine-wkhtmltopdf:3.16.2-0.12.6-full as wkhtmltopdf
-
 ARG LARADOCK_PHP_VERSION
 FROM php:${LARADOCK_PHP_VERSION}-alpine
 
@@ -455,7 +453,7 @@ RUN if [ ${INSTALL_IMAGE_OPTIMIZERS} = true ]; then \
 #--------------------------------------------------------------------------
 #
 
-#RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
+RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
 
 #
 #--------------------------------------------------------------------------
