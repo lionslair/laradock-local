@@ -893,8 +893,9 @@ RUN if [ "$INSTALL_IMAP" = "true" ]; then \
   if [ "$(lsb_release -rs)" != "13" ]; then \
     apt-get install -yqq libc-client-dev libkrb5-dev && \
     docker-php-ext-configure imap --with-kerberos --with-imap-ssl && \
-    docker-php-ext-install imap \
-;fi
+    docker-php-ext-install imap; \
+  fi; \
+fi
 
 ###########################################################################
 # Calendar:

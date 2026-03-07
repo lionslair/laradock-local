@@ -124,14 +124,14 @@ RUN sed -i 's/\r//' /root/aliases.sh && \
     echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source ~/aliases.sh" >> ~/.bashrc && \
-	  echo "" >> ~/.bashrc
+    echo "" >> ~/.bashrc
 
 USER laradock
 
 RUN echo "" >> ~/.bashrc && \
     echo "# Load Custom Aliases" >> ~/.bashrc && \
     echo "source ~/aliases.sh" >> ~/.bashrc && \
-	  echo "" >> ~/.bashrc
+    echo "" >> ~/.bashrc
 
 ###########################################################################
 # Composer:
@@ -365,7 +365,7 @@ RUN if [ ${INSTALL_XDEBUG} = true ]; then \
   apt-get install -yqq pkg-config php-xml php${LARADOCK_PHP_VERSION}-xml && \
   if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ] || { [ $(php -r "echo PHP_MAJOR_VERSION;") = "7" ] && { [ $(php -r "echo PHP_MINOR_VERSION;") = "4" ] || [ $(php -r "echo PHP_MINOR_VERSION;") = "3" ] ;} ;}; then \
     if [ $(php -r "echo PHP_MAJOR_VERSION;") = "8" ]; then \
-      pecl install xdebug-3.4.1; \
+      pecl install xdebug-3.5.0; \
     else \
       pecl install xdebug-3.1.6; \
     fi; \
@@ -689,18 +689,16 @@ RUN if [ ${INSTALL_INOTIFY} = true ]; then \
 ###########################################################################
 
 ARG INSTALL_AST=false
-ARG AST_VERSION=1.0.10
-ENV AST_VERSION ${AST_VERSION}
 
 RUN if [ ${INSTALL_AST} = true ]; then \
-    # AST extension requires PHP 7.0.0 or newer
-    if [ $(php -r "echo PHP_MAJOR_VERSION;") != "5" ]; then \
-        # Install AST extension
-        printf "\n" | pecl -q install ast-${AST_VERSION} && \
-        echo "extension=ast.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/ast.ini && \
-        phpenmod -v ${LARADOCK_PHP_VERSION} -s cli ast \
-    ;fi \
-;fi
+    if [ "$(php -r 'echo PHP_VERSION_ID;')" -le 70100 ]; then \
+        printf "\n" | pecl -q install ast-1.0.16; \
+    else \
+        printf "\n" | pecl -q install ast; \
+    fi; \
+    echo "extension=ast.so" >> /etc/php/${LARADOCK_PHP_VERSION}/mods-available/ast.ini; \
+    phpenmod -v ${LARADOCK_PHP_VERSION} -s cli ast; \
+fi
 
 ###########################################################################
 # fswatch
@@ -732,7 +730,7 @@ RUN if [ ${INSTALL_GRAPHVIZ} = true ]; then \
 ARG INSTALL_IONCUBE=false
 
 RUN if [ ${INSTALL_IONCUBE} = true ]; then \
-    if [ ${LARADOCK_PHP_VERSION} != "8.4" ] \
+    if [ ${LARADOCK_PHP_VERSION} != "8.5" ] \
       && [ ${LARADOCK_PHP_VERSION} != "8.0" ]; then \
       # Install the php ioncube loader
       curl -L -o /tmp/ioncube_loaders_lin_x86-64.tar.gz https://downloads.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz \
@@ -1061,7 +1059,7 @@ ARG INSTALL_LARAVEL_INSTALLER=false
 
 RUN if [ ${INSTALL_LARAVEL_INSTALLER} = true ]; then \
     # Install the Laravel Installer
-	composer global require "laravel/installer" \
+  composer global require "laravel/installer" \
 ;fi
 
 USER root
@@ -1148,9 +1146,7 @@ RUN set -eux; \
       #  https://github.com/Microsoft/msphpsql/wiki/Install-and-configuration
       ###########################################################################
       curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - && \
-#      curl https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
-      # from https://github.com/laradock/laradock/issues/3456#issuecomment-3312537752
-      curl https://packages.microsoft.com/config/ubuntu/22.04/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
+      curl https://packages.microsoft.com/config/ubuntu/$( [ "$(lsb_release -rs)" = "24.04" ] && echo 22.04 || lsb_release -rs )/prod.list > /etc/apt/sources.list.d/mssql-release.list && \
       apt-get update -yqq && \
       ACCEPT_EULA=Y apt-get install -yqq msodbcsql18 mssql-tools18 unixodbc unixodbc-dev libgss3 odbcinst locales && \
       ln -sfn /opt/mssql-tools/bin/sqlcmd /usr/bin/sqlcmd && \
@@ -1169,6 +1165,8 @@ RUN set -eux; \
         pecl install pdo_sqlsrv-5.10.1 sqlsrv-5.10.1 \
       ;elif [ $(php -r "echo PHP_VERSION_ID - PHP_RELEASE_VERSION;") = "80000" ]; then \
         pecl install pdo_sqlsrv-5.11.1 sqlsrv-5.11.1 \
+      ;elif [ $(php -r "echo PHP_MAJOR_VERSION;") = 8 ] && [ $(php -r "echo PHP_MINOR_VERSION;") -le 3 ]; then \
+        pecl install pdo_sqlsrv-5.12.0 sqlsrv-5.12.0 \
       ;else \
         pecl install pdo_sqlsrv sqlsrv \
       ;fi && \
@@ -1251,10 +1249,10 @@ ARG INSTALL_PYTHON3=false
 RUN if [ ${INSTALL_PYTHON3} = true ]; then \
   apt-get -y install python3 python3-dev build-essential  \
   && curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py  \
-  && python3 get-pip.py  \
+  && python3 get-pip.py --break-system-packages \
   && rm get-pip.py  \
-  && python3 -m pip install --upgrade --force-reinstall pip  \
-  && python3 -m pip install --upgrade virtualenv \
+  && python3 -m pip install --upgrade --force-reinstall pip --break-system-packages \
+  && python3 -m pip install --upgrade virtualenv --break-system-packages \
 ;fi
 
 ###########################################################################
@@ -1335,10 +1333,10 @@ ARG INSTALL_TERRAFORM=false
 
 RUN if [ ${INSTALL_TERRAFORM} = true ]; then \
     apt-get -yqq install sudo wget unzip \
-    && wget https://releases.hashicorp.com/terraform/0.10.6/terraform_0.10.6_linux_amd64.zip \
-    && unzip terraform_0.10.6_linux_amd64.zip \
+    && wget https://releases.hashicorp.com/terraform/1.13.3/terraform_1.13.3_linux_amd64.zip \
+    && unzip terraform_1.13.3_linux_amd64.zip \
     && mv terraform /usr/local/bin \
-    && rm terraform_0.10.6_linux_amd64.zip \
+    && rm terraform_1.13.3_linux_amd64.zip \
 ;fi
 
 ###########################################################################
@@ -1549,7 +1547,7 @@ RUN if [ ${INSTALL_AUDIOWAVEFORM} = true ]; then \
 USER root
 
 ARG INSTALL_WKHTMLTOPDF=false
-ARG WKHTMLTOPDF_VERSION=0.12.6-1
+ARG WKHTMLTOPDF_VERSION=0.12.6.1-3
 
 RUN if [ ${INSTALL_WKHTMLTOPDF} = true ]; then \
    ARCH=$(arch | sed s/aarch64/arm64/ | sed s/x86_64/amd64/) \
@@ -1564,10 +1562,13 @@ RUN if [ ${INSTALL_WKHTMLTOPDF} = true ]; then \
    xfonts-base \
    xfonts-75dpi \
    wget \
-   && wget https://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu4_amd64.deb \
-   && dpkg -i libssl1.1_1.1.0g-2ubuntu4_amd64.deb \
-   && wget "https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOPDF_VERSION}/wkhtmltox_${WKHTMLTOPDF_VERSION}.focal_${ARCH}.deb" \
-   && dpkg -i "wkhtmltox_${WKHTMLTOPDF_VERSION}.focal_${ARCH}.deb" \
+#   && wget https://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.0g-2ubuntu4_amd64.deb \
+#   && dpkg -i libssl1.1_1.1.0g-2ubuntu4_amd64.deb \
+#   && wget "https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOPDF_VERSION}/wkhtmltox_${WKHTMLTOPDF_VERSION}.focal_${ARCH}.deb" \
+#   && dpkg -i "wkhtmltox_${WKHTMLTOPDF_VERSION}.focal_${ARCH}.deb" \
+#   && apt -f install \
+   && wget "https://github.com/wkhtmltopdf/packaging/releases/download/${WKHTMLTOPDF_VERSION}/wkhtmltox_${WKHTMLTOPDF_VERSION}.jammy_${ARCH}.deb" \
+   && dpkg -i "wkhtmltox_${WKHTMLTOPDF_VERSION}.jammy_${ARCH}.deb" \
    && apt -f install \
 ;fi
 
@@ -1721,7 +1722,7 @@ RUN if [ ${SHELL_OH_MY_ZSH} = true ]; then \
     echo "" >> ~/.zshrc && \
     echo "# Load Custom Aliases" >> ~/.zshrc && \
     echo "source ~/aliases.sh" >> ~/.zshrc && \
-	  echo "" >> ~/.zshrc \
+    echo "" >> ~/.zshrc \
 ;fi
 
 USER laradock
@@ -1730,7 +1731,7 @@ RUN if [ ${SHELL_OH_MY_ZSH} = true ]; then \
     echo "" >> ~/.zshrc && \
     echo "# Load Custom Aliases" >> ~/.zshrc && \
     echo "source ~/aliases.sh" >> ~/.zshrc && \
-	  echo "" >> ~/.zshrc \
+    echo "" >> ~/.zshrc \
 ;fi
 
 USER root
@@ -1971,4 +1972,4 @@ RUN npm install -g svgo
 #        php7.4-gd \
 #        php7.4-dev
 
- RUN update-alternatives --set php /usr/bin/php8.3
+# RUN update-alternatives --set php /usr/bin/php8.3
