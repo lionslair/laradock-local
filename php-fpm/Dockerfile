@@ -706,7 +706,7 @@ RUN if [ ${INSTALL_IONCUBE} = true ]; then \
 ARG INSTALL_OPCACHE=false
 
 RUN if [ ${INSTALL_OPCACHE} = true ]; then \
-    docker-php-ext-install opcache \
+    php -r "exit(PHP_MAJOR_VERSION >= 8 ? 0 : 1);" || docker-php-ext-install opcache \
 ;fi
 
 # Copy opcache configration
