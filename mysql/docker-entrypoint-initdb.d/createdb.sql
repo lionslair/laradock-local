@@ -85,6 +85,9 @@ GRANT ALL ON `dynamicts`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `dcodepay` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `dcodepay`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `wpg` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `wpg`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `tradepilot-landing` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `tradepilot-landing`.* TO 'homestead'@'%' ;
 
