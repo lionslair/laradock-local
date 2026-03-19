@@ -375,11 +375,31 @@ RUN if [ ${INSTALL_MEMCACHED} = true ]; then \
   php -m | grep -r 'memcached'; \
 fi
 
+###########################################################################
+# SQL SERVER (MSSQL):
+# Uses mlocati/docker-php-extension-installer which handles the Microsoft
+# ODBC driver installation automatically for Alpine and all PHP versions.
+# Ref: https://github.com/mlocati/docker-php-extension-installer
+###########################################################################
+
+ARG INSTALL_MSSQL=false
+
+RUN set -eux; \
+  if [ ${INSTALL_MSSQL} = true ]; then \
+    curl -sSLf \
+      -o /usr/local/bin/install-php-extensions \
+      https://github.com/mlocati/docker-php-extension-installer/releases/latest/download/install-php-extensions \
+    && chmod +x /usr/local/bin/install-php-extensions \
+    && install-php-extensions sqlsrv pdo_sqlsrv \
+    && php -m | grep -oiE '^sqlsrv$' \
+    && php -m | grep -oiE '^pdo_sqlsrv$' \
+  ;fi
+
 #--------------------------------------------------------------------------
 # Clean up
 #--------------------------------------------------------------------------
 
-RUN rm /var/cache/apk/* \
+RUN rm -rf /var/cache/apk/* \
   && mkdir -p /var/www
 
 #
