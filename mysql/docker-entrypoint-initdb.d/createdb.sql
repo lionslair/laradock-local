@@ -124,6 +124,9 @@ GRANT ALL ON `video_inspection`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `kinetic` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `kinetic`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `redappointments` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `redappointments`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `clicks` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `clicks`.* TO 'homestead'@'%' ;
 

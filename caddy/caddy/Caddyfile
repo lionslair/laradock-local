@@ -531,6 +531,22 @@ hoban.test {
     encode gzip
 }
 
+kinetic.test {
+  root * /var/www/kinetic/web/
+  php_fastcgi php-fpm:9000
+  file_server
+
+  encode gzip
+}
+
+redappointments.test {
+  root * /var/www/redappointments/web/
+  php_fastcgi php-fpm:9000
+  file_server
+
+  encode gzip
+}
+
 bluehawk.test {
     root * /var/www/bluehawk/public/
     php_fastcgi php-fpm:9000
