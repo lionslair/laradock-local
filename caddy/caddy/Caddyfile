@@ -387,7 +387,7 @@ trady.test {
 }
 
 seon.test {
-  root * /var/www/seon-erd/public/
+  root * /var/www/seon-erp/public/
   php_fastcgi php-fpm:9000
   file_server
 
