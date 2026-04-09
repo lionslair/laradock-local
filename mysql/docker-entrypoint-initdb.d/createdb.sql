@@ -97,6 +97,9 @@ GRANT ALL ON `connected`.* TO 'homestead'@'%' ;
 CREATE DATABASE IF NOT EXISTS `trady` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `trady`.* TO 'homestead'@'%' ;
 
+CREATE DATABASE IF NOT EXISTS `seon` COLLATE 'utf8_general_ci' ;
+GRANT ALL ON `seon`.* TO 'homestead'@'%' ;
+
 CREATE DATABASE IF NOT EXISTS `interchem` COLLATE 'utf8_general_ci' ;
 GRANT ALL ON `interchem`.* TO 'homestead'@'%' ;
 
