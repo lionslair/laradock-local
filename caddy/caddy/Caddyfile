@@ -249,7 +249,7 @@ phs.test {
     encode gzip
 }
 
-embeddedhealth.test {
+embedded-health.test {
     root * /var/www/embedded-health/public
     php_fastcgi php-fpm:9000
     file_server
