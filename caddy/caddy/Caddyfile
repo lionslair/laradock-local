@@ -250,7 +250,7 @@ phs.test {
 }
 
 embeddedhealth.test {
-    root * /var/www/embeddedhealth/public
+    root * /var/www/embedded-health/public
     php_fastcgi php-fpm:9000
     file_server
 
